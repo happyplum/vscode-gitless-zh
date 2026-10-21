@@ -103,6 +103,26 @@ const fetchRepository = method('src/git/models/repository.ts', 'Repository', 'fe
 	Container: { git: { fetch: async (repoPath, options) => fetch.call({ getRepository: async () => repository(makeBranch({ name: 'release/2.0', missing: false, local: true })) }, repoPath, options) } },
 	RepositoryChange: { Unknown: 'unknown' }, Logger: { error() {} }, Messages: { showGenericErrorMessage: () => calls.push('error') },
 });
+let conflictPromptChoice;
+let conflictRetryFails = false;
+const conflictCalls = [];
+const applyChangesToWorkingFile = method('src/git/gitService.ts', 'GitService', 'applyChangesToWorkingFile', {
+	Git: {
+		diff: async () => 'patch',
+		apply: async (_repoPath, _patch, options) => {
+			conflictCalls.push(['apply', options]);
+			if (options == null) throw new Error('patch does not apply');
+			if (conflictRetryFails) throw new Error('retry failed');
+		},
+	},
+	Logger: { getCorrelationContext: () => undefined, error: error => conflictCalls.push(['error', error.message]) },
+	Messages: { showGenericErrorMessage: message => conflictCalls.push(['message', message]) },
+	window: { showWarningMessage: async (...args) => {
+		conflictCalls.push(['prompt', args]);
+		return args[conflictPromptChoice];
+	} },
+	emptyStr: '',
+});
 const push = method('src/git/models/repository.ts', 'Repository', 'pushCore', {
 	GitReference: gitReference,
 	GitService: {
@@ -342,6 +362,32 @@ const cases = [
 		container.git.getRemotes = async () => [{ name: 'origin' }];
 		await fetchRepository.call({ path: '/repo', fireChange: () => calls.push('change') }, { branch: { refType: 'branch', name: 'topic' }, pull: true });
 		assert.deepEqual(calls, ['error']);
+	}],
+	['conflict retry prompt is Chinese and accepting it reapplies the patch', async () => {
+		conflictCalls.length = 0;
+		conflictPromptChoice = 1;
+		conflictRetryFails = false;
+		await applyChangesToWorkingFile.call({}, { repoPath: '/repo', fsPath: 'file' }, 'a', 'b');
+		assert.deepEqual(conflictCalls.map(call => call[0]), ['apply', 'prompt', 'apply']);
+		assert.equal(conflictCalls[1][1][0], '无法无冲突地应用更改。是否重试并允许冲突？');
+		assert.equal(conflictCalls[1][1][1].title, '允许冲突并重试');
+		assert.equal(conflictCalls[1][1][2].title, '取消');
+		assert.deepEqual(conflictCalls[2][1], { allowConflicts: true });
+	}],
+	['cancelling conflict retry leaves the patch unapplied', async () => {
+		conflictCalls.length = 0;
+		conflictPromptChoice = 2;
+		await applyChangesToWorkingFile.call({}, { repoPath: '/repo', fsPath: 'file' }, 'a', 'b');
+		assert.deepEqual(conflictCalls.map(call => call[0]), ['apply', 'prompt']);
+	}],
+	['failed conflict retry reports a Chinese apply error', async () => {
+		conflictCalls.length = 0;
+		conflictPromptChoice = 1;
+		conflictRetryFails = true;
+		await applyChangesToWorkingFile.call({}, { repoPath: '/repo', fsPath: 'file' }, 'a', 'b');
+		assert.deepEqual(conflictCalls.map(call => call[0]), ['apply', 'prompt', 'apply', 'error', 'message']);
+		assert.deepEqual(conflictCalls[3], ['error', 'retry failed']);
+		assert.deepEqual(conflictCalls[4], ['message', '无法应用更改']);
 	}],
 	['rebase to upstream retains local branch metadata in both tree entry points', async () => {
 		for (const Node of [BranchNode, BranchTrackingStatusNode]) {

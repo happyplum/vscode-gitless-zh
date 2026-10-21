@@ -592,28 +592,28 @@ export class GitService implements Disposable {
 		} catch (ex) {
 			const msg: string = ex?.toString() ?? emptyStr;
 			if (patch && /patch does not apply/i.test(msg)) {
-				const result = await window.showWarningMessage(
-					'Unable to apply changes cleanly. Retry and allow conflicts?',
-					{ title: 'Yes' },
-					{ title: 'No', isCloseAffordance: true },
+				const allowConflicts = { title: '允许冲突并重试' } as const;
+				const cancel = { title: '取消', isCloseAffordance: true } as const;
+				const result = await window.showWarningMessage<typeof allowConflicts | typeof cancel>(
+					'无法无冲突地应用更改。是否重试并允许冲突？',
+					allowConflicts,
+					cancel,
 				);
 
-				if (result == null || result.title !== 'Yes') return;
+				if (result !== allowConflicts) return;
 
-				if (result.title === 'Yes') {
-					try {
-						void (await Git.apply(uri.repoPath, patch, { allowConflicts: true }));
+				try {
+					void (await Git.apply(uri.repoPath, patch, { allowConflicts: true }));
 
-						return;
-					} catch (e) {
-						// eslint-disable-next-line no-ex-assign
-						ex = e;
-					}
+					return;
+				} catch (e) {
+					// eslint-disable-next-line no-ex-assign
+					ex = e;
 				}
 			}
 
 			Logger.error(ex, cc);
-			void Messages.showGenericErrorMessage('Unable to apply changes');
+			void Messages.showGenericErrorMessage('无法应用更改');
 		}
 	}
 
