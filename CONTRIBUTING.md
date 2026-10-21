@@ -30,6 +30,17 @@ From a terminal, where you have cloned the repository, execute the following com
 corepack yarn install --frozen-lockfile
 ```
 
+### Pull request validation
+
+Before opening a pull request, run the checks used by the Stable workflow:
+
+```
+corepack yarn test
+corepack yarn run pack
+```
+
+The test command runs the upstream behavior regressions, shell error regression, and license generation tests, in that order. The Stable workflow runs these tests after installing dependencies and before packaging. Packaging runs the production bundle through `vscode:prepublish`, including the TypeScript and ESLint checks.
+
 ### Build
 
 From a terminal, where you have cloned the repository, execute the following command to re-build the project from scratch:
