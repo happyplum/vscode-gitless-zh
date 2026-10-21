@@ -728,11 +728,14 @@ export class GitService implements Disposable {
 		if (GitReference.isBranch(branchRef)) {
 			const repo = await this.getRepository(repoPath);
 			const branch = await repo?.getBranch(branchRef?.name);
-			if (!branch?.remote && branch?.upstream == null) return undefined;
+			const remote = await branch?.getRemote();
+			if (branch == null || remote == null) {
+				throw new Error('分支未关联有效的远程仓库');
+			}
 
 			return Git.fetch(repoPath, {
 				branch: branch.getNameWithoutRemote(),
-				remote: branch.getRemoteName()!,
+				remote: remote.name,
 				upstream: branch.getTrackingWithoutRemote()!,
 				pull: options.pull,
 			});
@@ -1244,7 +1247,12 @@ export class GitService implements Disposable {
 				true,
 				committerDate != null ? new Date(Number(committerDate) * 1000) : undefined,
 				data[1],
-				upstream ? { name: upstream, missing: false } : undefined,
+				GitBranchParser.parseUpstream(
+					name,
+					upstream,
+					false,
+					await Git.config__get_regex('^branch\\..*\\.(remote|merge)$', repoPath),
+				),
 				undefined,
 				undefined,
 				undefined,
@@ -1309,7 +1317,11 @@ export class GitService implements Disposable {
 		if (branchesPromise == null) {
 			async function load(this: GitService) {
 				try {
-					const data = await Git.for_each_ref__branch(repoPath!, { all: true });
+					const [data, config, remotes] = await Promise.all([
+						Git.for_each_ref__branch(repoPath!, { all: true }),
+						Git.config__get_regex('^branch\\..*\\.(remote|merge)$', repoPath!),
+						this.getRemotes(repoPath!, { includeAll: true }),
+					]);
 					// If we don't get any data, assume the repo doesn't have any commits yet so check if we have a current branch
 					if (data == null || data.length === 0) {
 						let current;
@@ -1332,7 +1344,7 @@ export class GitService implements Disposable {
 								true,
 								committerDate != null ? new Date(Number(committerDate) * 1000) : undefined,
 								data[1],
-								{ name: upstream, missing: false },
+								GitBranchParser.parseUpstream(name, upstream, false, config),
 								undefined,
 								undefined,
 								undefined,
@@ -1343,7 +1355,7 @@ export class GitService implements Disposable {
 						return current != null ? [current] : [];
 					}
 
-					return GitBranchParser.parse(data, repoPath!);
+					return GitBranchParser.parse(data, repoPath!, config, remotes.map(remote => remote.name));
 				} catch (ex) {
 					this._branchesCache.delete(repoPath!);
 
@@ -3322,11 +3334,16 @@ export class GitService implements Disposable {
 		return remote as GitRemote<RichRemoteProvider>;
 	}
 
+	getRemotes(repoPath: string | undefined, options: { includeAll: true; sort?: boolean }): Promise<GitRemote[]>;
+	getRemotes(
+		repoPath: string | undefined,
+		options?: { includeAll?: false; sort?: boolean },
+	): Promise<GitRemote<RemoteProvider>[]>;
 	@log()
 	async getRemotes(
 		repoPath: string | undefined,
-		options: { sort?: boolean } = {},
-	): Promise<GitRemote<RemoteProvider>[]> {
+		options: { includeAll?: boolean; sort?: boolean } = {},
+	): Promise<GitRemote[]> {
 		if (repoPath == null) return [];
 
 		const repository = await this.getRepository(repoPath);
@@ -3334,7 +3351,7 @@ export class GitService implements Disposable {
 			? repository.getRemotes({ sort: options.sort })
 			: this.getRemotesCore(repoPath, undefined, { sort: options.sort }));
 
-		return remotes.filter(r => r.provider != null) as GitRemote<RemoteProvider>[];
+		return options.includeAll ? remotes : remotes.filter(r => r.provider != null);
 	}
 
 	async getRemotesCore(

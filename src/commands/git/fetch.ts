@@ -2,7 +2,7 @@
 import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
 import { GitBranchReference, GitReference, Repository } from '../../git/git';
-import { FlagsQuickPickItem } from '../../quickpicks';
+import { Directive, DirectiveQuickPickItem, FlagsQuickPickItem } from '../../quickpicks';
 import { Arrays, Dates, Strings } from '../../system';
 import {
 	appendReposToTitle,
@@ -144,14 +144,24 @@ export class FetchGitCommand extends QuickCommand<State> {
 		let step: QuickPickStep<FlagsQuickPickItem<Flags>>;
 
 		if (state.repos.length === 1 && GitReference.isBranch(state.reference)) {
+			const branch = await state.repos[0].getBranch(state.reference.name);
+			const remote = await branch?.getRemote();
 			step = this.createConfirmStep(
 				appendReposToTitle(`确认${context.title}`, state, context, lastFetchedOn),
-				[
-					FlagsQuickPickItem.create<Flags>(state.flags, [], {
-						label: this.title,
-						detail: `将抓取 ${GitReference.toString(state.reference)}`,
-					}),
-				],
+				remote == null
+					? []
+					: [
+							FlagsQuickPickItem.create<Flags>(state.flags, [], {
+								label: this.title,
+								detail: `将抓取 ${GitReference.toString(state.reference)}`,
+							}),
+					  ],
+				remote == null
+					? DirectiveQuickPickItem.create(Directive.Cancel, true, {
+							label: `取消${this.title}`,
+							detail: '无法抓取；分支未关联有效的远程仓库',
+					  })
+					: undefined,
 			);
 		} else {
 			const reposToFetch =

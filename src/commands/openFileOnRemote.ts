@@ -4,7 +4,7 @@ import { UriComparer } from '../comparers';
 import { BranchSorting, TagSorting } from '../configuration';
 import { GlyphChars } from '../constants';
 import { Container } from '../container';
-import { GitBranch, GitRevision, RemoteResourceType } from '../git/git';
+import { GitReference, GitRevision, RemoteResourceType } from '../git/git';
 import { GitUri } from '../git/gitUri';
 import { Logger } from '../logger';
 import { ReferencePicker } from '../quickpicks';
@@ -157,7 +157,7 @@ export class OpenFileOnRemoteCommand extends ActiveEditorCommand {
 							allowEnteringRefs: true,
 							autoPick: true,
 							// checkmarks: false,
-							filter: { branches: b => b.remote || b.upstream != null },
+							filter: { branches: b => remotes.some(remote => remote.name === b.getRemoteName()) },
 							picked: args.branchOrTag,
 							sort: {
 								branches: { current: true, orderBy: BranchSorting.DateDesc },
@@ -169,9 +169,9 @@ export class OpenFileOnRemoteCommand extends ActiveEditorCommand {
 
 					if (pick.refType === 'branch') {
 						if (pick.remote) {
-							args.branchOrTag = GitBranch.getNameWithoutRemote(pick.name);
+							args.branchOrTag = GitReference.getNameWithoutRemote(pick);
 
-							const remoteName = GitBranch.getRemote(pick.name);
+							const remoteName = pick.remoteName;
 							const remote = remotes.find(r => r.name === remoteName);
 							if (remote != null) {
 								remotes = [remote];

@@ -66,7 +66,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 					true,
 					undefined,
 					status.sha,
-					status.upstream ? { name: status.upstream, missing: false } : undefined,
+					(await this.repo.getBranch())?.upstream,
 					status.state.ahead,
 					status.state.behind,
 					status.detached,

@@ -1,5 +1,6 @@
 'use strict';
 import { TextEditor, Uri, window } from 'vscode';
+import { Container } from '../container';
 import { RemoteResourceType } from '../git/git';
 import { GitUri } from '../git/gitUri';
 import { Logger } from '../logger';
@@ -28,12 +29,14 @@ export class OpenBranchOnRemoteCommand extends ActiveEditorCommand {
 		super([Commands.OpenBranchOnRemote, Commands.Deprecated_OpenBranchInRemote, Commands.CopyRemoteBranchUrl]);
 	}
 
-	protected override preExecute(context: CommandContext, args?: OpenBranchOnRemoteCommandArgs) {
+	protected override async preExecute(context: CommandContext, args?: OpenBranchOnRemoteCommandArgs) {
 		if (isCommandContextViewNodeHasBranch(context)) {
+			const remote = await context.node.branch.getRemote();
+			if (remote == null) return;
 			args = {
 				...args,
 				branch: context.node.branch.name,
-				remote: context.node.branch.getRemoteName(),
+				remote: remote.name,
 			};
 		}
 
@@ -67,7 +70,7 @@ export class OpenBranchOnRemoteCommand extends ActiveEditorCommand {
 					{
 						autoPick: true,
 						// checkmarks: false,
-						filter: { branches: b => b.upstream != null },
+						filter: { branches: b => b.remote || b.upstream?.remote != null },
 						include: ReferencesQuickPickIncludes.Branches,
 						sort: { branches: { current: true }, tags: {} },
 					},
@@ -75,6 +78,16 @@ export class OpenBranchOnRemoteCommand extends ActiveEditorCommand {
 				if (pick == null || pick instanceof CommandQuickPickItem) return;
 
 				args.branch = pick.ref;
+			}
+			const branchName = args.branch;
+			const [branch] = await Container.git.getBranches(repoPath, {
+				filter: b => b.name === branchName || b.ref === branchName,
+			});
+			if (branch != null) {
+				const remote = await branch.getRemote();
+				if (remote == null) return;
+				args.remote = remote.name;
+				args.branch = branch.remote ? branch.getNameWithoutRemote() : branch.getTrackingWithoutRemote();
 			}
 
 			void (await executeCommand<OpenOnRemoteCommandArgs>(Commands.OpenOnRemote, {

@@ -165,7 +165,16 @@ export class PullGitCommand extends QuickCommand<State> {
 				const [repo] = state.repos;
 				const branch = await repo.getBranch(state.reference.name);
 
-				if (branch?.upstream == null) {
+				if (branch != null && !branch.current && (await branch.getRemote()) == null) {
+					step = this.createConfirmStep(
+						appendReposToTitle(`确认${context.title}`, state, context),
+						[],
+						DirectiveQuickPickItem.create(Directive.Cancel, true, {
+							label: `取消${this.title}`,
+							detail: '无法拉取；分支未关联有效的远程仓库',
+						}),
+					);
+				} else if (branch?.upstream == null) {
 					step = this.createConfirmStep(
 						appendReposToTitle(`确认${context.title}`, state, context),
 						[],

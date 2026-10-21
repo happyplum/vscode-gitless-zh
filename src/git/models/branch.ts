@@ -25,6 +25,14 @@ export interface GitTrackingState {
 	behind: number;
 }
 
+export interface GitTrackingUpstream {
+	name: string;
+	missing: boolean;
+	local?: boolean;
+	remote?: string;
+	remoteBranch?: string;
+}
+
 export enum GitBranchStatus {
 	Ahead = 'ahead',
 	Behind = 'behind',
@@ -112,7 +120,7 @@ export class GitBranch implements GitBranchReference {
 	readonly refType = 'branch';
 	readonly detached: boolean;
 	readonly id: string;
-	readonly upstream?: { name: string; missing: boolean };
+	readonly upstream?: GitTrackingUpstream;
 	readonly state: GitTrackingState;
 
 	constructor(
@@ -122,11 +130,12 @@ export class GitBranch implements GitBranchReference {
 		public readonly current: boolean,
 		public readonly date: Date | undefined,
 		public readonly sha?: string,
-		upstream?: { name: string; missing: boolean },
+		upstream?: GitTrackingUpstream,
 		ahead: number = 0,
 		behind: number = 0,
 		detached: boolean = false,
 		public readonly rebasing: boolean = false,
+		public readonly remoteName?: string,
 	) {
 		this.id = `${repoPath}|${remote ? 'remotes/' : 'heads/'}${name}`;
 
@@ -192,20 +201,19 @@ export class GitBranch implements GitBranchReference {
 
 	@memoize()
 	getNameWithoutRemote(): string {
-		return this.remote ? this.name.substring(this.name.indexOf('/') + 1) : this.name;
+		return this.remote && this.remoteName != null ? this.name.substring(this.remoteName.length + 1) : this.name;
 	}
 
 	@memoize()
 	getTrackingWithoutRemote(): string | undefined {
-		return this.upstream?.name.substring(this.upstream.name.indexOf('/') + 1);
+		return this.upstream?.remoteBranch ?? this.upstream?.name;
 	}
 
-	@memoize()
 	async getRemote(): Promise<GitRemote | undefined> {
 		const remoteName = this.getRemoteName();
 		if (remoteName == null) return undefined;
 
-		const remotes = await Container.git.getRemotes(this.repoPath);
+		const remotes = await Container.git.getRemotes(this.repoPath, { includeAll: true });
 		if (remotes.length === 0) return undefined;
 
 		return remotes.find(r => r.name === remoteName);
@@ -213,8 +221,8 @@ export class GitBranch implements GitBranchReference {
 
 	@memoize()
 	getRemoteName(): string | undefined {
-		if (this.remote) return GitBranch.getRemote(this.name);
-		if (this.upstream != null) return GitBranch.getRemote(this.upstream.name);
+		if (this.remote) return this.remoteName;
+		if (this.upstream != null) return this.upstream.remote;
 
 		return undefined;
 	}
@@ -231,7 +239,7 @@ export class GitBranch implements GitBranchReference {
 			return GitBranchStatus.UpToDate;
 		}
 
-		const remotes = await Container.git.getRemotes(this.repoPath);
+		const remotes = await Container.git.getRemotes(this.repoPath, { includeAll: true });
 		if (remotes.length > 0) return GitBranchStatus.Unpublished;
 
 		return GitBranchStatus.Local;

@@ -162,11 +162,13 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 			case 'ahead': {
 				const remote = await this.branch.getRemote();
 
-				label = `待推送到 ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)} 的更改${
+				label = `${remote != null ? `待推送到 ${remote.name}` : `相对 ${this.status.upstream} 领先`} 的更改${
 					remote?.provider?.name ? `（${remote?.provider.name}）` : ''
 				}`;
 				description = `${this.status.state.ahead} 个提交`;
-				tooltip = `分支 $(git-branch) ${this.branch.name} 比 $(git-branch) ${this.status.upstream} 领先 $(arrow-up) ${this.status.state.ahead} 个提交${
+				tooltip = `分支 $(git-branch) ${this.branch.name} 比 $(git-branch) ${
+					this.status.upstream
+				} 领先 $(arrow-up) ${this.status.state.ahead} 个提交${
 					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
 
@@ -174,18 +176,20 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 				contextValue = this.root
 					? ContextValues.StatusAheadOfUpstream
 					: ContextValues.BranchStatusAheadOfUpstream;
-				icon = new ThemeIcon('cloud-upload', new ThemeColor(Colors.UnpushlishedChangesIconColor));
+				icon = new ThemeIcon(remote != null ? 'cloud-upload' : 'git-branch', new ThemeColor(Colors.UnpushlishedChangesIconColor));
 
 				break;
 			}
 			case 'behind': {
 				const remote = await this.branch.getRemote();
 
-				label = `待从 ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)} 拉取的更改${
+				label = `${remote != null ? `待从 ${remote.name} 拉取` : `相对 ${this.status.upstream} 落后`}的更改${
 					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
 				description = `${this.status.state.behind} 个提交`;
-				tooltip = `分支 $(git-branch) ${this.branch.name} 比 $(git-branch) ${this.status.upstream} 落后 $(arrow-down) ${this.status.state.behind} 个提交${
+				tooltip = `分支 $(git-branch) ${this.branch.name} 比 $(git-branch) ${
+					this.status.upstream
+				} 落后 $(arrow-down) ${this.status.state.behind} 个提交${
 					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
 
@@ -193,26 +197,26 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 				contextValue = this.root
 					? ContextValues.StatusBehindUpstream
 					: ContextValues.BranchStatusBehindUpstream;
-				icon = new ThemeIcon('cloud-download', new ThemeColor(Colors.UnpulledChangesIconColor));
+				icon = new ThemeIcon(remote != null ? 'cloud-download' : 'git-branch', new ThemeColor(Colors.UnpulledChangesIconColor));
 
 				break;
 			}
 			case 'same': {
 				const remote = await this.branch.getRemote();
 
-				label = `已与 ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)} 同步${
+				label = `已与 ${remote?.name ?? this.status.upstream} 同步${
 					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
-				description = lastFetched ? `上次获取：${Dates.getFormatter(new Date(lastFetched)).fromNow()}` : '';
-				tooltip = `分支 $(git-branch) ${this.branch.name} 已与 $(git-branch) ${
-					this.status.upstream
-				} 同步${remote?.provider?.name ? `（${remote.provider.name}）` : ''}`;
+				description = remote != null && lastFetched ? `上次获取：${Dates.getFormatter(new Date(lastFetched)).fromNow()}` : '';
+				tooltip = `分支 $(git-branch) ${this.branch.name} 已与 $(git-branch) ${this.status.upstream} 同步${
+					remote?.provider?.name ? `（${remote.provider.name}）` : ''
+				}`;
 
 				collapsibleState = TreeItemCollapsibleState.None;
 				contextValue = this.root
 					? ContextValues.StatusSameAsUpstream
 					: ContextValues.BranchStatusSameAsUpstream;
-				icon = new ThemeIcon('cloud');
+				icon = new ThemeIcon(remote != null ? 'cloud' : 'git-branch');
 
 				break;
 			}
@@ -222,9 +226,7 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 				const providerName = providers?.length ? providers[0].name : undefined;
 
 				label = `将 ${this.branch.name} 发布到 ${providerName ?? '远程仓库'}`;
-				tooltip = `分支 $(git-branch) ${this.branch.name} 尚未发布到 ${
-					providerName ?? '远程仓库'
-				}`;
+				tooltip = `分支 $(git-branch) ${this.branch.name} 尚未发布到 ${providerName ?? '远程仓库'}`;
 
 				collapsibleState = TreeItemCollapsibleState.None;
 				contextValue = this.root ? ContextValues.StatusNoUpstream : ContextValues.BranchStatusNoUpstream;

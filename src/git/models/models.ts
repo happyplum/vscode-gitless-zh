@@ -1,7 +1,7 @@
 'use strict';
 import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
-import { GitBranch } from './branch';
+import { GitBranch, GitTrackingUpstream } from './branch';
 
 const emptyStr = '';
 
@@ -110,7 +110,8 @@ export interface GitBranchReference {
 	name: string;
 	ref: string;
 	readonly remote: boolean;
-	readonly upstream?: { name: string; missing: boolean };
+	readonly remoteName?: string;
+	readonly upstream?: GitTrackingUpstream;
 	repoPath: string;
 }
 
@@ -147,7 +148,7 @@ export namespace GitReference {
 	export function create(
 		ref: string,
 		repoPath: string,
-		options: { refType: 'branch'; name: string; remote: boolean; upstream?: { name: string; missing: boolean } },
+		options: { refType: 'branch'; name: string; remote: boolean; remoteName?: string; upstream?: GitTrackingUpstream },
 	): GitBranchReference;
 	export function create(
 		ref: string,
@@ -164,7 +165,7 @@ export namespace GitReference {
 		ref: string,
 		repoPath: string,
 		options:
-			| { refType: 'branch'; name: string; remote: boolean }
+			| { refType: 'branch'; name: string; remote: boolean; remoteName?: string; upstream?: GitTrackingUpstream }
 			| { refType?: 'revision'; name?: string; message?: string }
 			| { refType: 'stash'; name: string; number: string | undefined; message?: string }
 			| { refType: 'tag'; name: string } = { refType: 'revision' },
@@ -176,6 +177,8 @@ export namespace GitReference {
 					ref: ref,
 					refType: 'branch',
 					remote: options.remote,
+					remoteName: options.remoteName,
+					upstream: options.upstream,
 					repoPath: repoPath,
 				};
 			case 'stash':
@@ -211,6 +214,7 @@ export namespace GitReference {
 			refType: branch.refType,
 			name: branch.name,
 			remote: branch.remote,
+			remoteName: branch.remoteName,
 			upstream: branch.upstream,
 		});
 	}
@@ -224,7 +228,7 @@ export namespace GitReference {
 
 	export function getNameWithoutRemote(ref: GitReference) {
 		if (ref.refType === 'branch') {
-			return ref.remote ? GitBranch.getNameWithoutRemote(ref.name) : ref.name;
+			return ref.remote && ref.remoteName != null ? ref.name.substring(ref.remoteName.length + 1) : ref.name;
 		}
 		return ref.name;
 	}

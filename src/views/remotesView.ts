@@ -13,7 +13,6 @@ import { configuration, RemotesViewConfig, ViewBranchesLayout, ViewFilesLayout }
 import { GlyphChars } from '../constants';
 import { Container } from '../container';
 import {
-	GitBranch,
 	GitBranchReference,
 	GitLogCommit,
 	GitReference,
@@ -246,7 +245,7 @@ export class RemotesView extends ViewBase<RemotesViewNode, RemotesViewConfig> {
 				if (n instanceof RemoteNode) {
 					if (!n.id.startsWith(repoNodeId)) return false;
 
-					return n.remote.name === GitBranch.getRemote(branch.name);
+					return n.remote.name === branch.remoteName;
 				}
 
 				return false;
@@ -262,7 +261,10 @@ export class RemotesView extends ViewBase<RemotesViewNode, RemotesViewConfig> {
 		const branches = await Container.git.getCommitBranches(commit.repoPath, commit.ref, { remotes: true });
 		if (branches.length === 0) return undefined;
 
-		const remotes = branches.map(b => b.split('/', 1)[0]);
+		const remoteBranches = await Container.git.getBranches(commit.repoPath, {
+			filter: branch => branch.remote && branches.includes(branch.name),
+		});
+		const remotes = remoteBranches.map(branch => branch.getRemoteName());
 
 		return this.findNode((n: any) => n.commit !== undefined && n.commit.ref === commit.ref, {
 			allowPaging: true,

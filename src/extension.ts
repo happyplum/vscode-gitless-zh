@@ -7,7 +7,7 @@ import { CreatePullRequestOnRemoteCommandArgs } from './commands/createPullReque
 import { configuration, Configuration, TraceLevel } from './configuration';
 import { ContextKeys, GlobalState, GlyphChars, setContext, SyncedState } from './constants';
 import { Container } from './container';
-import { Git, GitBranch, GitCommit } from './git/git';
+import { Git, GitCommit } from './git/git';
 import { GitService } from './git/gitService';
 import { GitUri } from './git/gitUri';
 import { InvalidGitConfigError, UnableToFindGitError } from './git/locator';
@@ -216,10 +216,8 @@ function registerBuiltInActionRunners(context: ExtensionContext): void {
 
 				void (await executeCommand<CreatePullRequestOnRemoteCommandArgs>(Commands.CreatePullRequestOnRemote, {
 					base: undefined,
-					compare: ctx.branch.isRemote
-						? GitBranch.getNameWithoutRemote(ctx.branch.name)
-						: ctx.branch.upstream
-						? GitBranch.getNameWithoutRemote(ctx.branch.upstream)
+					compare: ctx.branch.isRemote && ctx.remote?.name
+						? ctx.branch.name.substring(ctx.remote.name.length + 1)
 						: ctx.branch.name,
 					remote: ctx.remote?.name ?? '',
 					repoPath: ctx.repoPath,

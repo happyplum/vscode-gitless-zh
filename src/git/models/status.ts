@@ -4,7 +4,7 @@ import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
 import { memoize } from '../../system';
 import { GitUri } from '../gitUri';
-import { GitBranch, GitTrackingState } from './branch';
+import { GitBranch, GitTrackingState, GitTrackingUpstream } from './branch';
 import { GitFile, GitFileConflictStatus, GitFileIndexStatus, GitFileStatus, GitFileWorkingTreeStatus } from './file';
 import { GitCommitType, GitLogCommit, GitRemote, GitRevision, GitUser } from './models';
 
@@ -230,15 +230,8 @@ export class GitStatus {
 		return `${prefix}${status}${suffix}`;
 	}
 
-	@memoize()
 	async getRemote(): Promise<GitRemote | undefined> {
-		if (this.upstream == null) return undefined;
-
-		const remotes = await Container.git.getRemotes(this.repoPath);
-		if (remotes.length === 0) return undefined;
-
-		const remoteName = GitBranch.getRemote(this.upstream);
-		return remotes.find(r => r.name === remoteName);
+		return (await Container.git.getBranch(this.repoPath))?.getRemote();
 	}
 
 	getUpstreamStatus(options: {
@@ -257,7 +250,7 @@ export class GitStatus {
 	}
 
 	static getUpstreamStatus(
-		upstream: { name: string; missing: boolean } | undefined,
+		upstream: GitTrackingUpstream | undefined,
 		state: { ahead: number; behind: number },
 		options: {
 			count?: boolean;
@@ -281,7 +274,9 @@ export class GitStatus {
 					status += `落后 ${icons ? '$(arrow-down) ' : ''}${state.behind} 个提交`;
 				}
 				if (state.ahead) {
-					status += `${status.length === 0 ? '' : separator}领先 ${icons ? '$(arrow-up) ' : ''}${state.ahead} 个提交`;
+					status += `${status.length === 0 ? '' : separator}领先 ${icons ? '$(arrow-up) ' : ''}${
+						state.ahead
+					} 个提交`;
 				}
 			}
 			return `${prefix}${status}${suffix}`;

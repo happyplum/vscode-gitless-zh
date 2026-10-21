@@ -5,7 +5,6 @@ import { GlyphChars } from '../constants';
 import { Container } from '../container';
 import {
 	getNameFromRemoteResource,
-	GitBranch,
 	GitRemote,
 	RemoteProvider,
 	RemoteResource,
@@ -43,12 +42,13 @@ export class CopyOrOpenRemoteCommandQuickPickItem extends CommandQuickPickItem {
 	override async execute(): Promise<void> {
 		let resource = this.resource;
 		if (resource.type === RemoteResourceType.Comparison) {
-			if (GitBranch.getRemote(resource.base) === this.remote.name) {
-				resource = { ...resource, base: GitBranch.getNameWithoutRemote(resource.base) };
+			const remotePrefix = `${this.remote.name}/`;
+			if (resource.base.startsWith(remotePrefix)) {
+				resource = { ...resource, base: resource.base.substring(remotePrefix.length) };
 			}
 
-			if (GitBranch.getRemote(resource.compare) === this.remote.name) {
-				resource = { ...resource, compare: GitBranch.getNameWithoutRemote(resource.compare) };
+			if (resource.compare.startsWith(remotePrefix)) {
+				resource = { ...resource, compare: resource.compare.substring(remotePrefix.length) };
 			}
 		} else if (resource.type === RemoteResourceType.CreatePullRequest) {
 			let branch = resource.base.branch;
@@ -75,7 +75,7 @@ export class CopyOrOpenRemoteCommandQuickPickItem extends CommandQuickPickItem {
 			const { branchOrTag } = resource;
 			const branchesOrTags = await Container.git.getBranchesAndOrTags(this.remote.repoPath, {
 				filter: {
-					branches: b => b.name === branchOrTag || GitBranch.getNameWithoutRemote(b.name) === branchOrTag,
+					branches: b => b.name === branchOrTag || b.getNameWithoutRemote() === branchOrTag,
 					tags: b => b.name === branchOrTag,
 				},
 			});

@@ -549,7 +549,7 @@ export class ViewCommands {
 			GitReference.create(upstream, node.repoPath, {
 				refType: 'branch',
 				name: upstream,
-				remote: true,
+				remote: node.branch.upstream?.remote != null,
 			}),
 		);
 	}

@@ -430,7 +430,7 @@ export class Repository implements Disposable {
 
 	@gate()
 	@log()
-	branchDelete(
+	async branchDelete(
 		branches: GitBranchReference | GitBranchReference[],
 		{ force, remote }: { force?: boolean; remote?: boolean } = {},
 	) {
@@ -440,6 +440,13 @@ export class Repository implements Disposable {
 
 		const localBranches = branches.filter(b => !b.remote);
 		if (localBranches.length !== 0) {
+			const trackingBranches: GitBranch[] = [];
+			if (remote) {
+				for (const reference of localBranches) {
+					const branch = await this.getBranch(reference.name);
+					if (branch?.upstream != null && (await branch.getRemote()) != null) trackingBranches.push(branch);
+				}
+			}
 			const args = ['--delete'];
 			if (force) {
 				args.push('--force');
@@ -447,34 +454,35 @@ export class Repository implements Disposable {
 			this.runTerminalCommand('branch', ...args, ...branches.map(b => b.ref));
 
 			if (remote) {
-				const trackingBranches = localBranches.filter(b => b.upstream != null);
 				if (trackingBranches.length !== 0) {
-					const branchesByOrigin = Arrays.groupByMap(trackingBranches, b =>
-						GitBranch.getRemote(b.upstream!.name),
-					);
+					const branchesByOrigin = Arrays.groupByMap(trackingBranches, b => b.getRemoteName()!);
 
 					for (const [remote, branches] of branchesByOrigin.entries()) {
 						this.runTerminalCommand(
 							'push',
 							'-d',
 							remote,
-							...branches.map(b => GitBranch.getNameWithoutRemote(b.upstream!.name)),
+							...branches.map(b => b.getTrackingWithoutRemote()!),
 						);
 					}
 				}
 			}
 		}
 
-		const remoteBranches = branches.filter(b => b.remote);
+		const remoteBranches: GitBranch[] = [];
+		for (const reference of branches.filter(b => b.remote)) {
+			const branch = await this.getBranch(reference.name);
+			if (branch != null && (await branch.getRemote()) != null) remoteBranches.push(branch);
+		}
 		if (remoteBranches.length !== 0) {
-			const branchesByOrigin = Arrays.groupByMap(remoteBranches, b => GitBranch.getRemote(b.name));
+			const branchesByOrigin = Arrays.groupByMap(remoteBranches, b => b.getRemoteName()!);
 
 			for (const [remote, branches] of branchesByOrigin.entries()) {
 				this.runTerminalCommand(
 					'push',
 					'-d',
 					remote,
-					...branches.map(b => GitReference.getNameWithoutRemote(b)),
+					...branches.map(b => b.getNameWithoutRemote()),
 				);
 			}
 		}
@@ -786,6 +794,8 @@ export class Repository implements Disposable {
 				} else {
 					const branch = await this.getBranch(options.reference.name);
 					if (branch == null) return;
+					const remote = await branch.getRemote();
+					if (remote == null) return;
 
 					const currentBranch = await this.getBranch();
 					if (branch.id === currentBranch?.id) {
@@ -794,7 +804,7 @@ export class Repository implements Disposable {
 							this.path,
 						));
 					} else {
-						await repo?.push(branch.getRemoteName(), branch.name);
+						await repo?.push(remote.name, branch.name);
 					}
 				}
 			} else if (options.reference != null) {
@@ -803,9 +813,12 @@ export class Repository implements Disposable {
 
 				const branch = await this.getBranch();
 				if (branch == null) return;
+				const remote = await branch.getRemote();
+				if (remote == null) return;
 
-				await repo?.push(branch.getRemoteName(), `${options.reference.ref}:${branch.getNameWithoutRemote()}`);
+				await repo?.push(remote.name, `${options.reference.ref}:${branch.getNameWithoutRemote()}`);
 			} else {
+				if ((await (await this.getBranch())?.getRemote()) == null) return;
 				void (await commands.executeCommand(
 					options.force ? BuiltInGitCommands.PushForce : BuiltInGitCommands.Push,
 					this.path,
