@@ -119,12 +119,12 @@ export class DiffWithCommand extends Command {
 				Container.git.getVersionedUri(args.repoPath, args.rhs.uri.fsPath, args.rhs.sha),
 			]);
 
-			let rhsSuffix = GitRevision.shorten(rhsSha, { strings: { uncommitted: 'Working Tree' } });
+			let rhsSuffix = GitRevision.shorten(rhsSha, { strings: { uncommitted: '工作树' } });
 			if (rhs == null) {
 				if (GitRevision.isUncommitted(args.rhs.sha)) {
 					rhsSuffix = 'deleted';
 				} else if (rhsSuffix.length === 0 && args.rhs.sha === GitRevision.deletedOrMissing) {
-					rhsSuffix = 'not in Working Tree';
+					rhsSuffix = '工作树中不存在';
 				} else {
 					rhsSuffix = `deleted${rhsSuffix.length === 0 ? '' : ` in ${rhsSuffix}`}`;
 				}

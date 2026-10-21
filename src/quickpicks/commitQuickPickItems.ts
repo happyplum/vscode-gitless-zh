@@ -97,7 +97,7 @@ export class CommitBrowseRepositoryFromHereCommandQuickPickItem extends CommandQ
 
 export class CommitCompareWithHEADCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(compare-changes) Compare with HEAD');
+		super(item ?? '$(compare-changes) 与 HEAD 比较');
 	}
 
 	override execute(_options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -107,7 +107,7 @@ export class CommitCompareWithHEADCommandQuickPickItem extends CommandQuickPickI
 
 export class CommitCompareWithWorkingCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(compare-changes) Compare with Working Tree');
+		super(item ?? '$(compare-changes) 与工作树比较');
 	}
 
 	override execute(_options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -149,7 +149,7 @@ export class CommitCopyMessageQuickPickItem extends CommandQuickPickItem {
 
 export class CommitOpenAllChangesCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open All Changes');
+		super(item ?? '$(git-compare) 打开所有更改');
 	}
 
 	override execute(options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -159,7 +159,7 @@ export class CommitOpenAllChangesCommandQuickPickItem extends CommandQuickPickIt
 
 export class CommitOpenAllChangesWithDiffToolCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open All Changes (difftool)');
+		super(item ?? '$(git-compare) 在差异工具中打开所有更改');
 	}
 
 	override execute(): Promise<void> {
@@ -169,7 +169,7 @@ export class CommitOpenAllChangesWithDiffToolCommandQuickPickItem extends Comman
 
 export class CommitOpenAllChangesWithWorkingCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open All Changes with Working Tree');
+		super(item ?? '$(git-compare) 打开与工作树的所有差异');
 	}
 
 	override execute(options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -209,7 +209,7 @@ export class CommitOpenChangesWithWorkingCommandQuickPickItem extends CommandQui
 
 export class CommitOpenDirectoryCompareCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open Directory Compare');
+		super(item ?? '$(git-compare) 打开目录比较');
 	}
 
 	override execute(): Promise<void> {
@@ -219,7 +219,7 @@ export class CommitOpenDirectoryCompareCommandQuickPickItem extends CommandQuick
 
 export class CommitOpenDirectoryCompareWithWorkingCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open Directory Compare with Working Tree');
+		super(item ?? '$(git-compare) 打开与工作树的目录比较');
 	}
 
 	override execute(): Promise<void> {

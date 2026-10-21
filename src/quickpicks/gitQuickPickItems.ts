@@ -54,7 +54,7 @@ export namespace BranchQuickPickItem {
 			if (options.current === true && branch.current) {
 				description = '当前分支';
 			} else {
-				description = 'branch';
+				description = '分支';
 			}
 		} else if (options.type === 'remote') {
 			if (branch.remote) {
@@ -401,7 +401,7 @@ export namespace TagQuickPickItem {
 	) {
 		let description = '';
 		if (options.type) {
-			description = 'tag';
+			description = '标签';
 		}
 
 		if (options.ref) {

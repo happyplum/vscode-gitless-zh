@@ -89,7 +89,7 @@ export namespace QuickCommandButtons {
 				() => ({
 					on: { tooltip: '选择特定提交', icon: new ThemeIcon('git-commit') },
 					off: {
-						tooltip: `选择分行${context.showTags ? ' or Tag' : ''}`,
+						tooltip: `选择分支${context.showTags ? '或标签' : ''}`,
 						icon: new ThemeIcon('git-branch'),
 					},
 				}),

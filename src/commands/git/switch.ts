@@ -65,7 +65,7 @@ export class SwitchGitCommand extends QuickCommand<State> {
 		return void (await window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `将 ${state.repos.length === 1 ? state.repos[0].formattedName : `${state.repos.length} repositories`} 切换到 ${state.reference.name}`,
+				title: `将 ${state.repos.length === 1 ? state.repos[0].formattedName : `${state.repos.length} 个仓库`} 切换到 ${state.reference.name}`,
 			},
 			() =>
 				Promise.all(

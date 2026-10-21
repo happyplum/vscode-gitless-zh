@@ -63,13 +63,13 @@ export class OpenDirectoryCompareCommand extends ActiveEditorCommand {
 		args = { ...args };
 
 		try {
-			const repoPath = await getRepoPathOrActiveOrPrompt(uri, editor, 'Directory Compare Working Tree With');
+			const repoPath = await getRepoPathOrActiveOrPrompt(uri, editor, '比较工作树目录与');
 			if (!repoPath) return;
 
 			if (!args.ref1) {
 				const pick = await ReferencePicker.show(
 					repoPath,
-					'Directory Compare Working Tree with',
+					'比较工作树目录与',
 					'Choose a branch or tag to compare with',
 					{
 						allowEnteringRefs: true,

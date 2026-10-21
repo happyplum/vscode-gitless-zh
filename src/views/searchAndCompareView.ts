@@ -232,7 +232,7 @@ export class SearchAndCompareViewNode extends ViewNode<SearchAndCompareView> {
 
 	private getRefName(ref: string | NamedRef) {
 		return typeof ref === 'string'
-			? GitRevision.shorten(ref, { strings: { working: 'Working Tree' } })!
+			? GitRevision.shorten(ref, { strings: { working: '工作树' } })!
 			: ref.label ?? GitRevision.shorten(ref.ref)!;
 	}
 

@@ -524,7 +524,7 @@ export class StashGitCommand extends QuickCommand<State> {
 					? `${Strings.pad(GlyphChars.Dot, 2, 2)}${
 							state.uris.length === 1
 								? GitUri.getFormattedFilename(state.uris[0])
-								: `${state.uris.length} files`
+								: `${state.uris.length} 个文件`
 					  }`
 					: undefined,
 			),
@@ -559,7 +559,7 @@ export class StashGitCommand extends QuickCommand<State> {
 							detail: '将储藏未提交的更改，包括未跟踪的文件',
 						}),
 						FlagsQuickPickItem.create<PushFlags>(state.flags, ['--keep-index'], {
-							label: `${context.title} & 保持上演`,
+							label: `${context.title}并保留暂存内容`,
 							description: '--keep-index',
 							detail: '将储藏未提交的更改，但将保持暂存文件完整',
 						}),
@@ -569,13 +569,13 @@ export class StashGitCommand extends QuickCommand<State> {
 							label: context.title,
 							detail: `将储藏 ${state.uris.length === 1
 									? GitUri.getFormattedFilename(state.uris[0])
-									: `${state.uris.length} files`} 的更改`,
+									: `${state.uris.length} 个文件`} 的更改`,
 						}),
 						FlagsQuickPickItem.create<PushFlags>(state.flags, ['--keep-index'], {
-							label: `${context.title} & 保持上演`,
+							label: `${context.title}并保留暂存内容`,
 							detail: `将储藏 ${state.uris.length === 1
 									? GitUri.getFormattedFilename(state.uris[0])
-									: `${state.uris.length} files`} 的更改，但将保持暂存文件完整`,
+									: `${state.uris.length} 个文件`} 的更改，但将保持暂存文件完整`,
 						}),
 				  ],
 			undefined,
