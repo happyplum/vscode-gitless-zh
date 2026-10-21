@@ -363,22 +363,25 @@ function getWebviewsConfig(mode, env) {
 		}),
 		new ImageMinimizerPlugin({
 			test: /\.(png)$/i,
-			filename: '[path][name].webp',
 			loader: false,
 			deleteOriginalAssets: true,
-			minimizerOptions: {
-				plugins: [
-					[
-						'imagemin-webp',
-						{
-							lossless: true,
-							nearLossless: 0,
-							quality: 100,
-							method: mode === 'production' ? 4 : 0,
+			generator: [
+				{
+					type: 'asset',
+					filename: '[path][name].webp',
+					implementation: ImageMinimizerPlugin.sharpGenerate,
+					options: {
+						encodeOptions: {
+							webp: {
+								lossless: true,
+								nearLossless: false,
+								quality: 100,
+								effort: 4,
+							},
 						},
-					],
-				],
-			},
+					},
+				},
+			],
 		}),
 	];
 
