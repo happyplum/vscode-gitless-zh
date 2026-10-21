@@ -152,7 +152,7 @@ export function propOf<T, K extends Extract<keyof T, string>>(o: T, key: K) {
 }
 
 export function interval(fn: (...args: any[]) => void, ms: number): Disposable {
-	let timer: NodeJS.Timer | undefined;
+	let timer: NodeJS.Timeout | undefined;
 	const disposable = {
 		dispose: () => {
 			if (timer !== undefined) {
@@ -168,7 +168,7 @@ export function interval(fn: (...args: any[]) => void, ms: number): Disposable {
 
 export function progress<T>(promise: Promise<T>, intervalMs: number, onProgress: () => boolean): Promise<T> {
 	return new Promise((resolve, reject) => {
-		let timer: NodeJS.Timer | undefined;
+		let timer: NodeJS.Timeout | undefined;
 		timer = global.setInterval(() => {
 			if (onProgress()) {
 				if (timer !== undefined) {

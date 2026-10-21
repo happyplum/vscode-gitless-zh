@@ -110,7 +110,7 @@ export function log<T extends (...arg: any) => any>(
 					!(Logger.level === TraceLevel.Verbose && !options.debug)) ||
 				(typeof options.condition === 'function' && !options.condition(...args))
 			) {
-				return fn!.apply(this, args);
+				return fn.apply(this, args);
 			}
 
 			let instanceName: string;
@@ -219,7 +219,7 @@ export function log<T extends (...arg: any) => any>(
 
 				let result;
 				try {
-					result = fn!.apply(this, args);
+					result = fn.apply(this, args);
 				} catch (ex) {
 					logError(ex);
 					throw ex;
@@ -277,7 +277,7 @@ export function log<T extends (...arg: any) => any>(
 				return result;
 			}
 
-			return fn!.apply(this, args);
+			return fn.apply(this, args);
 		};
 	};
 }

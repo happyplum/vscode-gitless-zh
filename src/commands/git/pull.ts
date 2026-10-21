@@ -82,6 +82,7 @@ export class PullGitCommand extends QuickCommand<State> {
 		}
 
 		if (state.repos != null && !Array.isArray(state.repos)) {
+			// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- The assignment must preserve the string-or-repository input union.
 			state.repos = [state.repos as any];
 		}
 

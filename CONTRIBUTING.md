@@ -19,15 +19,15 @@ git clone https://github.com/eamodio/vscode-gitlens.git
 Prerequisites
 
 - [Git](https://git-scm.com/), `>= 2.7.2`
-- [NodeJS](https://nodejs.org/), `>= 14.16.0`
-- [yarn](https://yarnpkg.com/), `>= 1.22.5`
+- [NodeJS](https://nodejs.org/), `>= 22.11.0`
+- [yarn](https://yarnpkg.com/), `1.22.22` (via `corepack yarn`)
 
 ### Dependencies
 
 From a terminal, where you have cloned the repository, execute the following command to install the required dependencies:
 
 ```
-yarn
+corepack yarn install --frozen-lockfile
 ```
 
 ### Build
@@ -35,7 +35,7 @@ yarn
 From a terminal, where you have cloned the repository, execute the following command to re-build the project from scratch:
 
 ```
-yarn run rebuild
+corepack yarn run rebuild
 ```
 
 👉 **NOTE!** This will run a complete rebuild of the project.
@@ -43,15 +43,17 @@ yarn run rebuild
 Or to just run a quick build, use:
 
 ```
-yarn run build
+corepack yarn run build
 ```
+
+Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions.
 
 ### Watch
 
 During development you can use a watcher to make builds on changes quick and easy. From a terminal, where you have cloned the repository, execute the following command:
 
 ```
-yarn run watch
+corepack yarn run watch
 ```
 
 Or use the provided `watch` task in VS Code, execute the following from the command palette (be sure there is no `>` at the start):
@@ -68,7 +70,7 @@ This will first do an initial full build and then watch for file changes, compil
 
 ### Formatting
 
-This project uses [prettier](https://prettier.io/) for code formatting. You can run prettier across the code by calling `yarn run pretty` from a terminal.
+This project uses [prettier](https://prettier.io/) for code formatting. You can run prettier across the code by calling `corepack yarn run pretty` from a terminal.
 
 To format the code as you make changes you can install the [Prettier - Code formatter](https://marketplace.visualstudio.com/items/esbenp.prettier-vscode) extension.
 
@@ -80,7 +82,9 @@ Add the following to your User Settings to run prettier:
 
 ### Linting
 
-This project uses [ESLint](https://eslint.org/) for code linting. You can run ESLint across the code by calling `yarn run lint` from a terminal. Warnings from ESLint show up in the `Errors and Warnings` quick box and you can navigate to them from inside VS Code.
+This project uses [ESLint](https://eslint.org/) for code linting. You can run ESLint across the code by calling `corepack yarn run lint` from a terminal. Warnings from ESLint show up in the `Errors and Warnings` quick box and you can navigate to them from inside VS Code.
+
+`corepack yarn run lint` is read-only; use `corepack yarn run lint:fix` to apply automatic fixes. The flat configuration in `eslint.config.cjs` owns the rules for both the extension and webviews.
 
 To lint the code as you make changes you can install the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension.
 
@@ -89,13 +93,13 @@ To lint the code as you make changes you can install the [ESLint](https://market
 To generate a production bundle (without packaging) run the following from a terminal:
 
 ```
-yarn run bundle
+corepack yarn run bundle
 ```
 
 To generate a VSIX (installation package) run the following from a terminal:
 
 ```
-yarn run pack
+corepack yarn run pack
 ```
 
 ### Debugging

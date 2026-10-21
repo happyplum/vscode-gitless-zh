@@ -1,5 +1,5 @@
 'use strict';
-import { ExecException, execFile } from 'child_process';
+import { execFile, ExecFileException } from 'child_process';
 import * as fs from 'fs';
 import * as paths from 'path';
 import * as iconv from 'iconv-lite';
@@ -143,7 +143,7 @@ const bufferExceededRegex = /stdout maxBuffer( length)? exceeded/;
 
 export class RunError extends Error {
 	constructor(
-		private readonly original: ExecException,
+		private readonly original: ExecFileException,
 		public readonly stdout: string,
 		public readonly stderr: string,
 	) {
@@ -162,7 +162,7 @@ export class RunError extends Error {
 		return this.original.killed;
 	}
 
-	get code(): number | undefined {
+	get code(): ExecFileException['code'] {
 		return this.original.code;
 	}
 
@@ -180,7 +180,7 @@ export function run<TOut extends string | Buffer>(
 	const { stdin, stdinEncoding, ...opts }: RunOptions = { maxBuffer: 100 * 1024 * 1024, ...options };
 
 	return new Promise<TOut>((resolve, reject) => {
-		const proc = execFile(command, args, opts, (error: ExecException | null, stdout, stderr) => {
+		const proc = execFile(command, args, opts, (error: ExecFileException | null, stdout, stderr) => {
 			if (error != null) {
 				if (bufferExceededRegex.test(error.message)) {
 					error.message = `Command output exceeded the allocated stdout buffer. Set 'options.maxBuffer' to a larger value than ${opts.maxBuffer} bytes`;
@@ -190,11 +190,11 @@ export function run<TOut extends string | Buffer>(
 					new RunError(
 						error,
 						encoding === 'utf8' || encoding === 'binary' || encoding === 'buffer'
-							? stdout
-							: iconv.decode(Buffer.from(stdout, 'binary'), encoding),
+							? stdout.toString()
+							: iconv.decode(Buffer.isBuffer(stdout) ? stdout : Buffer.from(stdout, 'binary'), encoding),
 						encoding === 'utf8' || encoding === 'binary' || encoding === 'buffer'
-							? stderr
-							: iconv.decode(Buffer.from(stderr, 'binary'), encoding),
+							? stderr.toString()
+							: iconv.decode(Buffer.isBuffer(stderr) ? stderr : Buffer.from(stderr, 'binary'), encoding),
 					),
 				);
 
@@ -202,13 +202,13 @@ export function run<TOut extends string | Buffer>(
 			}
 
 			if (stderr) {
-				Logger.warn(`Warning(${command} ${args.join(' ')}): ${stderr}`);
+				Logger.warn(`Warning(${command} ${args.join(' ')}): ${stderr.toString()}`);
 			}
 
 			resolve(
 				encoding === 'utf8' || encoding === 'binary' || encoding === 'buffer'
 					? (stdout as TOut)
-					: (iconv.decode(Buffer.from(stdout, 'binary'), encoding) as TOut),
+					: (iconv.decode(Buffer.isBuffer(stdout) ? stdout : Buffer.from(stdout, 'binary'), encoding) as TOut),
 			);
 		});
 

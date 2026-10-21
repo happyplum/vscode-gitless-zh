@@ -106,7 +106,7 @@ export class DocumentTracker<T> implements Disposable {
 		}
 	}
 
-	private _timer: NodeJS.Timer | undefined;
+	private _timer: NodeJS.Timeout | undefined;
 	private async onActiveTextEditorChanged(editor: TextEditor | undefined) {
 		if (editor != null && !isTextEditor(editor)) return;
 

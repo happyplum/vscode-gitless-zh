@@ -227,6 +227,7 @@ export async function getBranchesAndOrTags(
 
 	if (include.includes('tags') && !include.includes('branches')) {
 		return Promise.all(
+			// eslint-disable-next-line @typescript-eslint/await-thenable -- Promise.all intentionally preserves async completion for synchronous tag items.
 			tags!.map(t =>
 				TagQuickPickItem.create(
 					t,
@@ -256,6 +257,7 @@ export async function getBranchesAndOrTags(
 					},
 				),
 			),
+		// eslint-disable-next-line @typescript-eslint/await-thenable -- Tag items are synchronous values alongside async branch items.
 		...tags!.map(t =>
 			TagQuickPickItem.create(
 				t,

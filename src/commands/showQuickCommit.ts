@@ -126,6 +126,7 @@ export class ShowQuickCommitCommand extends ActiveEditorCachedCommand {
 				}
 
 				if (args.repoLog == null) {
+					// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- TypeScript requires the existing repository-path assertion here.
 					args.commit = await Container.git.getCommit(repoPath!, args.sha);
 				}
 			}
@@ -149,7 +150,7 @@ export class ShowQuickCommitCommand extends ActiveEditorCachedCommand {
 			void (await executeGitCommand({
 				command: 'show',
 				state: {
-					repo: repoPath!,
+					repo: repoPath,
 					reference: args.commit as GitLogCommit,
 				},
 			}));

@@ -88,7 +88,9 @@ export class DiffWithCommand extends Command {
 			let rhsSha = args.rhs.sha;
 
 			[args.lhs.sha, args.rhs.sha] = await Promise.all([
+				// eslint-disable-next-line @typescript-eslint/await-thenable -- Preserve sequential resolution before aggregating the resolved values.
 				await Container.git.resolveReference(args.repoPath, args.lhs.sha, args.lhs.uri, { timeout: 100 }),
+				// eslint-disable-next-line @typescript-eslint/await-thenable -- Preserve sequential resolution before aggregating the resolved values.
 				await Container.git.resolveReference(args.repoPath, args.rhs.sha, args.rhs.uri, { timeout: 100 }),
 			]);
 

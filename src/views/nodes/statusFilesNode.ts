@@ -117,7 +117,7 @@ export class StatusFilesNode extends ViewNode<RepositoriesView> {
 			);
 
 			const root = new FolderNode(this.view, this, repoPath, '', hierarchy, true);
-			children = root.getChildren() as FileNode[];
+			children = root.getChildren();
 		} else {
 			children.sort(
 				(a, b) =>

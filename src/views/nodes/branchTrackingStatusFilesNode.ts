@@ -90,7 +90,7 @@ export class BranchTrackingStatusFilesNode extends ViewNode<ViewsWithCommits> {
 			);
 
 			const root = new FolderNode(this.view, this, this.repoPath, '', hierarchy, false);
-			children = root.getChildren() as FileNode[];
+			children = root.getChildren();
 		} else {
 			children.sort(
 				(a, b) =>

@@ -7,7 +7,7 @@
 		"isolatedModules": true,
 		"lib": ["es2019"],
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
@@ -19,6 +19,7 @@
 		"sourceMap": true,
 		"strict": true,
 		"target": "es2019",
+		"types": ["node"],
 		"useDefineForClassFields": true,
 		"useUnknownInCatchVariables": false
 	},

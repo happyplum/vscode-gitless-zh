@@ -280,7 +280,7 @@ export class CommitFormatter extends Formatter<GitCommit, CommitFormatOptions> {
 						GitRevision.isUncommittedStaged(diffUris.current.sha)
 							? diffUris.current.sha
 							: GitRevision.uncommitted,
-					)!,
+					),
 					this._options.tokenOptions.commands,
 				)}\``;
 
@@ -300,7 +300,7 @@ export class CommitFormatter extends Formatter<GitCommit, CommitFormatOptions> {
 				commands = `\`${this._padOrTruncate(
 					GitRevision.shorten(
 						this._item.isUncommittedStaged ? GitRevision.uncommittedStaged : GitRevision.uncommitted,
-					)!,
+					),
 					this._options.tokenOptions.commands,
 				)}\``;
 			}

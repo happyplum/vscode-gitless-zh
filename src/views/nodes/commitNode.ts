@@ -62,7 +62,7 @@ export class CommitNode extends ViewRefNode<ViewsWithCommits | FileHistoryView, 
 			);
 
 			const root = new FolderNode(this.view, this, this.repoPath, '', hierarchy);
-			children = root.getChildren() as FileNode[];
+			children = root.getChildren();
 		} else {
 			(children as FileNode[]).sort((a, b) =>
 				a.label!.localeCompare(b.label!, undefined, { numeric: true, sensitivity: 'base' }),

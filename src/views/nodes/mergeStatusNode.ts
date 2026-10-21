@@ -53,7 +53,7 @@ export class MergeStatusNode extends ViewNode<ViewsWithCommits> {
 			);
 
 			const root = new FolderNode(this.view, this, this.repoPath, '', hierarchy);
-			children = root.getChildren() as FileNode[];
+			children = root.getChildren();
 		} else {
 			children.sort((a, b) =>
 				a.label!.localeCompare(b.label!, undefined, { numeric: true, sensitivity: 'base' }),

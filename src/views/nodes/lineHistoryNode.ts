@@ -70,6 +70,7 @@ export class LineHistoryNode
 		const range = this.branch != null ? await Container.git.getBranchAheadRange(this.branch) : undefined;
 		const [log, blame, getBranchAndTagTips, unpublishedCommits] = await Promise.all([
 			this.getLog(selection),
+			// eslint-disable-next-line @typescript-eslint/await-thenable -- Preserve the resolved blame value alongside the other async inputs.
 			this.uri.sha == null
 				? this.editorContents
 					? await Container.git.getBlameForRangeContents(this.uri, selection, this.editorContents)

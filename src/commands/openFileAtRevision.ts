@@ -109,8 +109,8 @@ export class OpenFileAtRevisionCommand extends ActiveEditorCommand {
 						keys: ['right', 'alt+right', 'ctrl+right'],
 						onDidPressKey: async (key, item) => {
 							void (await GitActions.Commit.openFileAtRevision(item.item.uri.fsPath, item.item, {
-								annotationType: args!.annotationType,
-								line: args!.line,
+								annotationType: args.annotationType,
+								line: args.line,
 								preserveFocus: true,
 								preview: false,
 							}));

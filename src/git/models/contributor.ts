@@ -28,14 +28,14 @@ export class GitContributor {
 			case ContributorSorting.DateDesc:
 				return contributors.sort(
 					(a, b) =>
-						(options!.current ? (a.current ? -1 : 1) - (b.current ? -1 : 1) : 0) ||
+						(options.current ? (a.current ? -1 : 1) - (b.current ? -1 : 1) : 0) ||
 						b.date.getTime() - a.date.getTime() ||
 						b.count - a.count,
 				);
 			case ContributorSorting.DateAsc:
 				return contributors.sort(
 					(a, b) =>
-						(options!.current ? (a.current ? -1 : 1) - (b.current ? -1 : 1) : 0) ||
+						(options.current ? (a.current ? -1 : 1) - (b.current ? -1 : 1) : 0) ||
 						a.date.getTime() - b.date.getTime() ||
 						b.count - a.count,
 				);

@@ -89,6 +89,7 @@ export class CopyMessageToClipboardCommand extends ActiveEditorCommand {
 				}
 
 				// Get the full commit message -- since blame only returns the summary
+				// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- TypeScript requires the existing repository-path assertion here.
 				const commit = await Container.git.getCommit(repoPath!, args.sha);
 				if (commit == null) return;
 

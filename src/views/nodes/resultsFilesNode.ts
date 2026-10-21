@@ -84,7 +84,7 @@ export class ResultsFilesNode extends ViewNode<ViewsWithCommits> {
 			);
 
 			const root = new FolderNode(this.view, this, this.repoPath, '', hierarchy);
-			children = root.getChildren() as FileNode[];
+			children = root.getChildren();
 		} else {
 			children.sort(
 				(a, b) =>
@@ -201,7 +201,7 @@ export class ResultsFilesNode extends ViewNode<ViewsWithCommits> {
 
 		results.filtered = {
 			filter: filter,
-			files: results.files!.filter(f => filterTo!.has(f.fileName)),
+			files: results.files!.filter(f => filterTo.has(f.fileName)),
 		};
 	}
 }
