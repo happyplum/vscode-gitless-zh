@@ -50,7 +50,7 @@ export class RepositoriesView extends ViewBase<RepositoriesNode, RepositoriesVie
 	protected readonly configKey = 'repositories';
 
 	constructor() {
-		super('gitlens.views.repositories', 'Repositories');
+		super('gitlens.views.repositories', '仓库');
 	}
 
 	private _onDidChangeAutoRefresh = new EventEmitter<void>();

@@ -324,7 +324,7 @@ export class StashGitCommand extends QuickCommand<State> {
 		context: Context,
 	): StepResultGenerator<'apply' | 'pop'> {
 		const step = this.createConfirmStep<QuickPickItem & { item: 'apply' | 'pop' }>(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				{
 					label: context.title,
@@ -404,7 +404,7 @@ export class StashGitCommand extends QuickCommand<State> {
 
 	private *dropCommandConfirmStep(state: DropStepState, context: Context): StepResultGenerator<void> {
 		const step = this.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				{
 					label: context.title,
@@ -546,7 +546,7 @@ export class StashGitCommand extends QuickCommand<State> {
 
 	private *pushCommandConfirmStep(state: PushStepState, context: Context): StepResultGenerator<PushFlags[]> {
 		const step: QuickPickStep<FlagsQuickPickItem<PushFlags>> = this.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			state.uris == null || state.uris.length === 0
 				? [
 						FlagsQuickPickItem.create<PushFlags>(state.flags, [], {

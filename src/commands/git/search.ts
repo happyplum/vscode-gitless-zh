@@ -3,7 +3,6 @@ import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
 import { GitLog, GitLogCommit, Repository, SearchOperators, searchOperators, SearchPattern } from '../../git/git';
 import { ActionQuickPickItem, QuickPickItemOfT } from '../../quickpicks';
-import { Strings } from '../../system';
 import { SearchResultsNode } from '../../views/nodes';
 import { GitCommandsCommand } from '../gitCommands';
 import {
@@ -187,13 +186,11 @@ export class SearchGitCommand extends QuickCommand<State> {
 					onDidLoadMore: log => (context.resultsPromise = Promise.resolve(log)),
 					placeholder: (context, log) =>
 						log == null
-							? `No results for ${state.pattern}`
-							: `${Strings.pluralize('result', log.count, {
-									format: c => (log.hasMore ? `${c}+` : undefined),
-							  })} for ${state.pattern}`,
+							? `没有找到 ${state.pattern} 的结果`
+							: `${log.count}${log.hasMore ? '+' : ''} 个 ${state.pattern} 的结果`,
 					picked: context.commit?.ref,
 					showInSideBarCommand: new ActionQuickPickItem(
-						'$(link-external)  Show Results in Side Bar',
+						'$(link-external)  在侧栏显示结果',
 						() =>
 							void Container.searchAndCompareView.search(
 								repoPath,

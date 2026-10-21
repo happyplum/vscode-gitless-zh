@@ -215,49 +215,49 @@ export class StatusBarController implements Disposable {
 		let tooltip: string;
 		switch (cfg.command) {
 			case StatusBarCommand.CopyRemoteCommitUrl:
-				tooltip = 'Click to Copy Remote Commit Url';
+				tooltip = '点击复制远程提交链接';
 				break;
 			case StatusBarCommand.CopyRemoteFileUrl:
 				this._statusBarBlame.command = Commands.CopyRemoteFileUrl;
-				tooltip = 'Click to Copy Remote File Revision Url';
+				tooltip = '点击复制远程文件版本链接';
 				break;
 			case StatusBarCommand.DiffWithPrevious:
 				this._statusBarBlame.command = Commands.DiffLineWithPrevious;
-				tooltip = 'Click to Open Line Changes with Previous Revision';
+				tooltip = '点击查看与上一版本的行差异';
 				break;
 			case StatusBarCommand.DiffWithWorking:
 				this._statusBarBlame.command = Commands.DiffLineWithWorking;
-				tooltip = 'Click to Open Line Changes with Working File';
+				tooltip = '点击查看与工作区文件的行差异';
 				break;
 			case StatusBarCommand.OpenCommitOnRemote:
-				tooltip = 'Click to Open Commit on Remote';
+				tooltip = '点击在远程平台打开提交';
 				break;
 			case StatusBarCommand.OpenFileOnRemote:
-				tooltip = 'Click to Open Revision on Remote';
+				tooltip = '点击在远程平台打开版本';
 				break;
 			case StatusBarCommand.RevealCommitInView:
-				tooltip = 'Click to Reveal Commit in the Side Bar';
+				tooltip = '点击在侧栏定位提交';
 				break;
 			case StatusBarCommand.ShowCommitsInView:
-				tooltip = 'Click to Search for Commit';
+				tooltip = '点击搜索提交';
 				break;
 			case StatusBarCommand.ShowQuickCommitDetails:
-				tooltip = 'Click to Show Commit';
+				tooltip = '点击查看提交';
 				break;
 			case StatusBarCommand.ShowQuickCommitFileDetails:
-				tooltip = 'Click to Show Commit (file)';
+				tooltip = '点击查看提交中的文件';
 				break;
 			case StatusBarCommand.ShowQuickCurrentBranchHistory:
-				tooltip = 'Click to Show Branch History';
+				tooltip = '点击查看分支历史';
 				break;
 			case StatusBarCommand.ShowQuickFileHistory:
-				tooltip = 'Click to Show File History';
+				tooltip = '点击查看文件历史';
 				break;
 			case StatusBarCommand.ToggleCodeLens:
-				tooltip = 'Click to Toggle Git CodeLens';
+				tooltip = '点击切换 Git 代码透镜';
 				break;
 			case StatusBarCommand.ToggleFileBlame:
-				tooltip = 'Click to Toggle File Blame';
+				tooltip = '点击切换文件逐行追溯';
 				break;
 			case StatusBarCommand.ToggleFileChanges: {
 				this._statusBarBlame.command = command<[Uri, ToggleFileChangesAnnotationCommandArgs]>({
@@ -271,7 +271,7 @@ export class StatusBarController implements Disposable {
 						},
 					],
 				});
-				tooltip = 'Click to Toggle File Changes';
+				tooltip = '点击切换文件更改';
 				break;
 			}
 			case StatusBarCommand.ToggleFileChangesOnly: {
@@ -286,11 +286,11 @@ export class StatusBarController implements Disposable {
 						},
 					],
 				});
-				tooltip = 'Click to Toggle File Changes';
+				tooltip = '点击切换文件更改';
 				break;
 			}
 			case StatusBarCommand.ToggleFileHeatmap:
-				tooltip = 'Click to Toggle File Heatmap';
+				tooltip = '点击切换文件热图';
 				break;
 		}
 

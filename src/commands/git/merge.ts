@@ -2,7 +2,6 @@
 import { Container } from '../../container';
 import { GitBranch, GitLog, GitReference, GitRevision, Repository } from '../../git/git';
 import { Directive, DirectiveQuickPickItem, FlagsQuickPickItem } from '../../quickpicks';
-import { Strings } from '../../system';
 import {
 	appendReposToTitle,
 	AsyncStepResultGenerator,
@@ -128,7 +127,7 @@ export class MergeGitCommand extends QuickCommand<State> {
 				});
 
 				const result: StepResult<GitReference> = yield* pickBranchOrTagStep(state as MergeStepState, context, {
-					placeholder: context => `Choose a branch${context.showTags ? ' or tag' : ''} to merge`,
+					placeholder: context => `选择要合并的${context.showTags ? '分支或标签' : '分支'}`,
 					picked: context.selectedBranchOrTag?.ref,
 					value: context.selectedBranchOrTag == null ? state.reference?.ref : undefined,
 					additionalButtons: [pickCommitToggle],
@@ -169,12 +168,12 @@ export class MergeGitCommand extends QuickCommand<State> {
 					onDidLoadMore: log => context.cache.set(ref, Promise.resolve(log)),
 					placeholder: (context, log) =>
 						log == null
-							? `No commits found on ${GitReference.toString(context.selectedBranchOrTag, {
+							? `${GitReference.toString(context.selectedBranchOrTag, {
 									icon: false,
-							  })}`
-							: `Choose a commit to merge into ${GitReference.toString(context.destination, {
+							  })} 上没有提交`
+							: `选择要合并到 ${GitReference.toString(context.destination, {
 									icon: false,
-							  })}`,
+							  })} 的提交`,
 					picked: state.reference?.ref,
 				});
 				if (result === StepResult.Break) continue;
@@ -201,13 +200,13 @@ export class MergeGitCommand extends QuickCommand<State> {
 		const count = aheadBehind != null ? aheadBehind.ahead + aheadBehind.behind : 0;
 		if (count === 0) {
 			const step: QuickPickStep<DirectiveQuickPickItem> = this.createConfirmStep(
-				appendReposToTitle(`Confirm ${context.title}`, state, context),
+				appendReposToTitle(`确认${context.title}`, state, context),
 				[],
 				DirectiveQuickPickItem.create(Directive.Cancel, true, {
 					label: `取消${this.title}`,
 					detail: `${GitReference.toString(context.destination, {
 						capitalize: true,
-					})} 已与 ${GitReference.toString(state.reference)} 更新`,
+					})} 已与 ${GitReference.toString(state.reference)} 保持同步`,
 				}),
 			);
 			const selection: StepSelection<typeof step> = yield step;
@@ -216,42 +215,39 @@ export class MergeGitCommand extends QuickCommand<State> {
 		}
 
 		const step: QuickPickStep<FlagsQuickPickItem<Flags>> = this.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				FlagsQuickPickItem.create<Flags>(state.flags, [], {
 					label: this.title,
-					detail: `将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
+					detail: `将 ${count} 个提交 从 ${GitReference.toString(
 						state.reference,
 					)} 合并到 ${GitReference.toString(context.destination)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--ff-only'], {
 					label: `快进${this.title}`,
 					description: '--ff-only',
-					detail: `将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
+					detail: `将 ${count} 个提交 从 ${GitReference.toString(
 						state.reference,
 					)} 快进合并到 ${GitReference.toString(context.destination)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--squash'], {
 					label: `压缩 ${this.title}`,
 					description: '--squash',
-					detail: `合并到 ${GitReference.toString(context.destination)} 时会将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
+					detail: `合并到 ${GitReference.toString(context.destination)} 时会将 ${count} 个提交 从 ${GitReference.toString(
 						state.reference,
 					)} 压缩为一个`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--no-ff'], {
 					label: `${this.title} 不带快进`,
 					description: '--no-ff',
-					detail: `将 ${Strings.pluralize(
-						'commit',
-						count,
-					)} 从 ${GitReference.toString(state.reference)} 合并到 ${GitReference.toString(
+					detail: `将 ${count} 个提交 从 ${GitReference.toString(state.reference)} 合并到 ${GitReference.toString(
 						context.destination,
 					)} 时将创建合并提交`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--no-ff', '--no-commit'], {
 					label: `${this.title} 不快进或提交`,
 					description: '--no-ff --no-commit',
-					detail: `将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
+					detail: `将 ${count} 个提交 从 ${GitReference.toString(
 						state.reference,
 					)} 合并到 ${GitReference.toString(context.destination)} 而不提交`,
 				}),

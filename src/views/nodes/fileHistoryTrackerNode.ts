@@ -80,7 +80,7 @@ export class FileHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 	getTreeItem(): TreeItem {
 		this.splatted = false;
 
-		const item = new TreeItem('File History', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('文件历史', TreeItemCollapsibleState.Expanded);
 		item.contextValue = ContextValues.ActiveFileHistory;
 
 		return item;
@@ -99,8 +99,8 @@ export class FileHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 	async changeBase() {
 		const pick = await ReferencePicker.show(
 			this.uri.repoPath!,
-			'Change File History Base',
-			'Choose a reference to set as the new base',
+			'更改文件历史的基准',
+			'选择一个引用作为新的基准',
 			{
 				allowEnteringRefs: true,
 				picked: this._base,

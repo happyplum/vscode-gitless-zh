@@ -18,7 +18,7 @@ export class CommitFilesQuickPickItem extends CommandQuickPickItem {
 				detail: `$(files) ${commit.getFormattedDiffStatus({
 					expand: true,
 					separator: ', ',
-					empty: 'No files changed',
+					empty: '没有更改的文件',
 				})}${fileName ? `${Strings.pad(GlyphChars.Dot, 2, 2)}${fileName}` : ''}`,
 				picked: picked,
 			},
@@ -142,7 +142,7 @@ export class CommitCopyMessageQuickPickItem extends CommandQuickPickItem {
 	override async onDidPressKey(key: Keys): Promise<void> {
 		await super.onDidPressKey(key);
 		void window.showInformationMessage(
-			`${this.commit.isStash ? 'Stash' : 'Commit'} 消息已复制到剪贴板`,
+			`${this.commit.isStash ? '储藏' : '提交'}消息已复制到剪贴板`,
 		);
 	}
 }

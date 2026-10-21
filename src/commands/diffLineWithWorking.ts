@@ -41,7 +41,7 @@ export class DiffLineWithWorkingCommand extends ActiveEditorCommand {
 					? await Container.git.getBlameForLineContents(gitUri, blameline, editor.document.getText())
 					: await Container.git.getBlameForLine(gitUri, blameline);
 				if (blame == null) {
-					void Messages.showFileNotUnderSourceControlWarningMessage('Unable to open compare');
+					void Messages.showFileNotUnderSourceControlWarningMessage('无法打开比较');
 
 					return;
 				}

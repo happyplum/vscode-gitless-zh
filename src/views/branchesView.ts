@@ -115,7 +115,7 @@ export class BranchesViewNode extends ViewNode<BranchesView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Branches', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('分支', TreeItemCollapsibleState.Expanded);
 		return item;
 	}
 
@@ -143,7 +143,7 @@ export class BranchesView extends ViewBase<BranchesViewNode, BranchesViewConfig>
 	protected readonly configKey = 'branches';
 
 	constructor() {
-		super('gitlens.views.branches', 'Branches');
+		super('gitlens.views.branches', '分支');
 	}
 
 	getRoot() {

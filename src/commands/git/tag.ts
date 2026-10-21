@@ -304,7 +304,7 @@ export class TagGitCommand extends QuickCommand<State> {
 		context: Context,
 	): StepResultGenerator<CreateFlags[]> {
 		const step: QuickPickStep<FlagsQuickPickItem<CreateFlags>> = QuickCommand.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				FlagsQuickPickItem.create<CreateFlags>(state.flags, state.message.length !== 0 ? ['-m'] : [], {
 					label: context.title,
@@ -366,7 +366,7 @@ export class TagGitCommand extends QuickCommand<State> {
 		context: Context,
 	): StepResultGenerator<void> {
 		const step: QuickPickStep<QuickPickItem> = QuickCommand.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				{
 					label: context.title,

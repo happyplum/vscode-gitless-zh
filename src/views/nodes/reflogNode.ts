@@ -47,10 +47,10 @@ export class ReflogNode extends ViewNode<RepositoriesView> implements PageableVi
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Incoming Activity', TreeItemCollapsibleState.Collapsed);
+		const item = new TreeItem('传入活动', TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.Reflog;
-		item.description = 'experimental';
+		item.description = '实验性功能';
 		item.iconPath = {
 			dark: Container.context.asAbsolutePath('images/dark/icon-activity.svg'),
 			light: Container.context.asAbsolutePath('images/light/icon-activity.svg'),

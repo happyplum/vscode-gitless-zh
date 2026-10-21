@@ -30,7 +30,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 			this.status.type === 'rebase' ? this.status.steps.current.commit.ref : this.status.HEAD.ref,
 		);
 
-		const item = new TreeItem('Incoming changes', TreeItemCollapsibleState.None);
+		const item = new TreeItem('传入更改', TreeItemCollapsibleState.None);
 		item.contextValue = ContextValues.MergeConflictIncomingChanges;
 		item.description = `${GitReference.toString(this.status.incoming, { expand: false, icon: false })}${
 			this.status.type === 'rebase'
@@ -43,7 +43,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 			: new ThemeIcon('diff');
 		item.tooltip = new MarkdownString(
 			`$(file)${GlyphChars.Space}${this.file.fileName}${this.status.incoming != null
-					? ` from ${GitReference.toString(this.status.incoming)}${
+					? ` 来自 ${GitReference.toString(this.status.incoming)}${
 							commit != null
 								? `\n\n${await CommitFormatter.fromTemplateAsync(
 										`$(git-commit)&nbsp;\${id} ${GlyphChars.Dash} \${avatar}&nbsp;__\${author}__, \${ago}\${' via 'pullRequest} &nbsp; _(\${date})_ \n\n\${message}`,
@@ -92,7 +92,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 				title: `${this.file.fileName} (${
 					this.status.incoming != null
 						? GitReference.toString(this.status.incoming, { expand: false, icon: false })
-						: 'incoming'
+						: '传入'
 				})`,
 			},
 			repoPath: this.status.repoPath,

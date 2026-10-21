@@ -39,7 +39,7 @@ export class StashesNode extends ViewNode<StashesView | RepositoriesView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Stashes', TreeItemCollapsibleState.Collapsed);
+		const item = new TreeItem('储藏', TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.Stashes;
 

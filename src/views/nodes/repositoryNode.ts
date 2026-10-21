@@ -178,7 +178,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 		let description;
 		let tooltip = `${this.repo.formattedName ?? this.uri.repoPath ?? ''}${
 			lastFetched
-				? `${Strings.pad(GlyphChars.Dash, 2, 2)}Last fetched ${Repository.formatLastFetched(
+				? `${Strings.pad(GlyphChars.Dash, 2, 2)}上次获取 ${Repository.formatLastFetched(
 						lastFetched,
 						false,
 				  )}`
@@ -194,7 +194,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 
 		const status = await this._status;
 		if (status != null) {
-			tooltip += `\n\nCurrent branch $(git-branch) ${status.branch}${status.rebasing ? ' (Rebasing)' : ''}`;
+			tooltip += `\n\n当前分支 $(git-branch) ${status.branch}${status.rebasing ? '（变基中）' : ''}`;
 
 			if (this.view.config.includeWorkingTree && status.files.length !== 0) {
 				workingStatus = status.getFormattedDiffStatus({
@@ -207,7 +207,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 				suffix: Strings.pad(GlyphChars.Dot, 1, 1),
 			});
 
-			description = `${upstreamStatus}${status.branch}${status.rebasing ? ' (Rebasing)' : ''}${workingStatus}`;
+			description = `${upstreamStatus}${status.branch}${status.rebasing ? '（变基中）' : ''}${workingStatus}`;
 
 			let providerName;
 			if (status.upstream != null) {
@@ -220,14 +220,14 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 
 			iconSuffix = workingStatus ? '-blue' : '';
 			if (status.upstream != null) {
-				tooltip += ` is ${status.getUpstreamStatus({
-					empty: `up to date with $(git-branch) ${status.upstream}${
-						providerName ? ` on ${providerName}` : ''
-					}`,
+				tooltip += `：${status.getUpstreamStatus({
+					empty: `已与 $(git-branch) ${status.upstream}${
+						providerName ? `（${providerName}）` : ''
+					  }同步`,
 					expand: true,
 					icons: true,
 					separator: ', ',
-					suffix: ` $(git-branch) ${status.upstream}${providerName ? ` on ${providerName}` : ''}`,
+					suffix: `，相对于 $(git-branch) ${status.upstream}${providerName ? `（${providerName}）` : ''}`,
 				})}`;
 
 				if (status.state.behind) {
@@ -241,7 +241,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 			}
 
 			if (workingStatus) {
-				tooltip += `\n\nWorking tree has uncommitted changes${status.getFormattedDiffStatus({
+				tooltip += `\n\n工作树有未提交的更改${status.getFormattedDiffStatus({
 					expand: true,
 					prefix: '\n',
 					separator: '\n',
@@ -253,7 +253,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 			description = `${Strings.pad(GlyphChars.Warning, 1, 0)}${
 				description ? Strings.pad(description, 2, 0) : ''
 			}`;
-			tooltip += `\n\n${GlyphChars.Warning} Unable to automatically detect repository changes`;
+			tooltip += `\n\n${GlyphChars.Warning} 无法自动检测仓库更改`;
 		}
 
 		const item = new TreeItem(label, TreeItemCollapsibleState.Expanded);
@@ -261,7 +261,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 		item.contextValue = contextValue;
 		item.description = `${description ?? ''}${
 			lastFetched
-				? `${Strings.pad(GlyphChars.Dot, 1, 1)}Last fetched ${Repository.formatLastFetched(lastFetched)}`
+				? `${Strings.pad(GlyphChars.Dot, 1, 1)}上次获取 ${Repository.formatLastFetched(lastFetched)}`
 				: ''
 		}`;
 		item.iconPath = {

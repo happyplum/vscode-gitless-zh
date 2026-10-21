@@ -80,14 +80,14 @@ export class ShowQuickCommitFileCommand extends ActiveEditorCachedCommand {
 			try {
 				const blame = await Container.git.getBlameForLine(gitUri, blameline);
 				if (blame == null) {
-					void Messages.showFileNotUnderSourceControlWarningMessage('Unable to show commit file details');
+					void Messages.showFileNotUnderSourceControlWarningMessage('无法显示提交的文件详情');
 
 					return;
 				}
 
 				// Because the previous sha of an uncommitted file isn't trust worthy we just have to kick out
 				if (blame.commit.isUncommitted) {
-					void Messages.showLineUncommittedWarningMessage('Unable to show commit file details');
+					void Messages.showLineUncommittedWarningMessage('无法显示提交的文件详情');
 
 					return;
 				}
@@ -117,7 +117,7 @@ export class ShowQuickCommitFileCommand extends ActiveEditorCachedCommand {
 					const repoPath = args.commit === undefined ? gitUri.repoPath : args.commit.repoPath;
 					args.commit = await Container.git.getCommitForFile(repoPath, gitUri.fsPath, { ref: args.sha });
 					if (args.commit === undefined) {
-						void Messages.showCommitNotFoundWarningMessage('Unable to show commit file details');
+						void Messages.showCommitNotFoundWarningMessage('无法显示提交的文件详情');
 
 						return;
 					}
@@ -125,7 +125,7 @@ export class ShowQuickCommitFileCommand extends ActiveEditorCachedCommand {
 			}
 
 			if (args.commit === undefined) {
-				void Messages.showCommitNotFoundWarningMessage('Unable to show commit file details');
+				void Messages.showCommitNotFoundWarningMessage('无法显示提交的文件详情');
 
 				return;
 			}

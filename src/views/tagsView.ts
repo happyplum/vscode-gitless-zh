@@ -97,7 +97,7 @@ export class TagsViewNode extends ViewNode<TagsView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Tags', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('标签', TreeItemCollapsibleState.Expanded);
 		return item;
 	}
 
@@ -125,7 +125,7 @@ export class TagsView extends ViewBase<TagsViewNode, TagsViewConfig> {
 	protected readonly configKey = 'tags';
 
 	constructor() {
-		super('gitlens.views.tags', 'Tags');
+		super('gitlens.views.tags', '标签');
 	}
 
 	getRoot() {

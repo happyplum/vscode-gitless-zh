@@ -192,7 +192,7 @@ export class RebaseCommitNode extends ViewRefNode<ViewsWithCommits, GitRevisionR
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem(`Paused at commit ${this.commit.shortSha}`, TreeItemCollapsibleState.Collapsed);
+		const item = new TreeItem(`暂停于提交 ${this.commit.shortSha}`, TreeItemCollapsibleState.Collapsed);
 
 		// item.contextValue = ContextValues.RebaseCommit;
 

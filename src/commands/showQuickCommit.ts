@@ -91,14 +91,14 @@ export class ShowQuickCommitCommand extends ActiveEditorCachedCommand {
 			try {
 				const blame = await Container.git.getBlameForLine(gitUri, blameline);
 				if (blame == null) {
-					void Messages.showFileNotUnderSourceControlWarningMessage('Unable to show commit');
+					void Messages.showFileNotUnderSourceControlWarningMessage('无法显示提交');
 
 					return;
 				}
 
 				// Because the previous sha of an uncommitted file isn't trust worthy we just have to kick out
 				if (blame.commit.isUncommitted) {
-					void Messages.showLineUncommittedWarningMessage('Unable to show commit');
+					void Messages.showLineUncommittedWarningMessage('无法显示提交');
 
 					return;
 				}
@@ -131,7 +131,7 @@ export class ShowQuickCommitCommand extends ActiveEditorCachedCommand {
 			}
 
 			if (args.commit == null) {
-				void Messages.showCommitNotFoundWarningMessage('Unable to show commit');
+				void Messages.showCommitNotFoundWarningMessage('无法显示提交');
 
 				return;
 			}

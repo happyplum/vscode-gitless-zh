@@ -255,7 +255,7 @@ export class SearchAndCompareView extends ViewBase<SearchAndCompareViewNode, Sea
 	protected readonly configKey = 'searchAndCompare';
 
 	constructor() {
-		super('gitlens.views.searchAndCompare', 'Search & Compare');
+		super('gitlens.views.searchAndCompare', '搜索与比较');
 
 		void setContext(ContextKeys.ViewsSearchAndCompareKeepResults, this.keepResults);
 	}

@@ -3,7 +3,6 @@ import { env } from 'vscode';
 import { Container } from '../../container';
 import { GitBranch, GitLog, GitReference, GitRevision, Repository } from '../../git/git';
 import { Directive, DirectiveQuickPickItem, FlagsQuickPickItem } from '../../quickpicks';
-import { Strings } from '../../system';
 import {
 	appendReposToTitle,
 	AsyncStepResultGenerator,
@@ -149,7 +148,7 @@ export class RebaseGitCommand extends QuickCommand<State> {
 				});
 
 				const result: StepResult<GitReference> = yield* pickBranchOrTagStep(state as RebaseStepState, context, {
-					placeholder: context => `Choose a branch${context.showTags ? ' or tag' : ''} to rebase`,
+					placeholder: context => `选择要变基的${context.showTags ? '分支或标签' : '分支'}`,
 					picked: context.selectedBranchOrTag?.ref,
 					value: context.selectedBranchOrTag == null ? state.reference?.ref : undefined,
 					additionalButtons: [pickCommitToggle],
@@ -190,12 +189,12 @@ export class RebaseGitCommand extends QuickCommand<State> {
 					onDidLoadMore: log => context.cache.set(ref, Promise.resolve(log)),
 					placeholder: (context, log) =>
 						log == null
-							? `No commits found on ${GitReference.toString(context.selectedBranchOrTag, {
+							? `${GitReference.toString(context.selectedBranchOrTag, {
 									icon: false,
-							  })}`
-							: `Choose a commit to rebase ${GitReference.toString(context.destination, {
+							  })} 上没有提交`
+							: `选择要作为 ${GitReference.toString(context.destination, {
 									icon: false,
-							  })} onto`,
+							  })} 变基目标的提交`,
 					picked: state.reference?.ref,
 				});
 				if (result === StepResult.Break) continue;
@@ -225,13 +224,13 @@ export class RebaseGitCommand extends QuickCommand<State> {
 		const count = aheadBehind != null ? aheadBehind.ahead + aheadBehind.behind : 0;
 		if (count === 0) {
 			const step: QuickPickStep<DirectiveQuickPickItem> = this.createConfirmStep(
-				appendReposToTitle(`Confirm ${context.title}`, state, context),
+				appendReposToTitle(`确认${context.title}`, state, context),
 				[],
 				DirectiveQuickPickItem.create(Directive.Cancel, true, {
 					label: `取消${this.title}`,
 					detail: `${GitReference.toString(context.destination, {
 						capitalize: true,
-					})} 已与 ${GitReference.toString(state.reference)} 更新`,
+					})} 已与 ${GitReference.toString(state.reference)} 保持同步`,
 				}),
 			);
 			const selection: StepSelection<typeof step> = yield step;
@@ -240,21 +239,18 @@ export class RebaseGitCommand extends QuickCommand<State> {
 		}
 
 		const step: QuickPickStep<FlagsQuickPickItem<Flags>> = this.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				FlagsQuickPickItem.create<Flags>(state.flags, [], {
 					label: this.title,
-					detail: `将通过在 ${GitReference.toString(state.reference)} 之上应用 ${Strings.pluralize(
-						'commit',
-						count,
-					)} 来更新 ${GitReference.toString(context.destination)}`,
+					detail: `将通过在 ${GitReference.toString(state.reference)} 之上应用 ${count} 个提交 来更新 ${GitReference.toString(context.destination)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--interactive'], {
-					label: `互动${this.title}`,
+					label: `交互式${this.title}`,
 					description: '--interactive',
 					detail: `将通过在 ${GitReference.toString(
 						state.reference,
-					)} 之上应用 ${Strings.pluralize('commit', count)} 来交互式更新 ${GitReference.toString(
+					)} 之上应用 ${count} 个提交 来交互式更新 ${GitReference.toString(
 						context.destination,
 					)}`,
 				}),

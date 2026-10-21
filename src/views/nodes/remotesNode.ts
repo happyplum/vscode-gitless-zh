@@ -44,7 +44,7 @@ export class RemotesNode extends ViewNode<RemotesView | RepositoriesView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Remotes', TreeItemCollapsibleState.Collapsed);
+		const item = new TreeItem('远程仓库', TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.Remotes;
 		item.iconPath = new ThemeIcon('cloud');

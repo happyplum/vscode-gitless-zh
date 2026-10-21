@@ -66,7 +66,7 @@ export class TagsNode extends ViewNode<TagsView | RepositoriesView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Tags', TreeItemCollapsibleState.Collapsed);
+		const item = new TreeItem('标签', TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.Tags;
 		item.iconPath = new ThemeIcon('tag');

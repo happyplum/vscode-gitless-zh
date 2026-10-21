@@ -5,7 +5,6 @@ import { Commands, DiffWithCommandArgs, DiffWithPreviousCommandArgs } from '../.
 import { Container } from '../../container';
 import { GitFile, GitLogCommit, StatusFileFormatter } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
-import { Strings } from '../../system';
 import { ViewsWithCommits } from '../viewBase';
 import { FileRevisionAsCommitNode } from './fileRevisionAsCommitNode';
 import { FileNode } from './folderNode';
@@ -201,12 +200,12 @@ export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNo
 
 		if (this._hasUnstagedChanges) {
 			commits++;
-			changedIn.push('Working Tree');
+			changedIn.push('工作区');
 		}
 
 		if (this._hasStagedChanges) {
 			commits++;
-			changedIn.push('Index (staged)');
+			changedIn.push('暂存区');
 		}
 
 		if (this.commits.length > commits) {
@@ -214,13 +213,13 @@ export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNo
 		}
 
 		if (commits > 0) {
-			changedIn.push(Strings.pluralize('commit', commits));
+			changedIn.push(`${commits} 个提交`);
 		}
 
 		if (changedIn.length > 2) {
-			changedIn[changedIn.length - 1] = `and ${changedIn[changedIn.length - 1]}`;
+			changedIn[changedIn.length - 1] = `以及 ${changedIn[changedIn.length - 1]}`;
 		}
-		return changedIn.join(changedIn.length > 2 ? ', ' : ' and ');
+		return changedIn.join(changedIn.length > 2 ? '、' : '和');
 	}
 
 	override getCommand(): Command | undefined {

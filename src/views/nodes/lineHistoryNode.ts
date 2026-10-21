@@ -60,7 +60,7 @@ export class LineHistoryNode
 
 	async getChildren(): Promise<ViewNode[]> {
 		this.view.description = `${this.label}${
-			this.parent instanceof LineHistoryTrackerNode && !this.parent.followingEditor ? ' (pinned)' : ''
+			this.parent instanceof LineHistoryTrackerNode && !this.parent.followingEditor ? '（已固定）' : ''
 		}`;
 
 		const children: ViewNode[] = [];
@@ -238,7 +238,7 @@ export class LineHistoryNode
 		item.tooltip = `${this.uri.fileName}${this.lines} 的历史\n${this.uri.directory}/${this.uri.sha == null ? '' : `\n\n${this.uri.sha}`}`;
 
 		this.view.description = `${label}${
-			this.parent instanceof LineHistoryTrackerNode && !this.parent.followingEditor ? ' (pinned)' : ''
+			this.parent instanceof LineHistoryTrackerNode && !this.parent.followingEditor ? '（已固定）' : ''
 		}`;
 
 		return item;

@@ -44,7 +44,7 @@ export class DiffWithRevisionCommand extends ActiveEditorCommand {
 							: undefined),
 				);
 
-			const title = `Open Changes with Revision${Strings.pad(GlyphChars.Dot, 2, 2)}`;
+			const title = `打开与此修订版的差异${Strings.pad(GlyphChars.Dot, 2, 2)}`;
 			const pick = await CommitPicker.show(
 				log,
 				`${title}${gitUri.getFormattedFilename({

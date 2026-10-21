@@ -76,7 +76,7 @@ export class OpenCommitOnRemoteCommand extends ActiveEditorCommand {
 					: await Container.git.getBlameForLine(gitUri, blameline);
 				if (blame == null) {
 					void Messages.showFileNotUnderSourceControlWarningMessage(
-						'Unable to open commit on remote provider',
+						'无法在远程服务上打开提交',
 					);
 
 					return;

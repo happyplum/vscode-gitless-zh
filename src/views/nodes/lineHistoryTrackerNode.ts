@@ -60,7 +60,7 @@ export class LineHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 									: `(${this.uri.shortSha})`
 						  }`
 						: ''
-				}${!this.followingEditor ? ' (pinned)' : ''}`;
+				}${!this.followingEditor ? '（已固定）' : ''}`;
 				return [];
 			}
 
@@ -90,7 +90,7 @@ export class LineHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 	getTreeItem(): TreeItem {
 		this.splatted = false;
 
-		const item = new TreeItem('Line History', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('行历史', TreeItemCollapsibleState.Expanded);
 		item.contextValue = ContextValues.ActiveLineHistory;
 
 		void this.ensureSubscription();
@@ -111,8 +111,8 @@ export class LineHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 	async changeBase() {
 		const pick = await ReferencePicker.show(
 			this.uri.repoPath!,
-			'Change Line History Base',
-			'Choose a reference to set as the new base',
+			'更改行历史的基准',
+			'选择一个引用作为新的基准',
 			{
 				allowEnteringRefs: true,
 				picked: this._base,

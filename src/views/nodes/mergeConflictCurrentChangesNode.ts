@@ -27,7 +27,7 @@ export class MergeConflictCurrentChangesNode extends ViewNode<ViewsWithCommits |
 	async getTreeItem(): Promise<TreeItem> {
 		const commit = await Container.git.getCommit(this.status.repoPath, 'HEAD');
 
-		const item = new TreeItem('Current changes', TreeItemCollapsibleState.None);
+		const item = new TreeItem('当前更改', TreeItemCollapsibleState.None);
 		item.contextValue = ContextValues.MergeConflictCurrentChanges;
 		item.description = `${GitReference.toString(this.status.current, { expand: false, icon: false })}${
 			commit != null ? ` (${GitReference.toString(commit, { expand: false, icon: false })})` : ' (HEAD)'

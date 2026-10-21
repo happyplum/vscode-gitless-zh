@@ -5,7 +5,7 @@ import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
 import { GitContributor, GitLog } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
-import { debug, gate, Iterables, Strings } from '../../system';
+import { debug, gate, Iterables } from '../../system';
 import { ContactPresence } from '../../vsls/vsls';
 import { ContributorsView } from '../contributorsView';
 import { RepositoriesView } from '../repositoriesView';
@@ -68,7 +68,7 @@ export class ContributorNode extends ViewNode<ContributorsView | RepositoriesVie
 		const presence = this._options?.presence?.get(this.contributor.email);
 
 		const item = new TreeItem(
-			this.contributor.current ? `${this.contributor.name} (you)` : this.contributor.name,
+			this.contributor.current ? `${this.contributor.name}（你）` : this.contributor.name,
 			TreeItemCollapsibleState.Collapsed,
 		);
 		item.id = this.id;
@@ -91,9 +91,7 @@ export class ContributorNode extends ViewNode<ContributorsView | RepositoriesVie
 			});
 
 			if (presence != null) {
-				const title = `${this.contributor.count ? 'You are' : `${this.contributor.name} is`} ${
-					presence.status === 'dnd' ? 'in ' : ''
-				}${presence.statusText.toLocaleLowerCase()}`;
+				const title = `${this.contributor.count ? '你' : this.contributor.name}当前状态：${presence.statusText}`;
 
 				avatarMarkdown = `![${title}](${avatarUri.toString(
 					true,
@@ -111,21 +109,11 @@ export class ContributorNode extends ViewNode<ContributorsView | RepositoriesVie
 
 		const stats =
 			this.contributor.stats != null
-				? `\\\n${Strings.pluralize('file', this.contributor.stats.files, {
-						format: numberFormatter.format,
-				  })} changed, ${Strings.pluralize('addition', this.contributor.stats.additions, {
-						format: numberFormatter.format,
-				  })}, ${Strings.pluralize('deletion', this.contributor.stats.deletions, {
-						format: numberFormatter.format,
-				  })}`
+				? `\\\n${numberFormatter.format(this.contributor.stats.files)} 个文件已更改，新增 ${numberFormatter.format(this.contributor.stats.additions)} 行，删除 ${numberFormatter.format(this.contributor.stats.deletions)} 行`
 				: '';
 
 		item.tooltip = new MarkdownString(
-			`${avatarMarkdown != null ? avatarMarkdown : ''} &nbsp;__[${this.contributor.name}](mailto:${this.contributor.email} "电子邮件 ${this.contributor.name} (${this.contributor.email})")__ \\\n最后提交 ${this.contributor.formatDateFromNow()} (${this.contributor.formatDate()})\n\n${Strings.pluralize(
-				'commit',
-				this.contributor.count,
-				{ format: numberFormatter.format },
-			)}${stats}`,
+			`${avatarMarkdown != null ? avatarMarkdown : ''} &nbsp;__[${this.contributor.name}](mailto:${this.contributor.email} "电子邮件 ${this.contributor.name} (${this.contributor.email})")__ \\\n最后提交 ${this.contributor.formatDateFromNow()} (${this.contributor.formatDate()})\n\n${numberFormatter.format(this.contributor.count)} 个提交${stats}`,
 		);
 
 		item.iconPath = avatarUri;

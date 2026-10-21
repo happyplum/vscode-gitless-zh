@@ -40,7 +40,7 @@ export class OpenFileAtRevisionFromCommand extends ActiveEditorCommand {
 		}
 
 		if (args.reference == null) {
-			const title = `Open File at Branch or Tag${Strings.pad(GlyphChars.Dot, 2, 2)}`;
+			const title = `打开分支或标签中的文件${Strings.pad(GlyphChars.Dot, 2, 2)}`;
 			const pick = await ReferencePicker.show(
 				gitUri.repoPath,
 				`${title}${gitUri.getFormattedFilename({ truncateTo: quickPickTitleMaxChars - title.length })}`,

@@ -92,18 +92,18 @@ export class OpenFileAtRevisionCommand extends ActiveEditorCommand {
 								: undefined),
 					);
 
-				const title = `Open ${
-					args.annotationType === FileAnnotationType.Blame ? 'Blame' : 'File'
-				} at Revision${Strings.pad(GlyphChars.Dot, 2, 2)}`;
+				const title = `在修订版中打开${
+					args.annotationType === FileAnnotationType.Blame ? '逐行追溯' : '文件'
+				}${Strings.pad(GlyphChars.Dot, 2, 2)}`;
 				const pick = await CommitPicker.show(
 					log,
 					`${title}${gitUri.getFormattedFilename({
 						suffix: gitUri.sha ? `:${GitRevision.shorten(gitUri.sha)}` : undefined,
 						truncateTo: quickPickTitleMaxChars - title.length,
 					})}`,
-					`Choose a commit to ${
-						args.annotationType === FileAnnotationType.Blame ? 'blame' : 'open'
-					} the file revision from`,
+					`选择一个提交以${
+						args.annotationType === FileAnnotationType.Blame ? '逐行追溯' : '打开'
+					}该文件的修订版`,
 					{
 						picked: gitUri.sha,
 						keys: ['right', 'alt+right', 'ctrl+right'],

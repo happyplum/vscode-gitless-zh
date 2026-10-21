@@ -577,7 +577,7 @@ export async function* pickBranchOrTagStep<
 		title: appendReposToTitle(`${context.title}${titleContext ?? ''}`, state, context),
 		placeholder:
 			branchesAndOrTags.length === 0
-				? `在${state.repo.formattedName}中找不到分支${context.showTags ? ' or tags' : ''}`
+				? `在${state.repo.formattedName}中找不到分支${context.showTags ? '或标签' : ''}`
 				: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(
 						3,
 				  )}（或使用#输入参考号）`,
@@ -612,7 +612,7 @@ export async function* pickBranchOrTagStep<
 					const branchesAndOrTags = await getBranchesAndOrTagsFn();
 					quickpick.placeholder =
 						branchesAndOrTags.length === 0
-							? `${state.repo.formattedName}没有分支${context.showTags ? ' or tags' : ''}`
+							? `${state.repo.formattedName}没有分支${context.showTags ? '或标签' : ''}`
 							: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(3)}（或使用#输入参考号）`;
 					quickpick.items = branchesAndOrTags;
 				} finally {
@@ -679,7 +679,7 @@ export async function* pickBranchOrTagStepMultiRepo<
 		title: appendReposToTitle(`${context.title}${titleContext ?? ''}`, state, context),
 		placeholder:
 			branchesAndOrTags.length === 0
-				? `在${state.repos[0].formattedName}中找不到分支${context.showTags ? ' or tags' : ''}`
+				? `在${state.repos[0].formattedName}中找不到分支${context.showTags ? '或标签' : ''}`
 				: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(
 						3,
 				  )}（或使用#输入参考号）`,
@@ -714,7 +714,7 @@ export async function* pickBranchOrTagStepMultiRepo<
 					const branchesAndOrTags = await getBranchesAndOrTagsFn();
 					quickpick.placeholder =
 						branchesAndOrTags.length === 0
-							? `${state.repos[0].formattedName}没有分支${context.showTags ? ' or tags' : ''}`
+							? `${state.repos[0].formattedName}没有分支${context.showTags ? '或标签' : ''}`
 							: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(3)}（或使用#输入参考号）`;
 					quickpick.items = branchesAndOrTags;
 				} finally {
@@ -1366,7 +1366,7 @@ async function getShowCommitOrStashStepItems<
 		items.push(new RevealInSideBarQuickPickItem(state.reference));
 
 		items.push(
-			new GitCommandQuickPickItem('Apply Stash...', {
+			new GitCommandQuickPickItem('应用储藏…', {
 				command: 'stash',
 				state: {
 					subcommand: 'apply',
@@ -1375,7 +1375,7 @@ async function getShowCommitOrStashStepItems<
 				},
 			}),
 
-			new GitCommandQuickPickItem('Delete Stash...', {
+			new GitCommandQuickPickItem('删除储藏…', {
 				command: 'stash',
 				state: {
 					subcommand: 'drop',
@@ -1397,14 +1397,14 @@ async function getShowCommitOrStashStepItems<
 			(await Container.git.branchContainsCommit(state.repo.path, branch.name, state.reference.ref))
 		) {
 			items.push(
-				new GitCommandQuickPickItem('Revert Commit...', {
+				new GitCommandQuickPickItem('撤销提交…', {
 					command: 'revert',
 					state: {
 						repo: state.repo,
 						references: [state.reference],
 					},
 				}),
-				new GitCommandQuickPickItem('Reset Commit...', {
+				new GitCommandQuickPickItem('重置提交…', {
 					command: 'reset',
 					state: {
 						repo: state.repo,
@@ -1415,14 +1415,14 @@ async function getShowCommitOrStashStepItems<
 						}),
 					},
 				}),
-				new GitCommandQuickPickItem(`Reset ${branch?.name ?? 'Current Branch'} to Commit...`, {
+				new GitCommandQuickPickItem(`将${branch?.name ?? '当前分支'}重置到此提交…`, {
 					command: 'reset',
 					state: {
 						repo: state.repo,
 						reference: state.reference,
 					},
 				}),
-				new GitCommandQuickPickItem('Push to Commit...', {
+				new GitCommandQuickPickItem('推送到此提交…', {
 					command: 'push',
 					state: {
 						repos: state.repo,
@@ -1432,7 +1432,7 @@ async function getShowCommitOrStashStepItems<
 			);
 		} else {
 			items.push(
-				new GitCommandQuickPickItem('Cherry Pick Commit...', {
+				new GitCommandQuickPickItem('拣选提交…', {
 					command: 'cherry-pick',
 					state: {
 						repo: state.repo,
@@ -1443,21 +1443,21 @@ async function getShowCommitOrStashStepItems<
 		}
 
 		items.push(
-			new GitCommandQuickPickItem(`Rebase ${branch?.name ?? 'Current Branch'} onto Commit...`, {
+			new GitCommandQuickPickItem(`将${branch?.name ?? '当前分支'}变基到此提交…`, {
 				command: 'rebase',
 				state: {
 					repo: state.repo,
 					reference: state.reference,
 				},
 			}),
-			new GitCommandQuickPickItem('Switch to Commit...', {
+			new GitCommandQuickPickItem('切换到此提交…', {
 				command: 'switch',
 				state: {
 					repos: [state.repo],
 					reference: state.reference,
 				},
 			}),
-			new GitCommandQuickPickItem('Create Branch at Commit...', {
+			new GitCommandQuickPickItem('在此提交创建分支…', {
 				command: 'branch',
 				state: {
 					subcommand: 'create',
@@ -1465,7 +1465,7 @@ async function getShowCommitOrStashStepItems<
 					reference: state.reference,
 				},
 			}),
-			new GitCommandQuickPickItem('Create Tag at Commit...', {
+			new GitCommandQuickPickItem('在此提交创建标签…', {
 				command: 'tag',
 				state: {
 					subcommand: 'create',
@@ -1806,13 +1806,13 @@ function getShowRepositoryStatusStepItems<
 
 	let workingTreeStatus;
 	if (computed.staged === 0 && computed.unstaged === 0) {
-		workingTreeStatus = 'No working tree changes';
+		workingTreeStatus = '工作区没有更改';
 	} else {
 		workingTreeStatus = `$(files) ${
-			computed.staged ? `${Strings.pluralize('staged file', computed.staged)} (${computed.stagedStatus})` : ''
+			computed.staged ? `${computed.staged} 个已暂存文件 (${computed.stagedStatus})` : ''
 		}${
 			computed.unstaged
-				? `${computed.staged ? ', ' : ''}${Strings.pluralize('unstaged file', computed.unstaged)} (${
+				? `${computed.staged ? '，' : ''}${computed.unstaged} 个未暂存文件 (${
 						computed.unstagedStatus
 				  })`
 				: ''
@@ -1853,7 +1853,7 @@ function getShowRepositoryStatusStepItems<
 		if (context.status.state.behind !== 0) {
 			items.push(
 				new GitCommandQuickPickItem(
-					`$(cloud-download) ${Strings.pluralize('commit', context.status.state.behind)} behind`,
+					`$(cloud-download) 落后 ${context.status.state.behind} 个提交`,
 					{
 						command: 'log',
 						state: {
@@ -1871,7 +1871,7 @@ function getShowRepositoryStatusStepItems<
 		if (context.status.state.ahead !== 0) {
 			items.push(
 				new GitCommandQuickPickItem(
-					`$(cloud-upload) ${Strings.pluralize('commit', context.status.state.ahead)} ahead`,
+					`$(cloud-upload) 领先 ${context.status.state.ahead} 个提交`,
 					{
 						command: 'log',
 						state: {
@@ -1905,7 +1905,7 @@ function getShowRepositoryStatusStepItems<
 	if (computed.staged > 0) {
 		items.push(
 			new OpenChangedFilesCommandQuickPickItem(computed.stagedAddsAndChanges, {
-				label: '$(files) Open Staged Files',
+				label: '$(files) 打开已暂存文件',
 			}),
 		);
 	}
@@ -1913,13 +1913,13 @@ function getShowRepositoryStatusStepItems<
 	if (computed.unstaged > 0) {
 		items.push(
 			new OpenChangedFilesCommandQuickPickItem(computed.unstagedAddsAndChanges, {
-				label: '$(files) Open Unstaged Files',
+				label: '$(files) 打开未暂存文件',
 			}),
 		);
 	}
 
 	if (context.status.files.length) {
-		items.push(new CommandQuickPickItem('$(x) Close Unchanged Files', Commands.CloseUnchangedFiles));
+		items.push(new CommandQuickPickItem('$(x) 关闭未更改的文件', Commands.CloseUnchangedFiles));
 	}
 
 	return items;

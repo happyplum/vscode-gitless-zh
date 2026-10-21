@@ -42,7 +42,7 @@ export class ComparePickerNode extends ViewNode<SearchAndCompareView> {
 		let item;
 		if (selectedRef == null) {
 			item = new TreeItem(
-				'Compare <branch, tag, or ref> with <branch, tag, or ref>',
+				'比较 <分支、标签或引用> 与 <分支、标签或引用>',
 				TreeItemCollapsibleState.None,
 			);
 			item.contextValue = ContextValues.ComparePicker;
@@ -54,7 +54,7 @@ export class ComparePickerNode extends ViewNode<SearchAndCompareView> {
 			};
 		} else {
 			item = new TreeItem(
-				`Compare ${selectedRef.label} with <branch, tag, or ref>`,
+				`比较 ${selectedRef.label} 与 <分支、标签或引用>`,
 				TreeItemCollapsibleState.None,
 			);
 			item.contextValue = ContextValues.ComparePickerWithRef;

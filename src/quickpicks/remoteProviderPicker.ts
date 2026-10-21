@@ -157,7 +157,7 @@ export namespace RemoteProviderPicker {
 		let items: (ConfigureCustomRemoteProviderCommandQuickPickItem | CopyOrOpenRemoteCommandQuickPickItem)[];
 		if (remotes.length === 0) {
 			items = [new ConfigureCustomRemoteProviderCommandQuickPickItem()];
-			placeHolder = 'No auto-detected or configured remote providers found';
+			placeHolder = '未找到自动检测或已配置的远程平台';
 		} else {
 			if (autoPick === 'default' && remotes.length > 1) {
 				// If there is a default just execute it directly

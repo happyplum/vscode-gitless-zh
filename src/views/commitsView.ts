@@ -155,11 +155,11 @@ export class CommitsViewNode extends ViewNode<CommitsView> {
 
 				const status = branch.getTrackingStatus();
 				this.view.description = `${status ? `${status} ${GlyphChars.Dot} ` : ''}${branch.name}${
-					branch.rebasing ? ' (Rebasing)' : ''
-				}${lastFetched ? ` ${GlyphChars.Dot} Last fetched ${Repository.formatLastFetched(lastFetched)}` : ''}${
+					branch.rebasing ? '（变基中）' : ''
+				}${lastFetched ? ` ${GlyphChars.Dot} 上次获取 ${Repository.formatLastFetched(lastFetched)}` : ''}${
 					child.repo.supportsChangeEvents
 						? ''
-						: `${Strings.pad(GlyphChars.Warning, 3, 2)}Auto-refresh unavailable`
+						: `${Strings.pad(GlyphChars.Warning, 3, 2)}自动刷新不可用`
 				}`;
 			} else {
 				this.view.description = child.repo.supportsChangeEvents
@@ -174,7 +174,7 @@ export class CommitsViewNode extends ViewNode<CommitsView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Commits', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('提交', TreeItemCollapsibleState.Expanded);
 		return item;
 	}
 
@@ -206,7 +206,7 @@ export class CommitsView extends ViewBase<CommitsViewNode, CommitsViewConfig> {
 	protected readonly configKey = 'commits';
 
 	constructor() {
-		super('gitlens.views.commits', 'Commits');
+		super('gitlens.views.commits', '提交');
 	}
 
 	private readonly _state: CommitsViewState = {};

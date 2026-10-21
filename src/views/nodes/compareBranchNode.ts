@@ -141,18 +141,18 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 		let label;
 		let tooltip;
 		if (this._compareWith == null) {
-			label = `Compare ${
-				this.compareWithWorkingTree ? 'Working Tree' : this.branch.name
-			} with <branch, tag, or ref>`;
+			label = `比较${
+				this.compareWithWorkingTree ? '工作树' : this.branch.name
+			}与 <分支、标签或引用>`;
 			state = TreeItemCollapsibleState.None;
-			tooltip = `Click to compare ${
-				this.compareWithWorkingTree ? 'Working Tree' : this.branch.name
-			} with a branch, tag, or ref`;
+			tooltip = `点击以比较${
+				this.compareWithWorkingTree ? '工作树' : this.branch.name
+			}与分支、标签或引用`;
 		} else {
-			label = `Compare ${
-				this.compareWithWorkingTree ? 'Working Tree' : this.branch.name
-			} with ${GitRevision.shorten(this._compareWith.ref, {
-				strings: { working: 'Working Tree' },
+			label = `比较${
+				this.compareWithWorkingTree ? '工作树' : this.branch.name
+			}与${GitRevision.shorten(this._compareWith.ref, {
+				strings: { working: '工作树' },
 			})}`;
 			state = TreeItemCollapsibleState.Collapsed;
 		}
@@ -165,7 +165,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 
 		if (this._compareWith == null) {
 			item.command = {
-				title: `比较${this.branch.name}${this.compareWithWorkingTree ? ' (working)' : ''}与${GlyphChars.Ellipsis}`,
+				title: `比较${this.branch.name}${this.compareWithWorkingTree ? '（工作树）' : ''}与${GlyphChars.Ellipsis}`,
 				command: 'gitlens.views.editNode',
 				arguments: [this],
 			};
@@ -223,8 +223,8 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 	private async compareWith() {
 		const pick = await ReferencePicker.show(
 			this.branch.repoPath,
-			`Compare ${this.branch.name}${this.compareWithWorkingTree ? ' (working)' : ''} with`,
-			'Choose a reference to compare with',
+			`比较${this.branch.name}${this.compareWithWorkingTree ? '（工作树）' : ''}与`,
+			'选择一个引用进行比较',
 			{
 				allowEnteringRefs: true,
 				picked: this.branch.ref,

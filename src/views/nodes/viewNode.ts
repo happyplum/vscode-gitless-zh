@@ -388,7 +388,7 @@ export abstract class RepositoryFolderNode<
 				status ? `${status}${Strings.pad(GlyphChars.Dot, 1, 1)}` : ''
 			}${branch.name}${
 				lastFetched
-					? `${Strings.pad(GlyphChars.Dot, 1, 1)}Last fetched ${Repository.formatLastFetched(lastFetched)}`
+					? `${Strings.pad(GlyphChars.Dot, 1, 1)}上次获取 ${Repository.formatLastFetched(lastFetched)}`
 					: ''
 			}`;
 
@@ -403,27 +403,27 @@ export abstract class RepositoryFolderNode<
 
 			item.tooltip = new MarkdownString(
 				`${this.repo.formattedName ?? this.uri.repoPath ?? ''}${lastFetched
-						? `${Strings.pad(GlyphChars.Dash, 2, 2)}Last fetched ${Repository.formatLastFetched(
+						? `${Strings.pad(GlyphChars.Dash, 2, 2)}上次获取 ${Repository.formatLastFetched(
 								lastFetched,
 								false,
 						  )}`
 						: ''}${this.repo.formattedName ? `\n${this.uri.repoPath}` : ''}\n\n当前分支 $(git-branch) ${branch.name}${branch.upstream != null
-						? ` is ${branch.getTrackingStatus({
+						? `：${branch.getTrackingStatus({
 								empty: branch.upstream.missing
-									? `missing upstream $(git-branch) ${branch.upstream.name}`
-									: `up to date with $(git-branch) ${branch.upstream.name}${
-											providerName ? ` on ${providerName}` : ''
-									  }`,
+									? `上游分支已丢失 $(git-branch) ${branch.upstream.name}`
+									: `已与 $(git-branch) ${branch.upstream.name}${
+											providerName ? `（${providerName}）` : ''
+									  }同步`,
 								expand: true,
 								icons: true,
 								separator: ', ',
-								suffix: ` $(git-branch) ${branch.upstream.name}${
-									providerName ? ` on ${providerName}` : ''
+								suffix: `，相对于 $(git-branch) ${branch.upstream.name}${
+									providerName ? `（${providerName}）` : ''
 								}`,
 						  })}`
-						: `hasn't been published to ${providerName ?? 'a remote'}`}${this.repo.supportsChangeEvents
+						: `尚未发布到${providerName ?? '远程仓库'}`}${this.repo.supportsChangeEvents
 						? ''
-						: `\n\n${GlyphChars.Warning} Unable to automatically detect repository changes`}`,
+						: `\n\n${GlyphChars.Warning} 无法自动检测仓库更改`}`,
 				true,
 			);
 		} else {
@@ -433,7 +433,7 @@ export abstract class RepositoryFolderNode<
 			}${
 				this.repo.supportsChangeEvents
 					? ''
-					: `\n\n${GlyphChars.Warning} Unable to automatically detect repository changes`
+					: `\n\n${GlyphChars.Warning} 无法自动检测仓库更改`
 			}`;
 		}
 

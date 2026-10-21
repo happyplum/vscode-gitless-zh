@@ -12,7 +12,7 @@ export class LineHistoryView extends ViewBase<LineHistoryTrackerNode, LineHistor
 	protected readonly configKey = 'lineHistory';
 
 	constructor() {
-		super('gitlens.views.lineHistory', 'Line History');
+		super('gitlens.views.lineHistory', '行历史');
 
 		void setContext(ContextKeys.ViewsLineHistoryEditorFollowing, true);
 	}

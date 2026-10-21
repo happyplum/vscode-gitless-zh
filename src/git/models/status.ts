@@ -2,7 +2,7 @@
 import { Uri } from 'vscode';
 import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
-import { memoize, Strings } from '../../system';
+import { memoize } from '../../system';
 import { GitUri } from '../gitUri';
 import { GitBranch, GitTrackingState } from './branch';
 import { GitFile, GitFileConflictStatus, GitFileIndexStatus, GitFileStatus, GitFileWorkingTreeStatus } from './file';
@@ -201,13 +201,13 @@ export class GitStatus {
 		if (expand) {
 			let status = '';
 			if (added) {
-				status += `${Strings.pluralize('file', added)} added`;
+				status += `新增 ${added} 个文件`;
 			}
 			if (changed) {
-				status += `${status.length === 0 ? '' : separator}${Strings.pluralize('file', changed)} changed`;
+				status += `${status.length === 0 ? '' : separator}修改 ${changed} 个文件`;
 			}
 			if (deleted) {
-				status += `${status.length === 0 ? '' : separator}${Strings.pluralize('file', deleted)} deleted`;
+				status += `${status.length === 0 ? '' : separator}删除 ${deleted} 个文件`;
 			}
 			return `${prefix}${status}${suffix}`;
 		}
@@ -275,20 +275,13 @@ export class GitStatus {
 		if (expand) {
 			let status = '';
 			if (upstream.missing) {
-				status = 'missing';
+				status = '已丢失';
 			} else {
 				if (state.behind) {
-					status += `${Strings.pluralize('commit', state.behind, {
-						infix: icons ? '$(arrow-down) ' : undefined,
-					})} behind`;
+					status += `落后 ${icons ? '$(arrow-down) ' : ''}${state.behind} 个提交`;
 				}
 				if (state.ahead) {
-					status += `${status.length === 0 ? '' : separator}${Strings.pluralize('commit', state.ahead, {
-						infix: icons ? '$(arrow-up) ' : undefined,
-					})} ahead`;
-					if (suffix.startsWith(` ${upstream.name.split('/')[0]}`)) {
-						status += ' of';
-					}
+					status += `${status.length === 0 ? '' : separator}领先 ${icons ? '$(arrow-up) ' : ''}${state.ahead} 个提交`;
 				}
 			}
 			return `${prefix}${status}${suffix}`;

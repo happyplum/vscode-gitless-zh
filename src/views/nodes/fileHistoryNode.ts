@@ -53,7 +53,7 @@ export class FileHistoryNode extends SubscribeableViewNode<FileHistoryView> impl
 
 	async getChildren(): Promise<ViewNode[]> {
 		this.view.description = `${this.label}${
-			this.parent instanceof FileHistoryTrackerNode && !this.parent.followingEditor ? ' (pinned)' : ''
+			this.parent instanceof FileHistoryTrackerNode && !this.parent.followingEditor ? '（已固定）' : ''
 		}`;
 
 		const children: ViewNode[] = [];
@@ -142,7 +142,7 @@ export class FileHistoryNode extends SubscribeableViewNode<FileHistoryView> impl
 		item.tooltip = `${this.uri.fileName}的历史\n${this.uri.directory}/${this.uri.sha == null ? '' : `\n\n${this.uri.sha}`}`;
 
 		this.view.description = `${label}${
-			this.parent instanceof FileHistoryTrackerNode && !this.parent.followingEditor ? ' (pinned)' : ''
+			this.parent instanceof FileHistoryTrackerNode && !this.parent.followingEditor ? '（已固定）' : ''
 		}`;
 
 		return item;

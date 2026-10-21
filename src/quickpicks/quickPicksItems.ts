@@ -43,16 +43,16 @@ export namespace DirectiveQuickPickItem {
 		if (label == null) {
 			switch (directive) {
 				case Directive.Back:
-					label = 'Back';
+					label = '返回';
 					break;
 				case Directive.Cancel:
-					label = 'Cancel';
+					label = '取消';
 					break;
 				case Directive.LoadMore:
-					label = 'Load more';
+					label = '加载更多';
 					break;
 				case Directive.Noop:
-					label = 'Try again';
+					label = '重试';
 					break;
 			}
 		}
@@ -191,7 +191,7 @@ export class RevealInSideBarQuickPickItem extends CommandQuickPickItem {
 	constructor(
 		private readonly reference: GitRevisionReference,
 		item: QuickPickItem = {
-			label: `$(eye) 在侧栏中显示 ${GitReference.isStash(reference) ? 'Stash' : 'Commit'}`,
+			label: `$(eye) 在侧栏中显示${GitReference.isStash(reference) ? '储藏' : '提交'}`,
 			description: GitReference.isStash(reference) ? '' : '可能需要一段时间',
 		},
 	) {
@@ -219,7 +219,7 @@ export class SearchForCommitQuickPickItem extends CommandQuickPickItem {
 	constructor(
 		private readonly reference: GitRevisionReference,
 		item: QuickPickItem = {
-			label: '$(search) Search for Commit in Side Bar',
+			label: '$(search) 在侧边栏中搜索提交',
 		},
 	) {
 		super(item, undefined, undefined);

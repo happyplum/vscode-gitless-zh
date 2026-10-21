@@ -90,7 +90,7 @@ export class StashesViewNode extends ViewNode<StashesView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Stashes', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('储藏', TreeItemCollapsibleState.Expanded);
 		return item;
 	}
 
@@ -118,7 +118,7 @@ export class StashesView extends ViewBase<StashesViewNode, StashesViewConfig> {
 	protected readonly configKey = 'stashes';
 
 	constructor() {
-		super('gitlens.views.stashes', 'Stashes');
+		super('gitlens.views.stashes', '储藏');
 	}
 
 	getRoot() {

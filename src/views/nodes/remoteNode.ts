@@ -126,7 +126,7 @@ export class RemoteNode extends ViewNode<RemotesView | RepositoriesView> {
 
 				item.contextValue = `${ContextValues.Remote}${connected ? '+connected' : '+disconnected'}`;
 				item.tooltip = `${this.remote.name} (${provider.name} ${GlyphChars.Dash} ${
-					connected ? 'connected' : 'not connected'
+					connected ? '已连接' : '未连接'
 				})\n${provider.displayPath}\n`;
 			} else {
 				item.contextValue = ContextValues.Remote;

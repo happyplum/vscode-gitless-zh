@@ -52,16 +52,16 @@ export namespace BranchQuickPickItem {
 		let description = '';
 		if (options.type === true) {
 			if (options.current === true && branch.current) {
-				description = 'current branch';
+				description = '当前分支';
 			} else {
 				description = 'branch';
 			}
 		} else if (options.type === 'remote') {
 			if (branch.remote) {
-				description = 'remote branch';
+				description = '远程分支';
 			}
 		} else if (options.current === true && branch.current) {
-			description = 'current branch';
+			description = '当前分支';
 		}
 
 		if (options.status && !branch.remote && branch.upstream != null) {

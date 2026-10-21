@@ -38,7 +38,7 @@ export class DiffWithRevisionFromCommand extends ActiveEditorCommand {
 			args.line = editor?.selection.active.line ?? 0;
 		}
 
-		const title = `Open Changes with Branch or Tag${Strings.pad(GlyphChars.Dot, 2, 2)}`;
+		const title = `打开与分支或标签的差异${Strings.pad(GlyphChars.Dot, 2, 2)}`;
 		const pick = await ReferencePicker.show(
 			gitUri.repoPath,
 			`${title}${gitUri.getFormattedFilename({ truncateTo: quickPickTitleMaxChars - title.length })}`,

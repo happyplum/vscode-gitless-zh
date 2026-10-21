@@ -49,7 +49,13 @@ export class PullRequestNode extends ViewNode<ViewsWithPullRequests> {
 					: Colors.OpenPullRequestIconColor,
 			),
 		);
-		item.tooltip = `${this.pullRequest.title}\n${this.pullRequest.author.name} 的 #${this.pullRequest.id} 是 ${this.pullRequest.state === PullRequestState.Open ? 'opened' : this.pullRequest.state.toLowerCase()} ${this.pullRequest.formatDateFromNow()}`;
+		item.tooltip = `${this.pullRequest.title}\n${this.pullRequest.author.name} 的 #${this.pullRequest.id} ${
+			this.pullRequest.state === PullRequestState.Open
+				? '已打开'
+				: this.pullRequest.state === PullRequestState.Merged
+				? '已合并'
+				: '已关闭'
+		} ${this.pullRequest.formatDateFromNow()}`;
 
 		if (this.branchOrCommit instanceof GitCommit) {
 			item.tooltip = `提交 ${this.branchOrCommit.shortSha} 由 PR #${this.pullRequest.id} 引入\n${item.tooltip}`;

@@ -68,7 +68,7 @@ export class ContributorsNode extends ViewNode<ContributorsView | RepositoriesVi
 	getTreeItem(): TreeItem {
 		this.splatted = false;
 
-		const item = new TreeItem('Contributors', TreeItemCollapsibleState.Collapsed);
+		const item = new TreeItem('贡献者', TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.Contributors;
 		item.iconPath = new ThemeIcon('organization');

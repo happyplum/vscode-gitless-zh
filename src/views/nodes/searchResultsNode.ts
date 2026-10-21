@@ -240,8 +240,11 @@ export class SearchResultsNode extends ViewNode<SearchAndCompareView> implements
 
 		const count = log?.count ?? 0;
 
-		const resultsType =
-			label.resultsType === undefined ? { singular: 'result', plural: 'results' } : label.resultsType;
+		if (label.resultsType === undefined) {
+			return `${count}${log?.hasMore ? '+' : ''} 个结果 ${label.label}`;
+		}
+
+		const resultsType = label.resultsType;
 
 		return `${Strings.pluralize(resultsType.singular, count, {
 			format: c => (log?.hasMore ? `${c}+` : undefined),

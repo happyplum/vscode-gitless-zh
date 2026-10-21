@@ -300,7 +300,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 		context: Context,
 	): StepResultGenerator<CreateFlags[]> {
 		const step: QuickPickStep<FlagsQuickPickItem<CreateFlags>> = QuickCommand.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				FlagsQuickPickItem.create<CreateFlags>(state.flags, [], {
 					label: context.title,
@@ -412,7 +412,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 		}
 
 		const step: QuickPickStep<FlagsQuickPickItem<DeleteFlags>> = QuickCommand.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			confirmations,
 			context,
 		);
@@ -466,7 +466,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 		context: Context,
 	): StepResultGenerator<RenameFlags[]> {
 		const step: QuickPickStep<FlagsQuickPickItem<RenameFlags>> = QuickCommand.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				FlagsQuickPickItem.create<RenameFlags>(state.flags, ['-m'], {
 					label: context.title,

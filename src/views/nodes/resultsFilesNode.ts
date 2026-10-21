@@ -108,7 +108,7 @@ export class ResultsFilesNode extends ViewNode<ViewsWithCommits> {
 			files = (this.filtered ? results.filtered?.files : undefined) ?? results.files;
 
 			if (this.filtered && results.filtered == null) {
-				label = 'files changed';
+				label = '更改的文件';
 				icon = new ThemeIcon('ellipsis');
 			}
 
@@ -123,7 +123,7 @@ export class ResultsFilesNode extends ViewNode<ViewsWithCommits> {
 				ex.promise.then(() => setTimeout(() => this.triggerChange(false), 0));
 			}
 
-			label = 'files changed';
+			label = '更改的文件';
 			icon = new ThemeIcon('ellipsis');
 			// Need to use Collapsed before we have results or the item won't show up in the view until the children are awaited
 			// https://github.com/microsoft/vscode/issues/54806 & https://github.com/microsoft/vscode/issues/62214
@@ -131,7 +131,7 @@ export class ResultsFilesNode extends ViewNode<ViewsWithCommits> {
 		}
 
 		const item = new TreeItem(
-			`${this.filtered && files != null ? `Showing ${files.length} of ` : ''}${label}`,
+			`${this.filtered && files != null ? `显示 ${files.length} 个，共 ` : ''}${label}`,
 			state,
 		);
 		item.id = this.id;

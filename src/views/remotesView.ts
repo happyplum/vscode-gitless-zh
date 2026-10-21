@@ -109,7 +109,7 @@ export class RemotesViewNode extends ViewNode<RemotesView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Remotes', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('远程仓库', TreeItemCollapsibleState.Expanded);
 		return item;
 	}
 
@@ -137,7 +137,7 @@ export class RemotesView extends ViewBase<RemotesViewNode, RemotesViewConfig> {
 	protected readonly configKey = 'remotes';
 
 	constructor() {
-		super('gitlens.views.remotes', 'Remotes');
+		super('gitlens.views.remotes', '远程仓库');
 	}
 
 	getRoot() {

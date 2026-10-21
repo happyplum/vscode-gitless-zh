@@ -85,7 +85,7 @@ export class BranchesNode extends ViewNode<BranchesView | RepositoriesView> {
 	}
 
 	async getTreeItem(): Promise<TreeItem> {
-		const item = new TreeItem('Branches', TreeItemCollapsibleState.Collapsed);
+		const item = new TreeItem('分支', TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.Branches;
 		if (await this.repo.hasRemotes()) {

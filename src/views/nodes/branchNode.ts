@@ -114,7 +114,7 @@ export class BranchNode
 			this.branch.starred
 				? branchName
 				: this.branch.getBasename()
-		}${this.branch.rebasing ? ' (Rebasing)' : ''}`;
+		}${this.branch.rebasing ? '（变基中）' : ''}`;
 	}
 
 	get ref(): GitBranchReference {
@@ -274,8 +274,8 @@ export class BranchNode
 		this.splatted = false;
 
 		let tooltip: string | MarkdownString = `${
-			this.current ? 'Current branch' : 'Branch'
-		} $(git-branch) ${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? ' (Rebasing)' : ''}`;
+			this.current ? '当前分支' : '分支'
+		} $(git-branch) ${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? '（变基中）' : ''}`;
 
 		let contextValue: string = ContextValues.Branch;
 		if (this.current) {
@@ -333,7 +333,7 @@ export class BranchNode
 				description = this.options.showAsCommits
 					? `${this.branch.getTrackingStatus({
 							suffix: Strings.pad(GlyphChars.Dot, 1, 1),
-					  })}${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? ' (Rebasing)' : ''}${Strings.pad(
+					  })}${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? '（变基中）' : ''}${Strings.pad(
 							arrows,
 							2,
 							2,
@@ -342,17 +342,17 @@ export class BranchNode
 							GlyphChars.Space
 					  } ${this.branch.upstream.name}`;
 
-				tooltip += ` is ${this.branch.getTrackingStatus({
+				tooltip += `：${this.branch.getTrackingStatus({
 					empty: this.branch.upstream.missing
-						? `missing upstream $(git-branch) ${this.branch.upstream.name}`
-						: `up to date with $(git-branch)  ${this.branch.upstream.name}${
-								remote?.provider?.name ? ` on ${remote.provider.name}` : ''
-						  }`,
+						? `上游分支已丢失 $(git-branch) ${this.branch.upstream.name}`
+						: `已与 $(git-branch) ${this.branch.upstream.name}${
+								remote?.provider?.name ? `（${remote.provider.name}）` : ''
+						  }同步`,
 					expand: true,
 					icons: true,
 					separator: ', ',
-					suffix: ` $(git-branch) ${this.branch.upstream.name}${
-						remote?.provider?.name ? ` on ${remote.provider.name}` : ''
+					suffix: `，相对于 $(git-branch) ${this.branch.upstream.name}${
+						remote?.provider?.name ? `（${remote.provider.name}）` : ''
 					}`,
 				})}`;
 
@@ -374,7 +374,7 @@ export class BranchNode
 				);
 				const providerName = providers?.length ? providers[0].name : undefined;
 
-				tooltip += ` hasn't been published to ${providerName ?? 'a remote'}`;
+				tooltip += ` 尚未发布到${providerName ?? '远程仓库'}`;
 			}
 		}
 
@@ -383,14 +383,14 @@ export class BranchNode
 				this.branch.formattedDate
 			}`;
 
-			tooltip += `\n\nLast commit ${this.branch.formatDateFromNow()} (${this.branch.formatDate(
+			tooltip += `\n\n最近提交：${this.branch.formatDateFromNow()} (${this.branch.formatDate(
 				BranchDateFormatting.dateFormat,
 			)})`;
 		}
 
 		tooltip = new MarkdownString(tooltip, true);
 		if (this.branch.starred) {
-			tooltip.appendMarkdown('\\\n$(star-full) Favorited');
+			tooltip.appendMarkdown('\\\n$(star-full) 已收藏');
 		}
 
 		const item = new TreeItem(

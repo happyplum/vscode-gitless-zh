@@ -145,7 +145,7 @@ export class FetchGitCommand extends QuickCommand<State> {
 
 		if (state.repos.length === 1 && GitReference.isBranch(state.reference)) {
 			step = this.createConfirmStep(
-				appendReposToTitle(`Confirm ${context.title}`, state, context, lastFetchedOn),
+				appendReposToTitle(`确认${context.title}`, state, context, lastFetchedOn),
 				[
 					FlagsQuickPickItem.create<Flags>(state.flags, [], {
 						label: this.title,
@@ -160,7 +160,7 @@ export class FetchGitCommand extends QuickCommand<State> {
 					: `${state.repos.length} repositories`;
 
 			step = QuickCommand.createConfirmStep(
-				appendReposToTitle(`Confirm ${this.title}`, state, context, lastFetchedOn),
+				appendReposToTitle(`确认${this.title}`, state, context, lastFetchedOn),
 				[
 					FlagsQuickPickItem.create<Flags>(state.flags, [], {
 						label: this.title,

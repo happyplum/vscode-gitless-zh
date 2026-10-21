@@ -140,13 +140,13 @@ export class PullGitCommand extends QuickCommand<State> {
 		let step: QuickPickStep<FlagsQuickPickItem<Flags>>;
 
 		if (state.repos.length > 1) {
-			step = this.createConfirmStep(appendReposToTitle(`Confirm ${context.title}`, state, context), [
+			step = this.createConfirmStep(appendReposToTitle(`确认${context.title}`, state, context), [
 				FlagsQuickPickItem.create<Flags>(state.flags, [], {
 					label: this.title,
 					detail: `将拉取 ${state.repos.length} 仓库`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--rebase'], {
-					label: `${this.title} 与 Rebase`,
+					label: `${this.title}并变基`,
 					description: '--rebase',
 					detail: `将通过变基来拉取 ${state.repos.length} 仓库`,
 				}),
@@ -154,7 +154,7 @@ export class PullGitCommand extends QuickCommand<State> {
 		} else if (GitReference.isBranch(state.reference)) {
 			if (state.reference.remote) {
 				step = this.createConfirmStep(
-					appendReposToTitle(`Confirm ${context.title}`, state, context),
+					appendReposToTitle(`确认${context.title}`, state, context),
 					[],
 					DirectiveQuickPickItem.create(Directive.Cancel, true, {
 						label: `取消${this.title}`,
@@ -167,7 +167,7 @@ export class PullGitCommand extends QuickCommand<State> {
 
 				if (branch?.upstream == null) {
 					step = this.createConfirmStep(
-						appendReposToTitle(`Confirm ${context.title}`, state, context),
+						appendReposToTitle(`确认${context.title}`, state, context),
 						[],
 						DirectiveQuickPickItem.create(Directive.Cancel, true, {
 							label: `取消${this.title}`,
@@ -175,15 +175,12 @@ export class PullGitCommand extends QuickCommand<State> {
 						}),
 					);
 				} else {
-					step = this.createConfirmStep(appendReposToTitle(`Confirm ${context.title}`, state, context), [
+					step = this.createConfirmStep(appendReposToTitle(`确认${context.title}`, state, context), [
 						FlagsQuickPickItem.create<Flags>(state.flags, [], {
 							label: this.title,
-							detail: `将拉${branch.state.behind
-									? ` ${Strings.pluralize(
-											'commit',
-											branch.state.behind,
-									  )} into ${GitReference.toString(branch)}`
-									: ` into ${GitReference.toString(branch)}`}`,
+							detail: `将${branch.state.behind ? ` ${branch.state.behind} 个提交` : '更改'}拉取到 ${GitReference.toString(
+								branch,
+							)}`,
 						}),
 					]);
 				}
@@ -194,25 +191,25 @@ export class PullGitCommand extends QuickCommand<State> {
 
 			let lastFetchedOn = '';
 			if (lastFetched !== 0) {
-				lastFetchedOn = `${Strings.pad(GlyphChars.Dot, 2, 2)}Last fetched ${Dates.getFormatter(
+				lastFetchedOn = `${Strings.pad(GlyphChars.Dot, 2, 2)}上次获取：${Dates.getFormatter(
 					new Date(lastFetched),
 				).fromNow()}`;
 			}
 
 			const pullDetails =
 				status?.state.behind != null
-					? ` ${Strings.pluralize('commit', status.state.behind)} into $(repo) ${repo.formattedName}`
-					: ` into $(repo) ${repo.formattedName}`;
+					? ` ${status.state.behind} 个提交到 $(repo) ${repo.formattedName}`
+					: ` 到 $(repo) ${repo.formattedName}`;
 
 			step = this.createConfirmStep(
-				appendReposToTitle(`Confirm ${context.title}`, state, context, lastFetchedOn),
+				appendReposToTitle(`确认${context.title}`, state, context, lastFetchedOn),
 				[
 					FlagsQuickPickItem.create<Flags>(state.flags, [], {
 						label: this.title,
-						detail: `将拉${pullDetails}`,
+						detail: `将拉取${pullDetails}`,
 					}),
 					FlagsQuickPickItem.create<Flags>(state.flags, ['--rebase'], {
-						label: `${this.title} 与 Rebase`,
+						label: `${this.title}并变基`,
 						description: '--rebase',
 						detail: `将拉取并变基${pullDetails}`,
 					}),

@@ -46,7 +46,7 @@ export class RepositoriesNode extends SubscribeableViewNode<RepositoriesView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Repositories', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('仓库', TreeItemCollapsibleState.Expanded);
 		item.contextValue = ContextValues.Repositories;
 
 		return item;

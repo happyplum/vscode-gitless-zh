@@ -105,7 +105,7 @@ export class ContributorsViewNode extends ViewNode<ContributorsView> {
 	}
 
 	getTreeItem(): TreeItem {
-		const item = new TreeItem('Contributors', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('贡献者', TreeItemCollapsibleState.Expanded);
 		return item;
 	}
 
@@ -133,7 +133,7 @@ export class ContributorsView extends ViewBase<ContributorsViewNode, Contributor
 	protected readonly configKey = 'contributors';
 
 	constructor() {
-		super('gitlens.views.contributors', 'Contributors');
+		super('gitlens.views.contributors', '贡献者');
 	}
 
 	getRoot() {

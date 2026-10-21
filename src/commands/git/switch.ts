@@ -181,18 +181,16 @@ export class SwitchGitCommand extends QuickCommand<State> {
 
 	private *confirmStep(state: SwitchStepState, context: Context): StepResultGenerator<void> {
 		const step: QuickPickStep<QuickPickItem> = this.createConfirmStep(
-			appendReposToTitle(`Confirm ${context.title}`, state, context),
+			appendReposToTitle(`确认${context.title}`, state, context),
 			[
 				{
 					label: context.title,
 					description: state.createBranch ? '-b' : '',
-					detail: `将${state.createBranch
-							? `create and switch to a new branch named ${
-									state.createBranch
-							  } from ${GitReference.toString(state.reference)}`
-							: `switch to ${GitReference.toString(state.reference)}`}改成${state.repos.length === 1
+					detail: `${state.createBranch
+							? `从 ${GitReference.toString(state.reference)} 创建并切换到新分支 ${state.createBranch}`
+							: `切换到 ${GitReference.toString(state.reference)}`}，仓库：${state.repos.length === 1
 							? `$(repo) ${state.repos[0].formattedName}`
-							: `${state.repos.length} repositories`}`,
+							: `${state.repos.length} 个仓库`}`,
 				},
 			],
 			undefined,
