@@ -127,8 +127,8 @@ export class ResetGitCommand extends QuickCommand<State> {
 					onDidLoadMore: log => context.cache.set(ref, Promise.resolve(log)),
 					placeholder: (context, log) =>
 						log == null
-							? `${context.destination.name} has no commits`
-							: `Choose a commit to reset ${context.destination.name} to`,
+							? `${context.destination.name} 上没有提交`
+							: `选择要将 ${context.destination.name} 重置到的提交`,
 					picked: state.reference?.ref,
 				});
 				if (result === StepResult.Break) {

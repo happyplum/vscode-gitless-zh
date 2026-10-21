@@ -195,14 +195,14 @@
 					"gitlens.currentLine.enabled": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "指定默认情况下是否为当前行提供指责注释。使用 `Toggle Line Blame Annotations` 命令 (`gitlens.toggleLineBlame`) 打开和关闭当前窗口的注释",
+						"markdownDescription": "指定默认情况下是否为当前行提供逐行追溯注释。使用“切换当前行提交信息”命令 (`gitlens.toggleLineBlame`) 打开和关闭当前窗口的注释",
 						"scope": "window",
 						"order": 10
 					},
 					"gitlens.currentLine.pullRequests.enabled": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "指定是否提供有关在当前行指责注释中引入提交的拉取请求（如果有）的信息。需要连接到受支持的远程服务（例如 GitHub）",
+						"markdownDescription": "指定是否提供有关在当前行逐行追溯注释中引入提交的拉取请求（如果有）的信息。需要连接到受支持的远程服务（例如 GitHub）",
 						"scope": "window",
 						"order": 20
 					},
@@ -216,7 +216,7 @@
 					"gitlens.currentLine.scrollable": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "指定当前行指责注释在视口之外时是否可以滚动到视图中。 **注意**：将此设置为 `false` 将禁止悬停在注释上显示；将 `#gitlens.hovers.currentLine.over#` 设置为 `line` 以使悬停显示在线上的任何位置。",
+						"markdownDescription": "指定当前行逐行追溯注释在视口之外时是否可以滚动到视图中。 **注意**：将此设置为 `false` 将禁止悬停在注释上显示；将 `#gitlens.hovers.currentLine.over#` 设置为 `line` 以使悬停显示在线上的任何位置。",
 						"scope": "window",
 						"order": 40
 					},
@@ -275,7 +275,7 @@
 						],
 						"enumDescriptions": [
 							"禁用点击交互",
-							"切换文件责任",
+							"切换文件逐行追溯注释",
 							"切换文件热图",
 							"切换自提交之前以来的文件更改",
 							"切换提交中的文件更改",
@@ -328,7 +328,7 @@
 						],
 						"enumDescriptions": [
 							"禁用点击交互",
-							"切换文件责任",
+							"切换文件逐行追溯注释",
 							"切换文件热图",
 							"切换自提交之前以来的文件更改",
 							"切换提交中的文件更改",
@@ -482,7 +482,7 @@
 							"gitlens.copyRemoteFileUrl"
 						],
 						"enumDescriptions": [
-							"切换文件责任",
+							"切换文件逐行追溯注释",
 							"切换文件热图",
 							"切换自提交之前以来的文件更改",
 							"切换提交中的文件更改",
@@ -524,7 +524,7 @@
 							"null"
 						],
 						"default": null,
-						"markdownDescription": "指定如何格式化状态栏中的指责信息中的绝对日期（例如使用 `${date}` 格式标记）。请参阅 [Moment.js 文档](https://momentjs.com/docs/#/displaying/format/) 了解有效格式",
+						"markdownDescription": "指定如何格式化状态栏逐行追溯信息中的绝对日期（例如使用 `${date}` 格式标记）。请参阅 [Moment.js 文档](https://momentjs.com/docs/#/displaying/format/) 了解有效格式",
 						"scope": "window",
 						"order": 80
 					}
@@ -615,7 +615,7 @@
 					"gitlens.hovers.annotations.enabled": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "指定在显示指责注释时是否提供任何悬停",
+						"markdownDescription": "指定显示逐行追溯注释时是否提供悬停信息",
 						"scope": "window",
 						"order": 50
 					},
@@ -630,14 +630,14 @@
 							"仅当鼠标悬停在线条注释上时显示",
 							"将鼠标悬停在线上任意位置时显示"
 						],
-						"markdownDescription": "指定显示指责注释时何时触发悬停",
+						"markdownDescription": "指定显示逐行追溯注释时何时触发悬停信息",
 						"scope": "window",
 						"order": 51
 					},
 					"gitlens.hovers.annotations.details": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "指定在显示blame注释时是否为所有行提供_commit细节_悬停",
+						"markdownDescription": "指定显示逐行追溯注释时是否为所有行提供提交详情悬停提示",
 						"scope": "window",
 						"order": 52
 					},
@@ -673,7 +673,7 @@
 				}
 			},
 			{
-				"title": "浏览次数",
+				"title": "视图",
 				"order": 20,
 				"properties": {
 					"gitlens.views.defaultItemLimit": {
@@ -1366,7 +1366,7 @@
 				}
 			},
 			{
-				"title": "隐藏视图",
+				"title": "储藏视图",
 				"order": 27,
 				"properties": {
 					"gitlens.views.stashes.files.layout": {
@@ -1382,28 +1382,28 @@
 							"将文件显示为列表",
 							"将文件显示为树"
 						],
-						"markdownDescription": "指定 _Stashes_ 视图如何显示文件",
+						"markdownDescription": "指定 _储藏_ 视图如何显示文件",
 						"scope": "window",
 						"order": 10
 					},
 					"gitlens.views.stashes.files.threshold": {
 						"type": "number",
 						"default": 5,
-						"markdownDescription": "指定何时根据 _Stashes_ 视图中嵌套级别中的文件数量在将文件显示为 `tree` 或 `list` 之间进行切换。仅当 `#gitlens.views.stashes.files.layout#` 设置为 `auto` 时适用",
+						"markdownDescription": "指定何时根据 _储藏_ 视图中嵌套级别中的文件数量在将文件显示为 `tree` 或 `list` 之间进行切换。仅当 `#gitlens.views.stashes.files.layout#` 设置为 `auto` 时适用",
 						"scope": "window",
 						"order": 11
 					},
 					"gitlens.views.stashes.files.compact": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "指定是否压缩（展平）_Stashes_ 视图中不必要的嵌套文件。仅当 `#gitlens.views.stashes.files.layout#` 设置为 `tree` 或 `auto` 时适用",
+						"markdownDescription": "指定是否压缩（展平）_储藏_ 视图中不必要的嵌套文件。仅当 `#gitlens.views.stashes.files.layout#` 设置为 `tree` 或 `auto` 时适用",
 						"scope": "window",
 						"order": 12
 					},
 					"gitlens.views.stashes.reveal": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "指定是否在 _Stashes_ 视图中显示存储，否则它们在 _Repositories_ 视图中显示",
+						"markdownDescription": "指定是否在 _储藏_ 视图中显示储藏项，否则它们在 _仓库_ 视图中显示",
 						"scope": "window",
 						"order": 20
 					}
@@ -2270,10 +2270,10 @@
 							"committed"
 						],
 						"enumDescriptions": [
-							"使用更改的创作日期（即最初编写的日期）",
-							"使用提交更改的日期"
+							"使用作者日期（更改最初编写的日期）",
+							"使用提交者日期（提交更改的日期）"
 						],
-						"markdownDescription": "指定提交日期是否应使用创作日期或提交日期",
+						"markdownDescription": "指定使用作者日期（更改最初编写的日期）还是提交者日期（提交更改的日期）",
 						"scope": "window",
 						"order": 40
 					}
@@ -2866,7 +2866,7 @@
 					"gitlens.blame.ignoreWhitespace": {
 						"type": "boolean",
 						"default": false,
-						"markdownDescription": "指定在blame操作期间比较修订版本时是否忽略空格",
+						"markdownDescription": "指定逐行追溯操作期间比较修订版本时是否忽略空格",
 						"scope": "resource",
 						"order": 40
 					},
@@ -3154,7 +3154,7 @@
 			},
 			{
 				"id": "gitlens.trailingLineBackgroundColor",
-				"description": "指定当前行的blame注释的背景颜色",
+				"description": "指定当前行逐行追溯注释的背景颜色",
 				"defaults": {
 					"dark": "#00000000",
 					"light": "#00000000",
@@ -3163,7 +3163,7 @@
 			},
 			{
 				"id": "gitlens.trailingLineForegroundColor",
-				"description": "指定当前行的blame注释的前景色",
+				"description": "指定当前行逐行追溯注释的前景色",
 				"defaults": {
 					"dark": "#99999959",
 					"light": "#99999959",
@@ -9481,31 +9481,31 @@
 		"submenus": [
 			{
 				"id": "gitlens/commit/browse",
-				"label": "Browse"
+				"label": "浏览"
 			},
 			{
 				"id": "gitlens/commit/copy",
-				"label": "Copy As"
+				"label": "复制为"
 			},
 			{
 				"id": "gitlens/commit/changes",
-				"label": "Open Changes"
+				"label": "打开更改"
 			},
 			{
 				"id": "gitlens/commit/file/copy",
-				"label": "Copy As"
+				"label": "复制为"
 			},
 			{
 				"id": "gitlens/commit/file/commit",
-				"label": "Commit"
+				"label": "提交"
 			},
 			{
 				"id": "gitlens/commit/file/changes",
-				"label": "Open Changes"
+				"label": "打开更改"
 			},
 			{
 				"id": "gitlens/editor/annotations",
-				"label": "File Annotations",
+				"label": "文件注释",
 				"icon": {
 					"dark": "images/dark/icon-git.svg",
 					"light": "images/light/icon-git.svg"
@@ -9513,36 +9513,36 @@
 			},
 			{
 				"id": "gitlens/editor/context/changes",
-				"label": "Commit Changes"
+				"label": "提交更改"
 			},
 			{
 				"id": "gitlens/editor/changes",
-				"label": "Commit Changes"
+				"label": "提交更改"
 			},
 			{
 				"id": "gitlens/explorer/changes",
-				"label": "Commit Changes"
+				"label": "提交更改"
 			},
 			{
 				"id": "gitlens/scm/resourceGroup/changes",
-				"label": "Open Changes"
+				"label": "打开更改"
 			},
 			{
 				"id": "gitlens/scm/resourceState/changes",
-				"label": "Open Changes"
+				"label": "打开更改"
 			},
 			{
 				"id": "gitlens/view/repositories/sections",
-				"label": "Sections"
+				"label": "分区"
 			},
 			{
 				"id": "gitlens/view/searchAndCompare/new",
-				"label": "New Search or Compare",
+				"label": "新建搜索或比较",
 				"icon": "$(add)"
 			},
 			{
 				"id": "gitlens/view/searchAndCompare/comparison/filter",
-				"label": "Filter",
+				"label": "筛选",
 				"icon": "$(filter)"
 			}
 		],
@@ -9942,7 +9942,7 @@
 				},
 				{
 					"id": "gitlens.views.stashes",
-					"name": "藏匿处",
+					"name": "储藏",
 					"when": "!gitlens:disabled",
 					"contextualTitle": "GitLess",
 					"icon": "images/views/stashes.svg",

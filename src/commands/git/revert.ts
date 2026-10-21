@@ -133,7 +133,7 @@ export class RevertGitCommand extends QuickCommand<State> {
 						log: await log,
 						onDidLoadMore: log => context.cache.set(ref, Promise.resolve(log)),
 						placeholder: (context, log) =>
-							log == null ? `${context.destination.name} has no commits` : 'Choose commits to revert',
+							log == null ? `${context.destination.name} 上没有提交` : '选择要还原的提交',
 						picked: state.references?.map(r => r.ref),
 					},
 				);
