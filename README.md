@@ -1,3 +1,23 @@
+# GitLess 简体中文版
+
+本仓库基于 [maattdd/vscode-gitlens](https://github.com/maattdd/vscode-gitlens) 的 GitLess 代码改进，原项目源自 [GitLens](https://github.com/gitkraken/vscode-gitlens)。保留原有 MIT 许可证和版权声明。
+
+此版本为侧边栏、菜单和操作提示提供简体中文文案；提交后自动刷新分支状态，并让 Git 操作使用独立终端，避免占用运行开发服务的终端。当前源码版本为 11.7.3，尚未发布到 VS Code 扩展市场。
+
+克隆和构建：
+
+```powershell
+git clone https://github.com/happyplum/vscode-gitless-zh.git
+cd vscode-gitless-zh
+corepack yarn install --frozen-lockfile
+corepack yarn bundle
+corepack yarn vsce package --yarn
+```
+
+以下为原版 GitLens 项目文档，供了解原始功能；其中的徽章、截图和下载链接指向上游项目。
+
+---
+
 [![](https://vsmarketplacebadge.apphb.com/version-short/eamodio.gitlens.svg)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 [![](https://vsmarketplacebadge.apphb.com/downloads-short/eamodio.gitlens.svg)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 [![](https://vsmarketplacebadge.apphb.com/rating-short/eamodio.gitlens.svg)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)

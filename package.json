@@ -6,11 +6,11 @@
 	"publisher": "maattdd",
 	"license": "SEE LICENSE IN LICENSE",
 	"bugs": {
-		"url": "https://github.com/maattdd/vscode-gitlens/issues"
+		"url": "https://github.com/happyplum/vscode-gitless-zh/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/maattdd/vscode-gitlens.git"
+		"url": "https://github.com/happyplum/vscode-gitless-zh.git"
 	},
 	"engines": {
 		"vscode": "^1.62.0"
