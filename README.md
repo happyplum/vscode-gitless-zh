@@ -20,11 +20,7 @@ corepack yarn vsce package --yarn
 
 ---
 
-[![](https://vsmarketplacebadge.apphb.com/version-short/eamodio.gitlens.svg)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-[![](https://vsmarketplacebadge.apphb.com/downloads-short/eamodio.gitlens.svg)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-[![](https://vsmarketplacebadge.apphb.com/rating-short/eamodio.gitlens.svg)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-[![](https://aka.ms/vsls-badge)](https://aka.ms/vsls-gitlens)
-[![](https://img.shields.io/badge/vscode--dev--community-gitlens-blue.svg?logo=slack&labelColor=555555)](https://vscode-slack.amod.io)
+[上游 GitLens 扩展市场页面](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 
 <p align="center">
   <br />
