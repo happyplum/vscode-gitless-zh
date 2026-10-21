@@ -332,7 +332,14 @@ module.exports = [
 			ecmaVersion: 2019,
 			sourceType: 'module',
 			globals: { ...globals.es2015, ...globals.node },
-			parserOptions: { project: './tsconfig.json', tsconfigRootDir: __dirname },
+			parserOptions: {
+				project: './tsconfig.json',
+				tsconfigRootDir: __dirname,
+				// Temporary workaround for TypeScript 6 typed-lint single-run inference issues.
+				// https://github.com/microsoft/TypeScript/issues/64412
+				// https://github.com/typescript-eslint/typescript-eslint/issues/12749
+				disallowAutomaticSingleRunInference: true,
+			},
 		},
 		plugins: { '@typescript-eslint': tsPlugin, import: importPlugin },
 		linterOptions: { reportUnusedDisableDirectives: 'error' },
