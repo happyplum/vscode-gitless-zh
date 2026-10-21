@@ -1,9 +1,9 @@
 {
-	"name": "gitless",
-	"displayName": "GitLess",
+	"name": "gitless-zh",
+	"displayName": "GitLess 简体中文版",
 	"description": "GitLess：基于 GitLens 的 VS Code Git 工具",
 	"version": "11.7.3",
-	"publisher": "maattdd",
+	"publisher": "happyplum",
 	"license": "SEE LICENSE IN LICENSE",
 	"bugs": {
 		"url": "https://github.com/happyplum/vscode-gitless-zh/issues"

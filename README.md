@@ -2,7 +2,9 @@
 
 本仓库基于 [maattdd/vscode-gitlens](https://github.com/maattdd/vscode-gitlens) 的 GitLess 代码改进，原项目源自 [GitLens](https://github.com/gitkraken/vscode-gitlens)。保留原有 MIT 许可证和版权声明。
 
-此版本为侧边栏、菜单和操作提示提供简体中文文案；提交后自动刷新分支状态，并让 Git 操作使用独立终端，避免占用运行开发服务的终端。当前源码版本为 11.7.3，尚未发布到 VS Code 扩展市场。
+此版本为侧边栏、菜单和操作提示提供简体中文文案；提交后自动刷新分支状态，并让 Git 操作使用独立终端，避免占用运行开发服务的终端。当前源码版本为 11.7.3，扩展标识为 `happyplum.gitless-zh`。
+
+本版沿用原项目的 `gitlens.*` 命令、配置和视图标识；与 GitLens 或其他 GitLess 版本同时启用可能产生冲突，请只启用其中一个。
 
 克隆和构建：
 
