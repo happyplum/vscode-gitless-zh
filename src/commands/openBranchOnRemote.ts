@@ -44,7 +44,7 @@ export class OpenBranchOnRemoteCommand extends ActiveEditorCommand {
 			args = { ...args, clipboard: true };
 		}
 
-		return this.execute(context.editor, context.uri, args);
+		await this.execute(context.editor, context.uri, args);
 	}
 
 	async execute(editor?: TextEditor, uri?: Uri, args?: OpenBranchOnRemoteCommandArgs) {

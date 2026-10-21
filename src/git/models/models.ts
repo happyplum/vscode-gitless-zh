@@ -1,7 +1,7 @@
 'use strict';
 import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
-import { GitBranch, GitTrackingUpstream } from './branch';
+import { GitTrackingUpstream } from './branch';
 
 const emptyStr = '';
 

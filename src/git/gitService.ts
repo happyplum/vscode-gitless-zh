@@ -1319,8 +1319,8 @@ export class GitService implements Disposable {
 				try {
 					const [data, config, remotes] = await Promise.all([
 						Git.for_each_ref__branch(repoPath!, { all: true }),
-						Git.config__get_regex('^branch\\..*\\.(remote|merge)$', repoPath!),
-						this.getRemotes(repoPath!, { includeAll: true }),
+						Git.config__get_regex('^branch\\..*\\.(remote|merge)$', repoPath),
+						this.getRemotes(repoPath, { includeAll: true }),
 					]);
 					// If we don't get any data, assume the repo doesn't have any commits yet so check if we have a current branch
 					if (data == null || data.length === 0) {

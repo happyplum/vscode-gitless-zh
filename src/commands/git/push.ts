@@ -263,7 +263,7 @@ export class PushGitCommand extends QuickCommand<State> {
 						);
 					} else if (branch != null && branch?.state.ahead > 0) {
 						step = this.createConfirmStep(appendReposToTitle(`确认${context.title}`, state, context), [
-							FlagsQuickPickItem.create<Flags>(state.flags, [remote?.name!], {
+							FlagsQuickPickItem.create<Flags>(state.flags, [remote!.name], {
 								label: this.title,
 								detail: `将 ${branch.state.ahead} 个提交从 ${GitReference.toString(branch)} 推送到 ${
 									remote?.name
