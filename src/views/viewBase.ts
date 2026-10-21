@@ -291,7 +291,7 @@ export abstract class ViewBase<
 		this._onDidChangeVisibility.fire(e);
 	}
 
-	get selection(): ViewNode[] {
+	get selection(): readonly ViewNode[] {
 		if (this.tree == null || this.root == null) return [];
 
 		return this.tree.selection;

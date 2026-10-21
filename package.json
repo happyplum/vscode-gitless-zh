@@ -3,6 +3,7 @@
 	"displayName": "GitLess 简体中文版",
 	"description": "GitLess：基于 GitLens 的 VS Code Git 工具",
 	"version": "11.7.3",
+	"packageManager": "yarn@1.22.22",
 	"publisher": "happyplum",
 	"license": "SEE LICENSE IN LICENSE",
 	"bugs": {
@@ -13,7 +14,7 @@
 		"url": "https://github.com/happyplum/vscode-gitless-zh.git"
 	},
 	"engines": {
-		"vscode": "^1.62.0"
+		"vscode": "^1.82.0"
 	},
 	"main": "./dist/gitlens",
 	"preview": false,
@@ -9999,22 +10000,23 @@
 		"vscode:prepublish": "yarn run bundle"
 	},
 	"dependencies": {
-		"@octokit/graphql": "4.8.0",
+		"@octokit/graphql": "8.2.2",
 		"@vscode/codicons": "0.0.26",
 		"chroma-js": "2.1.2",
 		"dayjs": "1.10.7",
 		"iconv-lite": "0.6.3",
-		"lodash-es": "4.17.21",
+		"lodash-es": "4.18.1",
 		"sortablejs": "1.14.0"
 	},
 	"devDependencies": {
 		"@types/chroma-js": "2.1.3",
 		"@types/lodash-es": "4.17.5",
-		"@types/node": "14.17.4",
+		"@types/node": "18.15.0",
 		"@types/sortablejs": "1.10.7",
-		"@types/vscode": "1.62.0",
+		"@types/vscode": "1.82.0",
 		"@typescript-eslint/eslint-plugin": "5.4.0",
 		"@typescript-eslint/parser": "5.4.0",
+		"@vscode/vsce": "4.0.0",
 		"ansi-regex": "6.0.1",
 		"circular-dependency-plugin": "5.2.2",
 		"clean-webpack-plugin": "4.0.0",
@@ -10040,13 +10042,12 @@
 		"terser-webpack-plugin": "5.2.5",
 		"ts-loader": "9.2.6",
 		"typescript": "4.5.2",
-		"vsce": "2.3.0",
 		"webpack": "5.64.1",
 		"webpack-bundle-analyzer": "4.5.0",
 		"webpack-cli": "4.9.1"
 	},
 	"resolutions": {
-		"node-fetch": "2.6.1",
+		"node-fetch": "2.6.7",
 		"semver-regex": "3.1.3",
 		"trim-newlines": "4.0.2"
 	}

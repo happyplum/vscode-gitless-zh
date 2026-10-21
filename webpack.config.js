@@ -199,15 +199,6 @@ function getExtensionConfig(mode, env) {
 			],
 		},
 		resolve: {
-			alias: {
-				'universal-user-agent': path.join(
-					__dirname,
-					'node_modules',
-					'universal-user-agent',
-					'dist-node',
-					'index.js',
-				),
-			},
 			extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 			symlinks: false,
 		},
