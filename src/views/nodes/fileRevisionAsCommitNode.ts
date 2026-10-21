@@ -1,5 +1,4 @@
 'use strict';
-import * as paths from 'path';
 import {
 	Command,
 	MarkdownString,
@@ -23,6 +22,7 @@ import {
 } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
 import { FileHistoryView } from '../fileHistoryView';
+import { getIconPath } from './helpers';
 import { LineHistoryView } from '../lineHistoryView';
 import { ViewsWithCommits } from '../viewBase';
 import { MergeConflictCurrentChangesNode } from './mergeConflictCurrentChangesNode';
@@ -126,10 +126,7 @@ export class FileRevisionAsCommitNode extends ViewRefFileNode<ViewsWithCommits |
 
 		if (item.iconPath == null) {
 			const icon = GitFile.getStatusIcon(this.file.status);
-			item.iconPath = {
-				dark: Container.context.asAbsolutePath(paths.join('images', 'dark', icon)),
-				light: Container.context.asAbsolutePath(paths.join('images', 'light', icon)),
-			};
+			item.iconPath = getIconPath(icon);
 		}
 
 		item.command = this.getCommand();

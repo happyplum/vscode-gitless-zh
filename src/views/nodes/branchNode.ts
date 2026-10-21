@@ -22,7 +22,7 @@ import { BranchTrackingStatusNode } from './branchTrackingStatusNode';
 import { CommitNode } from './commitNode';
 import { LoadMoreNode, MessageNode } from './common';
 import { CompareBranchNode } from './compareBranchNode';
-import { insertDateMarkers } from './helpers';
+import { getIconPath, insertDateMarkers } from './helpers';
 import { MergeStatusNode } from './mergeStatusNode';
 import { PullRequestNode } from './pullRequestNode';
 import { RebaseStatusNode } from './rebaseStatusNode';
@@ -402,10 +402,7 @@ export class BranchNode
 		item.description = description;
 		item.iconPath = this.options.showAsCommits
 			? new ThemeIcon('git-commit', color)
-			: {
-					dark: Container.context.asAbsolutePath(`images/dark/icon-branch${iconSuffix}.svg`),
-					light: Container.context.asAbsolutePath(`images/light/icon-branch${iconSuffix}.svg`),
-			  };
+			: getIconPath(`icon-branch${iconSuffix}.svg`);
 		item.tooltip = tooltip;
 		item.resourceUri = Uri.parse(
 			`gitlens-view://branch/status/${await this.branch.getStatus()}${

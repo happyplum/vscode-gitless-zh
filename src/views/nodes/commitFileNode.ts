@@ -7,6 +7,7 @@ import { GitBranch, GitFile, GitLogCommit, GitRevisionReference, StatusFileForma
 import { GitUri } from '../../git/gitUri';
 import { FileHistoryView } from '../fileHistoryView';
 import { View, ViewsWithCommits } from '../viewBase';
+import { getIconPath } from './helpers';
 import { ContextValues, ViewNode, ViewRefFileNode } from './viewNode';
 
 export class CommitFileNode<TView extends View = ViewsWithCommits | FileHistoryView> extends ViewRefFileNode<TView> {
@@ -68,10 +69,7 @@ export class CommitFileNode<TView extends View = ViewsWithCommits | FileHistoryV
 		item.tooltip = this.tooltip;
 
 		const icon = GitFile.getStatusIcon(this.file.status);
-		item.iconPath = {
-			dark: Container.context.asAbsolutePath(paths.join('images', 'dark', icon)),
-			light: Container.context.asAbsolutePath(paths.join('images', 'light', icon)),
-		};
+		item.iconPath = getIconPath(icon);
 
 		item.command = this.getCommand();
 

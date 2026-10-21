@@ -377,6 +377,10 @@ class EmptyTextDocument implements TextDocument {
 		this.version = 0;
 	}
 
+	get encoding(): string {
+		throw new Error('Method not supported.');
+	}
+
 	getText(_range?: Range | undefined): string {
 		throw new Error('Method not supported.');
 	}

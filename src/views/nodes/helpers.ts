@@ -1,7 +1,9 @@
 'use strict';
-import { GitLogCommit } from '../../git/git';
+import { Uri } from 'vscode';
 import { MessageNode } from './common';
 import { ContextValues, ViewNode } from './viewNode';
+import { Container } from '../../container';
+import { GitLogCommit } from '../../git/git';
 
 const markers: [number, string][] = [
 	[0, 'Less than a week ago'],
@@ -9,6 +11,13 @@ const markers: [number, string][] = [
 	[25, 'Over a month ago'],
 	[77, 'Over 3 months ago'],
 ];
+
+export function getIconPath(fileName: string): { dark: Uri; light: Uri } {
+	return {
+		dark: Uri.file(Container.context.asAbsolutePath(`images/dark/${fileName}`)),
+		light: Uri.file(Container.context.asAbsolutePath(`images/light/${fileName}`)),
+	};
+}
 
 export function* insertDateMarkers<T extends ViewNode & { commit: GitLogCommit }>(
 	iterable: Iterable<T>,

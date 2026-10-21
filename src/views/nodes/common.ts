@@ -1,4 +1,4 @@
-import { Command, ThemeIcon, TreeItem, TreeItemCollapsibleState, Uri } from 'vscode';
+import { Command, TreeItem, TreeItemCollapsibleState } from 'vscode';
 import { GlyphChars } from '../../constants';
 import { Container } from '../../container';
 import { View } from '../viewBase';
@@ -11,14 +11,7 @@ export class MessageNode extends ViewNode {
 		private readonly _message: string,
 		private readonly _description?: string,
 		private readonly _tooltip?: string,
-		private readonly _iconPath?:
-			| string
-			| Uri
-			| {
-					light: string | Uri;
-					dark: string | Uri;
-			  }
-			| ThemeIcon,
+		private readonly _iconPath?: TreeItem['iconPath'],
 		private readonly _contextValue?: string,
 	) {
 		super(unknownGitUri, view, parent);
@@ -46,14 +39,7 @@ export class CommandMessageNode extends MessageNode {
 		message: string,
 		description?: string,
 		tooltip?: string,
-		iconPath?:
-			| string
-			| Uri
-			| {
-					light: string | Uri;
-					dark: string | Uri;
-			  }
-			| ThemeIcon,
+		iconPath?: TreeItem['iconPath'],
 	) {
 		super(view, parent, message, description, tooltip, iconPath);
 	}
@@ -81,14 +67,7 @@ export class UpdateableMessageNode extends ViewNode {
 		id: string,
 		private _message: string,
 		private _tooltip?: string,
-		private _iconPath?:
-			| string
-			| Uri
-			| {
-					light: string | Uri;
-					dark: string | Uri;
-			  }
-			| ThemeIcon,
+		private _iconPath?: TreeItem['iconPath'],
 	) {
 		super(unknownGitUri, view, parent);
 		this.id = id;
@@ -111,15 +90,7 @@ export class UpdateableMessageNode extends ViewNode {
 		changes: {
 			message?: string;
 			tooltip?: string | null;
-			iconPath?:
-				| string
-				| null
-				| Uri
-				| {
-						light: string | Uri;
-						dark: string | Uri;
-				  }
-				| ThemeIcon;
+			iconPath?: TreeItem['iconPath'] | null;
 		},
 		view: View,
 	) {

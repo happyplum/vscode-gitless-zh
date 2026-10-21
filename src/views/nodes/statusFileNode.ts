@@ -2,12 +2,12 @@
 import * as paths from 'path';
 import { Command, ThemeIcon, TreeItem, TreeItemCollapsibleState } from 'vscode';
 import { Commands, DiffWithCommandArgs, DiffWithPreviousCommandArgs } from '../../commands';
-import { Container } from '../../container';
 import { GitFile, GitLogCommit, StatusFileFormatter } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
 import { ViewsWithCommits } from '../viewBase';
 import { FileRevisionAsCommitNode } from './fileRevisionAsCommitNode';
 import { FileNode } from './folderNode';
+import { getIconPath } from './helpers';
 import { ContextValues, ViewNode } from './viewNode';
 
 export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNode {
@@ -109,10 +109,7 @@ export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNo
 				item.contextValue = ContextValues.StatusFileCommits;
 
 				const icon = GitFile.getStatusIcon(this.file.status);
-				item.iconPath = {
-					dark: Container.context.asAbsolutePath(paths.join('images', 'dark', icon)),
-					light: Container.context.asAbsolutePath(paths.join('images', 'light', icon)),
-				};
+				item.iconPath = getIconPath(icon);
 			}
 
 			item.tooltip = StatusFileFormatter.fromTemplate(

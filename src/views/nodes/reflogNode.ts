@@ -1,5 +1,6 @@
 'use strict';
 import { TreeItem, TreeItemCollapsibleState } from 'vscode';
+import { getIconPath } from './helpers';
 import { Container } from '../../container';
 import { GitReflog, Repository } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
@@ -51,10 +52,7 @@ export class ReflogNode extends ViewNode<RepositoriesView> implements PageableVi
 		item.id = this.id;
 		item.contextValue = ContextValues.Reflog;
 		item.description = '实验性功能';
-		item.iconPath = {
-			dark: Container.context.asAbsolutePath('images/dark/icon-activity.svg'),
-			light: Container.context.asAbsolutePath('images/light/icon-activity.svg'),
-		};
+		item.iconPath = getIconPath('icon-activity.svg');
 
 		return item;
 	}

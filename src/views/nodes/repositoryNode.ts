@@ -21,6 +21,7 @@ import { BranchTrackingStatusNode } from './branchTrackingStatusNode';
 import { MessageNode } from './common';
 import { CompareBranchNode } from './compareBranchNode';
 import { ContributorsNode } from './contributorsNode';
+import { getIconPath } from './helpers';
 import { MergeStatusNode } from './mergeStatusNode';
 import { RebaseStatusNode } from './rebaseStatusNode';
 import { ReflogNode } from './reflogNode';
@@ -264,10 +265,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 				? `${Strings.pad(GlyphChars.Dot, 1, 1)}上次获取 ${Repository.formatLastFetched(lastFetched)}`
 				: ''
 		}`;
-		item.iconPath = {
-			dark: Container.context.asAbsolutePath(`images/dark/icon-repo${iconSuffix}.svg`),
-			light: Container.context.asAbsolutePath(`images/light/icon-repo${iconSuffix}.svg`),
-		};
+		item.iconPath = getIconPath(`icon-repo${iconSuffix}.svg`);
 		item.tooltip = new MarkdownString(tooltip, true);
 
 		return item;

@@ -17,6 +17,7 @@ import { GitUri } from '../../git/gitUri';
 import { Arrays, Iterables, Strings } from '../../system';
 import { RepositoriesView } from '../repositoriesView';
 import { FileNode, FolderNode } from './folderNode';
+import { getIconPath } from './helpers';
 import { RepositoryNode } from './repositoryNode';
 import { StatusFileNode } from './statusFileNode';
 import { ContextValues, ViewNode } from './viewNode';
@@ -163,10 +164,7 @@ export class StatusFilesNode extends ViewNode<RepositoriesView> {
 		const item = new TreeItem(label, TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.StatusFiles;
-		item.iconPath = {
-			dark: Container.context.asAbsolutePath('images/dark/icon-diff.svg'),
-			light: Container.context.asAbsolutePath('images/light/icon-diff.svg'),
-		};
+		item.iconPath = getIconPath('icon-diff.svg');
 
 		return item;
 	}

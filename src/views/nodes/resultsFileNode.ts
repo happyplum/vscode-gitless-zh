@@ -2,11 +2,11 @@
 import * as paths from 'path';
 import { Command, TreeItem, TreeItemCollapsibleState } from 'vscode';
 import { Commands, DiffWithCommandArgs } from '../../commands';
-import { Container } from '../../container';
 import { GitFile, GitReference, GitRevisionReference, StatusFileFormatter } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
 import { View } from '../viewBase';
 import { FileNode } from './folderNode';
+import { getIconPath } from './helpers';
 import { ContextValues, ViewNode, ViewRefFileNode } from './viewNode';
 
 export class ResultsFileNode extends ViewRefFileNode implements FileNode {
@@ -48,10 +48,7 @@ export class ResultsFileNode extends ViewRefFileNode implements FileNode {
 		);
 
 		const statusIcon = GitFile.getStatusIcon(this.file.status);
-		item.iconPath = {
-			dark: Container.context.asAbsolutePath(paths.join('images', 'dark', statusIcon)),
-			light: Container.context.asAbsolutePath(paths.join('images', 'light', statusIcon)),
-		};
+		item.iconPath = getIconPath(statusIcon);
 
 		item.command = this.getCommand();
 		return item;
