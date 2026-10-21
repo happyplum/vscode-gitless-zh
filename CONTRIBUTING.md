@@ -57,7 +57,7 @@ Or to just run a quick build, use:
 corepack yarn run build
 ```
 
-Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions. The `disallowAutomaticSingleRunInference` parser setting is a temporary workaround for a TypeScript 6.0.3 typed-lint issue in CI. Remove it after an upstream stable release fixes the issue and `CI=true` bundle/pack plus the GitHub Stable and Insiders workflows all pass without the setting.
+Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions. The `disallowAutomaticSingleRunInference` parser setting prevents a reproducible typed-lint crash under `CI=true` with TypeScript 6.0.3. Keep it for the current dependency set. When upgrading TypeScript or TypeScript-ESLint, remove the setting only if `CI=true` bundle/pack and the GitHub Stable and Insiders workflows all pass without it. Related reports: [TypeScript #64412](https://github.com/microsoft/TypeScript/issues/64412) and [TypeScript-ESLint #12749](https://github.com/typescript-eslint/typescript-eslint/issues/12749).
 
 ### Watch
 
