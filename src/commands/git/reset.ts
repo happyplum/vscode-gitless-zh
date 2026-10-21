@@ -41,7 +41,7 @@ type ResetStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo',
 
 export class ResetGitCommand extends QuickCommand<State> {
 	constructor(args?: ResetGitCommandArgs) {
-		super('reset', 'reset', 'Reset', { description: 'resets the current branch to a specified commit' });
+		super('reset', 'reset', '重置', { description: '将当前分支重置为指定的提交' });
 
 		let counter = 0;
 		if (args?.state?.repo != null) {
@@ -163,23 +163,23 @@ export class ResetGitCommand extends QuickCommand<State> {
 			[
 				FlagsQuickPickItem.create<Flags>(state.flags, [], {
 					label: this.title,
-					detail: `Will reset (leaves changes in the working tree) ${GitReference.toString(
+					detail: `将重置（保留工作树中的更改）${GitReference.toString(
 						context.destination,
-					)} to ${GitReference.toString(state.reference)}`,
+					)} 至 ${GitReference.toString(state.reference)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--soft'], {
-					label: `Soft ${this.title}`,
+					label: `软${this.title}`,
 					description: '--soft',
-					detail: `Will soft reset (leaves changes in the index and working tree) ${GitReference.toString(
+					detail: `将软重置（保留索引和工作树中的更改）${GitReference.toString(
 						context.destination,
-					)} to ${GitReference.toString(state.reference)}`,
+					)} 至 ${GitReference.toString(state.reference)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--hard'], {
-					label: `Hard ${this.title}`,
+					label: `硬${this.title}`,
 					description: '--hard',
-					detail: `Will hard reset (discards all changes) ${GitReference.toString(
+					detail: `将硬重置（放弃所有更改）${GitReference.toString(
 						context.destination,
-					)} to ${GitReference.toString(state.reference)}`,
+					)} 至 ${GitReference.toString(state.reference)}`,
 				}),
 			],
 		);

@@ -121,11 +121,7 @@ export class ContributorNode extends ViewNode<ContributorsView | RepositoriesVie
 				: '';
 
 		item.tooltip = new MarkdownString(
-			`${avatarMarkdown != null ? avatarMarkdown : ''} &nbsp;__[${this.contributor.name}](mailto:${
-				this.contributor.email
-			} "Email ${this.contributor.name} (${
-				this.contributor.email
-			})")__ \\\nLast commit ${this.contributor.formatDateFromNow()} (${this.contributor.formatDate()})\n\n${Strings.pluralize(
+			`${avatarMarkdown != null ? avatarMarkdown : ''} &nbsp;__[${this.contributor.name}](mailto:${this.contributor.email} "电子邮件 ${this.contributor.name} (${this.contributor.email})")__ \\\n最后提交 ${this.contributor.formatDateFromNow()} (${this.contributor.formatDate()})\n\n${Strings.pluralize(
 				'commit',
 				this.contributor.count,
 				{ format: numberFormatter.format },

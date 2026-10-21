@@ -420,7 +420,7 @@ export class SearchAndCompareView extends ViewBase<SearchAndCompareViewNode, Sea
 			await this.show();
 		}
 
-		const labels = { label: `Results ${typeof label === 'string' ? label : label.label}`, queryLabel: label };
+		const labels = { label: `结果${typeof label === 'string' ? label : label.label}`, queryLabel: label };
 		if (updateNode != null) {
 			await updateNode.edit({ pattern: search, labels: labels, log: results });
 

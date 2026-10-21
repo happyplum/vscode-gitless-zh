@@ -34,7 +34,7 @@ type CoAuthorStepState<T extends State = State> = ExcludeSome<StepState<T>, 'rep
 
 export class CoAuthorsGitCommand extends QuickCommand<State> {
 	constructor(args?: CoAuthorsGitCommandArgs) {
-		super('co-authors', 'co-authors', 'Add Co-Authors', { description: 'adds co-authors to a commit message' });
+		super('co-authors', 'co-authors', '添加共同作者', { description: '将共同作者添加到提交消息中' });
 
 		let counter = 0;
 		if (args?.state?.repo != null) {

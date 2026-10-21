@@ -124,7 +124,7 @@ export class ExternalDiffCommand extends Command {
 
 				const status = await Container.git.getStatusForRepo(repoPath);
 				if (status == null) {
-					return window.showInformationMessage("The repository doesn't have any changes");
+					return window.showInformationMessage('仓库没有任何更改');
 				}
 
 				args.files = [];
@@ -164,7 +164,7 @@ export class ExternalDiffCommand extends Command {
 				const uri = editor.document.uri;
 				const status = await Container.git.getStatusForFile(repoPath, uri.fsPath);
 				if (status == null) {
-					void window.showInformationMessage("The current file doesn't have any changes");
+					void window.showInformationMessage('当前文件没有任何更改');
 
 					return;
 				}
@@ -186,7 +186,7 @@ export class ExternalDiffCommand extends Command {
 			if (!tool) {
 				const viewDocs = 'View Git Docs';
 				const result = await window.showWarningMessage(
-					'Unable to open changes because no Git diff tool is configured',
+					'无法打开更改，因为未配置 Git diff 工具',
 					viewDocs,
 				);
 				if (result === viewDocs) {
@@ -208,7 +208,7 @@ export class ExternalDiffCommand extends Command {
 			}
 		} catch (ex) {
 			Logger.error(ex, 'ExternalDiffCommand');
-			void Messages.showGenericErrorMessage('Unable to open changes in diff tool');
+			void Messages.showGenericErrorMessage('无法打开 diff 工具中的更改');
 		}
 	}
 }

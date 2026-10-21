@@ -35,8 +35,8 @@ type ShowStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo', 
 
 export class ShowGitCommand extends QuickCommand<State> {
 	constructor(args?: ShowGitCommandArgs) {
-		super('show', 'show', 'Show', {
-			description: 'shows information about a git reference',
+		super('show', 'show', '查看', {
+			description: '显示有关 git 引用的信息',
 		});
 
 		let counter = 0;
@@ -125,7 +125,7 @@ export class ShowGitCommand extends QuickCommand<State> {
 							limit: undefined,
 							hasMore: false,
 						},
-						placeholder: 'Enter a reference or commit SHA',
+						placeholder: '输入引用或提交 SHA',
 						picked: state.reference?.ref,
 					});
 					if (result === StepResult.Break) {

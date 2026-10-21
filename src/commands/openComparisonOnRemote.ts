@@ -56,7 +56,7 @@ export class OpenComparisonOnRemoteCommand extends Command {
 		} catch (ex) {
 			Logger.error(ex, 'OpenComparisonOnRemoteCommand');
 			void window.showErrorMessage(
-				'Unable to open comparison on remote provider. See output channel for more details',
+				'无法在远程提供商上打开比较。有关更多详细信息，请参阅输出通道',
 			);
 		}
 	}

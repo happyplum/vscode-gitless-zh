@@ -40,8 +40,8 @@ type RevertStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo'
 
 export class RevertGitCommand extends QuickCommand<State> {
 	constructor(args?: RevertGitCommandArgs) {
-		super('revert', 'revert', 'Revert', {
-			description: 'undoes the changes of specified commits, by creating new commits with inverted changes',
+		super('revert', 'revert', '还原提交', {
+			description: '通过创建具有反向更改的新提交来撤消指定提交的更改',
 		});
 
 		let counter = 0;
@@ -168,12 +168,12 @@ export class RevertGitCommand extends QuickCommand<State> {
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--no-edit'], {
 					label: this.title,
 					description: '--no-edit',
-					detail: `Will revert ${GitReference.toString(state.references)}`,
+					detail: `将恢复 ${GitReference.toString(state.references)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--edit'], {
-					label: `${this.title} & Edit`,
+					label: `${this.title} & 编辑`,
 					description: '--edit',
-					detail: `Will revert and edit ${GitReference.toString(state.references)}`,
+					detail: `将恢复并编辑${GitReference.toString(state.references)}`,
 				}),
 			],
 		);

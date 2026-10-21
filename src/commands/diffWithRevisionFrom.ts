@@ -28,7 +28,7 @@ export class DiffWithRevisionFromCommand extends ActiveEditorCommand {
 
 		const gitUri = await GitUri.fromUri(uri);
 		if (!gitUri.repoPath) {
-			void Messages.showNoRepositoryWarningMessage('Unable to open file compare');
+			void Messages.showNoRepositoryWarningMessage('无法打开文件比较');
 
 			return;
 		}

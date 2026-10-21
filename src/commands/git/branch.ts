@@ -3,7 +3,6 @@ import { QuickInputButtons } from 'vscode';
 import { Container } from '../../container';
 import { GitBranchReference, GitReference, Repository } from '../../git/git';
 import { FlagsQuickPickItem, QuickPickItemOfT } from '../../quickpicks';
-import { Strings } from '../../system';
 import {
 	appendReposToTitle,
 	AsyncStepResultGenerator,
@@ -64,12 +63,12 @@ type DeleteStepState<T extends DeleteState = DeleteState> = BranchStepState<Excl
 type RenameStepState<T extends RenameState = RenameState> = BranchStepState<ExcludeSome<T, 'repo', string>>;
 
 const subcommandToTitleMap = new Map<State['subcommand'], string>([
-	['create', 'Create'],
-	['delete', 'Delete'],
-	['rename', 'Rename'],
+	['create', '创建'],
+	['delete', '删除'],
+	['rename', '重命名'],
 ]);
 function getTitle(title: string, subcommand: State['subcommand'] | undefined) {
-	return subcommand == null ? title : `${subcommandToTitleMap.get(subcommand)} ${title}`;
+	return subcommand == null ? title : `${subcommandToTitleMap.get(subcommand)}${title}`;
 }
 
 export interface BranchGitCommandArgs {
@@ -82,8 +81,8 @@ export class BranchGitCommand extends QuickCommand<State> {
 	private subcommand: State['subcommand'] | undefined;
 
 	constructor(args?: BranchGitCommandArgs) {
-		super('branch', 'branch', 'Branch', {
-			description: 'create, rename, or delete branches',
+		super('branch', 'branch', '分支', {
+			description: '创建、重命名或删除分支',
 		});
 
 		let counter = 0;
@@ -170,7 +169,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 
 			this.subcommand = state.subcommand;
 
-			context.title = getTitle(state.subcommand === 'delete' ? 'Branches' : this.title, state.subcommand);
+			context.title = getTitle(state.subcommand === 'delete' ? '分支' : this.title, state.subcommand);
 
 			if (state.counter < 2 || state.repo == null || typeof state.repo === 'string') {
 				skippedStepTwo = false;
@@ -218,23 +217,23 @@ export class BranchGitCommand extends QuickCommand<State> {
 	private *pickSubcommandStep(state: PartialStepState<State>): StepResultGenerator<State['subcommand']> {
 		const step = QuickCommand.createPickStep<QuickPickItemOfT<State['subcommand']>>({
 			title: this.title,
-			placeholder: `Choose a ${this.label} command`,
+			placeholder: `选择${this.label}命令`,
 			items: [
 				{
-					label: 'create',
-					description: 'creates a new branch',
+					label: '创建',
+					description: '创建一个新分支',
 					picked: state.subcommand === 'create',
 					item: 'create',
 				},
 				{
-					label: 'delete',
-					description: 'deletes the specified branches',
+					label: '删除',
+					description: '删除指定分支',
 					picked: state.subcommand === 'delete',
 					item: 'delete',
 				},
 				{
-					label: 'rename',
-					description: 'renames the specified branch',
+					label: '重命名',
+					description: '重命名指定分支',
 					picked: state.subcommand === 'rename',
 					item: 'rename',
 				},
@@ -267,7 +266,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 
 			if (state.counter < 4 || state.name == null) {
 				const result = yield* inputBranchNameStep(state, context, {
-					placeholder: 'Please provide a name for the new branch',
+					placeholder: '请提供新分支的名称',
 					titleContext: ` from ${GitReference.toString(state.reference, {
 						capitalize: true,
 						icon: false,
@@ -305,16 +304,16 @@ export class BranchGitCommand extends QuickCommand<State> {
 			[
 				FlagsQuickPickItem.create<CreateFlags>(state.flags, [], {
 					label: context.title,
-					detail: `Will create a new branch named ${state.name} from ${GitReference.toString(
+					detail: `将从${GitReference.toString(
 						state.reference,
-					)}`,
+					)}创建一个名为${state.name}的新分支`,
 				}),
 				FlagsQuickPickItem.create<CreateFlags>(state.flags, ['--switch'], {
-					label: `${context.title} and Switch`,
+					label: `${context.title}和开关`,
 					description: '--switch',
-					detail: `Will create and switch to a new branch named ${state.name} from ${GitReference.toString(
+					detail: `将从 ${GitReference.toString(
 						state.reference,
-					)}`,
+					)} 创建并切换到名为 ${state.name} 的新分支`,
 				}),
 			],
 			context,
@@ -338,12 +337,12 @@ export class BranchGitCommand extends QuickCommand<State> {
 				state.references == null ||
 				(Array.isArray(state.references) && state.references.length === 0)
 			) {
-				context.title = getTitle('Branches', state.subcommand);
+				context.title = getTitle('分支', state.subcommand);
 
 				const result = yield* pickBranchesStep(state, context, {
 					filter: b => !b.current,
 					picked: state.references?.map(r => r.ref),
-					placeholder: 'Choose branches to delete',
+					placeholder: '选择要删除的分支',
 					sort: { current: false, missingUpstream: true },
 				});
 				// Always break on the first step (so we will go back)
@@ -353,7 +352,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 			}
 
 			context.title = getTitle(
-				Strings.pluralize('Branch', state.references.length, { only: true, plural: 'Branches' }),
+				`${state.references.length} 个分支`,
 				state.subcommand,
 			);
 
@@ -380,37 +379,33 @@ export class BranchGitCommand extends QuickCommand<State> {
 		const confirmations: FlagsQuickPickItem<DeleteFlags>[] = [
 			FlagsQuickPickItem.create<DeleteFlags>(state.flags, [], {
 				label: context.title,
-				detail: `Will delete ${GitReference.toString(state.references)}`,
+				detail: `将删除${GitReference.toString(state.references)}`,
 			}),
 		];
 		if (!state.references.every(b => b.remote)) {
 			confirmations.push(
 				FlagsQuickPickItem.create<DeleteFlags>(state.flags, ['--force'], {
-					label: `Force ${context.title}`,
+					label: `力${context.title}`,
 					description: '--force',
-					detail: `Will forcibly delete ${GitReference.toString(state.references)}`,
+					detail: `将强制删除${GitReference.toString(state.references)}`,
 				}),
 			);
 
 			if (state.references.some(b => b.upstream != null)) {
 				confirmations.push(
 					FlagsQuickPickItem.create<DeleteFlags>(state.flags, ['--remotes'], {
-						label: `${context.title} & Remote${
-							state.references.filter(b => !b.remote).length > 1 ? 's' : ''
-						}`,
+						label: `${context.title} 和远程${state.references.filter(b => !b.remote).length > 1 ? 's' : ''}`,
 						description: '--remotes',
-						detail: `Will delete ${GitReference.toString(
+						detail: `将删除 ${GitReference.toString(
 							state.references,
-						)} and any remote tracking branches`,
+						)} 和任何远程跟踪分支`,
 					}),
 					FlagsQuickPickItem.create<DeleteFlags>(state.flags, ['--force', '--remotes'], {
-						label: `Force ${context.title} & Remote${
-							state.references.filter(b => !b.remote).length > 1 ? 's' : ''
-						}`,
+						label: `强制 ${context.title} 和远程 ${state.references.filter(b => !b.remote).length > 1 ? 's' : ''}`,
 						description: '--force --remotes',
-						detail: `Will forcibly delete ${GitReference.toString(
+						detail: `将强制删除${GitReference.toString(
 							state.references,
-						)} and any remote tracking branches`,
+						)}和任何远程跟踪分支`,
 					}),
 				);
 			}
@@ -435,7 +430,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 				const result = yield* pickBranchStep(state, context, {
 					filter: b => !b.remote,
 					picked: state.reference?.ref,
-					placeholder: 'Choose a branch to rename',
+					placeholder: '选择要重命名的分支',
 				});
 				// Always break on the first step (so we will go back)
 				if (result === StepResult.Break) break;
@@ -445,9 +440,9 @@ export class BranchGitCommand extends QuickCommand<State> {
 
 			if (state.counter < 4 || state.name == null) {
 				const result = yield* inputBranchNameStep(state, context, {
-					placeholder: `Please provide a new name for ${GitReference.toString(state.reference, {
+					placeholder: `请为 ${GitReference.toString(state.reference, {
 						icon: false,
-					})}`,
+					})} 提供新名称`,
 					titleContext: ` ${GitReference.toString(state.reference, false)}`,
 					value: state.name ?? state.reference.name,
 				});
@@ -475,7 +470,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 			[
 				FlagsQuickPickItem.create<RenameFlags>(state.flags, ['-m'], {
 					label: context.title,
-					detail: `Will rename ${GitReference.toString(state.reference)} to ${state.name}`,
+					detail: `将${GitReference.toString(state.reference)}重命名为${state.name}`,
 				}),
 			],
 			context,

@@ -57,12 +57,12 @@ export class SelectableQuickInputButton extends ToggleQuickInputButton {
 export namespace QuickCommandButtons {
 	export const Fetch: QuickInputButton = {
 		iconPath: new ThemeIcon('sync'),
-		tooltip: 'Fetch',
+		tooltip: '获取',
 	};
 
 	export const LoadMore: QuickInputButton = {
 		iconPath: new ThemeIcon('refresh'),
-		tooltip: 'Load More',
+		tooltip: '加载更多',
 	};
 
 	export const MatchCaseToggle = class extends SelectableQuickInputButton {
@@ -87,9 +87,9 @@ export namespace QuickCommandButtons {
 		constructor(on = false, context: { showTags: boolean }, onDidClick?: (quickInput: QuickInput) => void) {
 			super(
 				() => ({
-					on: { tooltip: 'Choose a Specific Commit', icon: new ThemeIcon('git-commit') },
+					on: { tooltip: '选择特定提交', icon: new ThemeIcon('git-commit') },
 					off: {
-						tooltip: `Choose a Branch${context.showTags ? ' or Tag' : ''}`,
+						tooltip: `选择分行${context.showTags ? ' or Tag' : ''}`,
 						icon: new ThemeIcon('git-branch'),
 					},
 				}),
@@ -102,17 +102,17 @@ export namespace QuickCommandButtons {
 
 	export const RevealInSideBar: QuickInputButton = {
 		iconPath: new ThemeIcon('eye'),
-		tooltip: 'Reveal in Side Bar',
+		tooltip: '在侧边栏中显示',
 	};
 
 	export const SearchInSideBar: QuickInputButton = {
 		iconPath: new ThemeIcon('search'),
-		tooltip: 'Search in Side Bar',
+		tooltip: '在侧边栏中搜索',
 	};
 
 	export const ShowResultsInSideBar: QuickInputButton = {
 		iconPath: new ThemeIcon('link-external'),
-		tooltip: 'Show Results in Side Bar',
+		tooltip: '在侧栏中显示结果',
 	};
 
 	export const ShowTagsToggle = class extends SelectableQuickInputButton {
@@ -123,7 +123,7 @@ export namespace QuickCommandButtons {
 
 	export const WillConfirmForced: QuickInputButton = {
 		iconPath: new ThemeIcon('check'),
-		tooltip: 'Will always confirm',
+		tooltip: '总会确认',
 	};
 
 	export const WillConfirmToggle = class extends ToggleQuickInputButton {
@@ -131,14 +131,14 @@ export namespace QuickCommandButtons {
 			super(
 				() => ({
 					on: {
-						tooltip: 'Will confirm',
+						tooltip: '将确认',
 						icon: {
 							dark: Uri.file(Container.context.asAbsolutePath('images/dark/icon-check.svg')),
 							light: Uri.file(Container.context.asAbsolutePath('images/light/icon-check.svg')),
 						},
 					},
 					off: {
-						tooltip: 'Skips confirm',
+						tooltip: '跳过确认',
 						icon: {
 							dark: Uri.file(Container.context.asAbsolutePath('images/dark/icon-no-check.svg')),
 							light: Uri.file(Container.context.asAbsolutePath('images/light/icon-no-check.svg')),

@@ -440,7 +440,7 @@ export class RepositoriesView extends ViewBase<RepositoriesNode, RepositoriesVie
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(branch, { icon: false })} in the Repositories view...`,
+				title: `在仓库视图中显示 ${GitReference.toString(branch, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {
@@ -498,7 +498,7 @@ export class RepositoriesView extends ViewBase<RepositoriesNode, RepositoriesVie
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(commit, { icon: false })} in the Repositories view...`,
+				title: `在仓库视图中显示 ${GitReference.toString(commit, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {
@@ -556,7 +556,7 @@ export class RepositoriesView extends ViewBase<RepositoriesNode, RepositoriesVie
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(stash, { icon: false })} in the Repositories view...`,
+				title: `在仓库视图中显示 ${GitReference.toString(stash, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {
@@ -614,7 +614,7 @@ export class RepositoriesView extends ViewBase<RepositoriesNode, RepositoriesVie
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(tag, { icon: false })} in the Repositories view...`,
+				title: `在仓库视图中显示 ${GitReference.toString(tag, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {

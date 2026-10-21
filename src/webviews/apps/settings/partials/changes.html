@@ -1,10 +1,10 @@
 <section id="changes" class="section--settings section--collapsible">
 	<div class="section__header">
 		<h2>
-			Gutter Changes
+			编辑器边栏变化
 			<a
 				class="link__learn-more"
-				title="Learn more"
+				title="了解更多"
 				href="https://github.com/eamodio/vscode-gitlens/#gutter-changes-"
 			>
 				<i class="icon icon__info"></i>
@@ -12,28 +12,28 @@
 		</h2>
 
 		<p class="section__header-hint">
-			Adds on-demand gutter changes annotations to highlight any local (unpublished) changes or lines changed by
-			the most recent commit
+			添加按需编辑器边栏更改注释，以突出显示任何本地（未发布）更改或更改的行
+			最近的提交
 		</p>
 		<div class="section__header-info">
 			<i class="icon icon--md icon__bulb"></i>
 			<div>
 				<p>
-					Use the
+					使用
 					<span class="command hidden" data-visibility="changes.toggleMode =file">
-						GitLens: Toggle File Changes Annotations
+						GitLess：切换文件更改注释
 					</span>
 					<a
 						class="command hidden"
-						title="Run command"
+						title="运行命令"
 						href="command:gitlens.toggleFileChanges"
 						data-visibility="changes.toggleMode =window"
 					>
-						GitLens: Toggle File Changes Annotations
+						GitLess：切换文件更改注释
 					</a>
-					command to turn the annotations on or off
+					打开或关闭注释的命令
 				</p>
-				<p>Press <kbd>Esc</kbd> to turn off the annotations</p>
+				<p>按 <kbd>退出</kbd> 关闭注释</p>
 			</div>
 		</div>
 	</div>
@@ -43,11 +43,11 @@
 			<div class="section__content">
 				<div class="setting">
 					<div class="setting__input">
-						<label for="changes.toggleMode">Toggle annotations </label>
+						<label for="changes.toggleMode">切换注释 </label>
 						<div class="select-container">
 							<select id="changes.toggleMode" name="changes.toggleMode" data-setting>
-								<option value="file">individually for each file</option>
-								<option value="window">for all files</option>
+								<option value="file">每个文件单独</option>
+								<option value="window">对于所有文件</option>
 							</select>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 								data-setting
 								data-setting-type="array"
 							/>
-							<label for="changes.locations">Add gutter indicator</label>
+							<label for="changes.locations">添加编辑器边栏指示器</label>
 						</div>
 					</div>
 
@@ -78,7 +78,7 @@
 								data-setting
 								data-setting-type="array"
 							/>
-							<label for="changes.locations-1">Add scroll bar indicator</label>
+							<label for="changes.locations-1">添加滚动条指示器</label>
 						</div>
 					</div>
 				</div>
@@ -101,14 +101,14 @@
 
 		<div class="section__group">
 			<p class="section__hint">
-				<i class="icon icon__info"></i> For more options, open
+				<i class="icon icon__info"></i> 如需更多选项，请打开
 				<a
 					class="command"
-					title="Open Settings"
+					title="打开设置"
 					href="command:workbench.action.openSettings?%22gitlens.changes%22"
-					>Settings</a
+					>设置</a
 				>
-				and search for <b><i>gitlens.changes</i></b>
+				并搜索 <b><i>gitlens.changes</i></b>
 			</p>
 		</div>
 	</div>

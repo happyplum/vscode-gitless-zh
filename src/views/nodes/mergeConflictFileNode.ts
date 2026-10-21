@@ -48,7 +48,7 @@ export class MergeConflictFileNode extends ViewNode<ViewsWithCommits> implements
 		item.description = this.description;
 		item.contextValue = `${ContextValues.File}+conflicted`;
 		item.tooltip = StatusFileFormatter.fromTemplate(
-			`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} in Index (staged)`,
+			`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} 位于索引（已暂存）`,
 			this.file,
 		);
 		// Use the file icon and decorations
@@ -111,7 +111,7 @@ export class MergeConflictFileNode extends ViewNode<ViewsWithCommits> implements
 
 	override getCommand(): Command | undefined {
 		return {
-			title: 'Open File',
+			title: '打开文件',
 			command: BuiltInCommands.Open,
 			arguments: [
 				GitUri.resolveToUri(this.file.fileName, this.repoPath),

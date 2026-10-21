@@ -75,13 +75,13 @@ export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNo
 			if (this._hasStagedChanges) {
 				item.contextValue += '+staged';
 				item.tooltip = StatusFileFormatter.fromTemplate(
-					`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} in Index (staged)`,
+					`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} 位于索引（已暂存）`,
 					this.file,
 				);
 			} else {
 				item.contextValue += '+unstaged';
 				item.tooltip = StatusFileFormatter.fromTemplate(
-					`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} in Working Tree`,
+					`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} 位于工作树`,
 					this.file,
 				);
 			}
@@ -117,7 +117,7 @@ export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNo
 			}
 
 			item.tooltip = StatusFileFormatter.fromTemplate(
-				`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} in ${this.getChangedIn()}`,
+			`\${file}\n\${directory}/\n\n\${status}\${ (originalPath)} 位于 ${this.getChangedIn()}`,
 				this.file,
 			);
 
@@ -235,7 +235,7 @@ export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNo
 				},
 			};
 			return {
-				title: 'Open Changes with Previous Revision',
+				title: '打开与上一修订版的更改',
 				command: Commands.DiffWithPrevious,
 				arguments: [undefined, commandArgs],
 			};
@@ -260,7 +260,7 @@ export class StatusFileNode extends ViewNode<ViewsWithCommits> implements FileNo
 			},
 		};
 		return {
-			title: 'Open Changes',
+			title: '打开更改',
 			command: Commands.DiffWith,
 			arguments: [commandArgs],
 		};

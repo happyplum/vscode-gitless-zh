@@ -44,7 +44,7 @@ export namespace ReferencePicker {
 		quickpick.title = title;
 		quickpick.placeholder =
 			options.allowEnteringRefs != null
-				? `${placeHolder}${GlyphChars.Space.repeat(3)}(or enter a reference using #)`
+				? `${placeHolder}${GlyphChars.Space.repeat(3)}（或使用#输入参考号）`
 				: placeHolder;
 		quickpick.matchOnDescription = true;
 

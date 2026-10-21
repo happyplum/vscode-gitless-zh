@@ -75,7 +75,7 @@ export class BranchesViewNode extends ViewNode<BranchesView> {
 		if (this.children == null) {
 			const repositories = await Container.git.getOrderedRepositories();
 			if (repositories.length === 0) {
-				this.view.message = 'No branches could be found.';
+				this.view.message = '找不到分支。';
 
 				return [];
 			}
@@ -92,13 +92,13 @@ export class BranchesViewNode extends ViewNode<BranchesView> {
 			const [child] = this.children;
 
 			if (!child.repo.supportsChangeEvents) {
-				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}Auto-refresh unavailable`;
+				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}自动刷新不可用`;
 			}
 
 			const branches = await child.repo.getBranches({ filter: b => !b.remote });
 			if (branches.length === 0) {
-				this.view.message = 'No branches could be found.';
-				this.view.title = 'Branches';
+				this.view.message = '找不到分支。';
+				this.view.title = '分支';
 
 				void child.ensureSubscription();
 
@@ -106,7 +106,7 @@ export class BranchesViewNode extends ViewNode<BranchesView> {
 			}
 
 			this.view.message = undefined;
-			this.view.title = `Branches (${branches.length})`;
+			this.view.title = `分支 (${branches.length})`;
 
 			return child.getChildren();
 		}
@@ -304,7 +304,7 @@ export class BranchesView extends ViewBase<BranchesViewNode, BranchesViewConfig>
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(branch, { icon: false })} in the side bar...`,
+				title: `在侧边栏中显示${GitReference.toString(branch, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {
@@ -330,7 +330,7 @@ export class BranchesView extends ViewBase<BranchesViewNode, BranchesViewConfig>
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(commit, { icon: false })} in the side bar...`,
+				title: `在侧边栏中显示${GitReference.toString(commit, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {

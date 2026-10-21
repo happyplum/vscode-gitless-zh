@@ -107,7 +107,7 @@ export class OpenCommitOnRemoteCommand extends ActiveEditorCommand {
 		} catch (ex) {
 			Logger.error(ex, 'OpenCommitOnRemoteCommand');
 			void window.showErrorMessage(
-				'Unable to open commit on remote provider. See output channel for more details',
+				'无法在远程提供程序上打开提交。有关更多详细信息，请参阅输出通道',
 			);
 		}
 	}

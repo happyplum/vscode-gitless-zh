@@ -38,7 +38,7 @@ export class CommitsRepositoryNode extends RepositoryFolderNode<CommitsView, Bra
 		if (this.child == null) {
 			const branch = await this.repo.getBranch();
 			if (branch == null) {
-				this.view.message = 'No commits could be found.';
+				this.view.message = '找不到提交。';
 
 				return [];
 			}
@@ -130,7 +130,7 @@ export class CommitsViewNode extends ViewNode<CommitsView> {
 		if (this.children == null) {
 			const repositories = await Container.git.getOrderedRepositories();
 			if (repositories.length === 0) {
-				this.view.message = 'No commits could be found.';
+				this.view.message = '找不到提交。';
 
 				return [];
 			}
@@ -164,7 +164,7 @@ export class CommitsViewNode extends ViewNode<CommitsView> {
 			} else {
 				this.view.description = child.repo.supportsChangeEvents
 					? undefined
-					: `${Strings.pad(GlyphChars.Warning, 1, 2)}Auto-refresh unavailable`;
+					: `${Strings.pad(GlyphChars.Warning, 1, 2)}自动刷新不可用`;
 			}
 
 			return child.getChildren();
@@ -367,7 +367,7 @@ export class CommitsView extends ViewBase<CommitsViewNode, CommitsViewConfig> {
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(commit, { icon: false })} in the side bar...`,
+				title: `在侧边栏中显示${GitReference.toString(commit, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {

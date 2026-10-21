@@ -83,7 +83,7 @@ export class SettingsWebview extends WebviewBase {
 	}
 
 	get title(): string {
-		return 'GitLens Settings';
+		return 'GitLess 设置';
 	}
 
 	override renderEndOfBody() {

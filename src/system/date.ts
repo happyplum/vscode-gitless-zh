@@ -1,5 +1,6 @@
 'use strict';
 import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import * as advancedFormat from 'dayjs/plugin/advancedFormat';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
 import * as updateLocale from 'dayjs/plugin/updateLocale';
@@ -24,84 +25,64 @@ dayjs.extend(relativeTime.default, {
 });
 dayjs.extend(updateLocale.default);
 
-dayjs.updateLocale('en', {
+dayjs.updateLocale('zh-cn', {
 	relativeTime: {
-		future: 'in %s',
-		past: '%s ago',
-		s: 'seconds',
-		m: 'a minute',
-		mm: '%d minutes',
-		h: 'an hour',
-		hh: '%d hours',
-		d: 'a day',
-		dd: '%d days',
-		w: 'a week',
-		ww: '%d weeks',
-		M: 'a month',
-		MM: '%d months',
-		y: 'a year',
-		yy: '%d years',
+		future: '%s后',
+		past: '%s前',
+		s: '几秒',
+		m: '1 分钟',
+		mm: '%d 分钟',
+		h: '1 小时',
+		hh: '%d 小时',
+		d: '1 天',
+		dd: '%d 天',
+		w: '1 周',
+		ww: '%d 周',
+		M: '1 个月',
+		MM: '%d 个月',
+		y: '1 年',
+		yy: '%d 年',
 	},
 });
+dayjs.locale('zh-cn');
 
 const shortLocale = {
-	name: 'en-short',
-	weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
-	months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+	name: 'zh-cn-short',
+	weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+	months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
 	weekStart: 1,
-	weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
-	monthsShort: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
-	weekdaysMin: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
-	// relativeTime: {
-	// 	future: 'in %s',
-	// 	past: '%s',
-	// 	s: 'now',
-	// 	m: '1 min',
-	// 	mm: '%d mins',
-	// 	h: '1 hr',
-	// 	hh: '%d hrs',
-	// 	d: '1 day',
-	// 	dd: '%d days',
-	// 	w: '1 wk',
-	// 	ww: '%d wks',
-	// 	M: '1 mo',
-	// 	MM: '%d mos',
-	// 	y: '1 yr',
-	// 	yy: '%d yrs',
-	// },
+	weekdaysShort: '周日_周一_周二_周三_周四_周五_周六'.split('_'),
+	monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+	weekdaysMin: '日_一_二_三_四_五_六'.split('_'),
 	relativeTime: {
-		future: 'in %s',
+		future: '%s后',
 		past: '%s',
-		s: 'now',
-		m: '1m',
-		mm: '%dm',
-		h: '1h',
-		hh: '%dh',
-		d: '1d',
-		dd: '%dd',
-		w: '1wk',
-		ww: '%dwk',
-		M: '1mo',
-		MM: '%dmo',
-		y: '1yr',
-		yy: '%dyr',
+		s: '现在',
+		m: '1分',
+		mm: '%d分',
+		h: '1时',
+		hh: '%d时',
+		d: '1天',
+		dd: '%d天',
+		w: '1周',
+		ww: '%d周',
+		M: '1月',
+		MM: '%d月',
+		y: '1年',
+		yy: '%d年',
 	},
 	formats: {
-		LTS: 'h:mm:ss A',
-		LT: 'h:mm A',
-		L: 'MM/DD/YYYY',
-		LL: 'MMMM D, YYYY',
-		LLL: 'MMMM D, YYYY h:mm A',
-		LLLL: 'dddd, MMMM D, YYYY h:mm A',
+		LTS: 'HH:mm:ss',
+		LT: 'HH:mm',
+		L: 'YYYY/MM/DD',
+		LL: 'YYYY年M月D日',
+		LLL: 'YYYY年M月D日 HH:mm',
+		LLLL: 'YYYY年M月D日 dddd HH:mm',
 	},
-	ordinal: (n: number) => {
-		const s = ['th', 'st', 'nd', 'rd'];
-		const v = n % 100;
-		return `[${n}${s[(v - 20) % 10] || s[v] || s[0]}]`;
-	},
+	ordinal: (n: number) => `${n}日`,
 };
 
-dayjs.locale('en-short', shortLocale, true);
+dayjs.locale('zh-cn-short', shortLocale, true);
 
 export const MillisecondsPerMinute = 60000; // 60 * 1000
 export const MillisecondsPerHour = 3600000; // 60 * 60 * 1000

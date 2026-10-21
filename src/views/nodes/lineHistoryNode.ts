@@ -235,9 +235,7 @@ export class LineHistoryNode
 		const item = new TreeItem(label, TreeItemCollapsibleState.Expanded);
 		item.contextValue = ContextValues.LineHistory;
 		item.description = this.uri.directory;
-		item.tooltip = `History of ${this.uri.fileName}${this.lines}\n${this.uri.directory}/${
-			this.uri.sha == null ? '' : `\n\n${this.uri.sha}`
-		}`;
+		item.tooltip = `${this.uri.fileName}${this.lines} 的历史\n${this.uri.directory}/${this.uri.sha == null ? '' : `\n\n${this.uri.sha}`}`;
 
 		this.view.description = `${label}${
 			this.parent instanceof LineHistoryTrackerNode && !this.parent.followingEditor ? ' (pinned)' : ''

@@ -65,27 +65,27 @@ export class MergeStatusNode extends ViewNode<ViewsWithCommits> {
 
 	getTreeItem(): TreeItem {
 		const item = new TreeItem(
-			`${this.status?.hasConflicts ? 'Resolve conflicts before merging' : 'Merging'} ${
+			`${this.status?.hasConflicts ? '解决冲突后继续合并' : '正在合并'} ${
 				this.mergeStatus.incoming != null
 					? `${GitReference.toString(this.mergeStatus.incoming, { expand: false, icon: false })} `
 					: ''
-			}into ${GitReference.toString(this.mergeStatus.current, { expand: false, icon: false })}`,
+			}并入 ${GitReference.toString(this.mergeStatus.current, { expand: false, icon: false })}`,
 			TreeItemCollapsibleState.Expanded,
 		);
 		item.id = this.id;
 		item.contextValue = ContextValues.Merge;
 		item.description = this.status?.hasConflicts
-			? Strings.pluralize('conflict', this.status.conflicts.length)
+			? `${this.status.conflicts.length} 个冲突`
 			: undefined;
 		item.iconPath = this.status?.hasConflicts
 			? new ThemeIcon('warning', new ThemeColor('list.warningForeground'))
 			: new ThemeIcon('debug-pause', new ThemeColor('list.foreground'));
 		item.tooltip = new MarkdownString(
-			`${`Merging ${
+			`${`正在合并 ${
 				this.mergeStatus.incoming != null ? GitReference.toString(this.mergeStatus.incoming) : ''
-			}into ${GitReference.toString(this.mergeStatus.current)}`}${
+			}并入 ${GitReference.toString(this.mergeStatus.current)}`}${
 				this.status?.hasConflicts
-					? `\n\n${Strings.pluralize('conflicted file', this.status.conflicts.length)}`
+					? `\n\n${`${this.status.conflicts.length} 个冲突文件`}`
 					: ''
 			}`,
 			true,

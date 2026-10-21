@@ -40,7 +40,7 @@ type FetchStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repos'
 
 export class FetchGitCommand extends QuickCommand<State> {
 	constructor(args?: FetchGitCommandArgs) {
-		super('fetch', 'fetch', 'Fetch', { description: 'fetches changes from one or more remotes' });
+		super('fetch', 'fetch', '抓取', { description: '从一个或多个远程仓库抓取更改' });
 
 		let counter = 0;
 		if (args?.state?.repos != null && (!Array.isArray(args.state.repos) || args.state.repos.length !== 0)) {
@@ -149,7 +149,7 @@ export class FetchGitCommand extends QuickCommand<State> {
 				[
 					FlagsQuickPickItem.create<Flags>(state.flags, [], {
 						label: this.title,
-						detail: `Will fetch ${GitReference.toString(state.reference)}`,
+						detail: `将抓取 ${GitReference.toString(state.reference)}`,
 					}),
 				],
 			);
@@ -164,22 +164,22 @@ export class FetchGitCommand extends QuickCommand<State> {
 				[
 					FlagsQuickPickItem.create<Flags>(state.flags, [], {
 						label: this.title,
-						detail: `Will fetch ${reposToFetch}`,
+						detail: `将抓取 ${reposToFetch}`,
 					}),
 					FlagsQuickPickItem.create<Flags>(state.flags, ['--prune'], {
-						label: `${this.title} & Prune`,
+						label: `${this.title} & 清理失效引用`,
 						description: '--prune',
-						detail: `Will fetch and prune ${reposToFetch}`,
+						detail: `将抓取并清理失效引用 ${reposToFetch}`,
 					}),
 					FlagsQuickPickItem.create<Flags>(state.flags, ['--all'], {
-						label: `${this.title} All`,
+						label: `${this.title} 全部`,
 						description: '--all',
-						detail: `Will fetch all remotes of ${reposToFetch}`,
+						detail: `将抓取 ${reposToFetch} 的所有远程仓库`,
 					}),
 					FlagsQuickPickItem.create<Flags>(state.flags, ['--all', '--prune'], {
-						label: `${this.title} All & Prune`,
+						label: `${this.title} 全部 & 清理失效引用`,
 						description: '--all --prune',
-						detail: `Will fetch and prune all remotes of ${reposToFetch}`,
+						detail: `将抓取并清理失效引用 ${reposToFetch} 的所有远程仓库`,
 					}),
 				],
 				context,

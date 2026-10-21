@@ -202,7 +202,7 @@ export class GitCommandsCommand extends Command {
 				disposables.push(quickpick.onDidHide(() => resolve(step)));
 
 				quickpick.title = command.title;
-				quickpick.placeholder = 'Loading...';
+				quickpick.placeholder = '加载中...';
 				quickpick.busy = true;
 				quickpick.enabled = false;
 
@@ -744,7 +744,7 @@ class PickCommandStep implements QuickPickStep {
 	readonly items: QuickCommand[];
 	readonly matchOnDescription = true;
 	readonly placeholder = 'Choose a git command';
-	readonly title = 'GitLens';
+	readonly title = 'GitLess';
 
 	constructor(args?: GitCommandsCommandArgs) {
 		this.items = [

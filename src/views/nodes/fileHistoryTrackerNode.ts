@@ -40,7 +40,7 @@ export class FileHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 			if (!this.hasUri) {
 				this.view.description = undefined;
 
-				this.view.message = 'There are no editors open that can provide file history information.';
+				this.view.message = '没有打开可以提供文件历史信息的编辑器。';
 				return [];
 			}
 
@@ -61,7 +61,7 @@ export class FileHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 				}
 			} catch {}
 
-			this.view.title = folder ? 'Folder History' : 'File History';
+			this.view.title = folder ? '文件夹历史记录' : '文件历史记录';
 
 			let branch;
 			if (!commitish.sha || commitish.sha === 'HEAD') {

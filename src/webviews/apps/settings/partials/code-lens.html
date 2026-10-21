@@ -2,26 +2,26 @@
 	<div class="section__header">
 		<div class="setting__input setting__input--big">
 			<input id="codeLens.enabled" name="codeLens.enabled" type="checkbox" data-setting />
-			<label for="codeLens.enabled">Git Code Lens</label>
+			<label for="codeLens.enabled">Git 代码镜头</label>
 			<a
 				class="link__learn-more"
-				title="Learn more"
+				title="了解更多"
 				href="https://github.com/eamodio/vscode-gitlens/#git-code-lens-"
 			>
 				<i class="icon icon__info"></i>
 			</a>
 		</div>
 
-		<p class="section__header-hint">Adds authorship code lens to the top of files and on code blocks</p>
+		<p class="section__header-hint">将作者代码镜头添加到文件顶部和代码块上</p>
 		<div class="section__header-info">
 			<i class="icon icon__bulb"></i>
 			<div>
 				<p>
-					Use the
-					<a class="command" title="Run command" href="command:gitlens.toggleCodeLens"
-						>GitLens: Toggle Git Code Lens</a
+					使用
+					<a class="command" title="运行命令" href="command:gitlens.toggleCodeLens"
+						>GitLess：切换 Git 代码镜头</a
 					>
-					command to override this setting for the current window
+					命令覆盖当前窗口的此设置
 				</p>
 			</div>
 		</div>
@@ -41,7 +41,7 @@
 								disabled
 							/>
 							<label for="codeLens.recentChange.enabled">
-								Add the author and date of the most recent change for the file or code block
+								添加文件或代码块最近更改的作者和日期
 							</label>
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 									data-setting
 									disabled
 								/>
-								<label class="nowrap" for="codeLens.recentChange.command">When clicked</label>
+								<label class="nowrap" for="codeLens.recentChange.command">单击时</label>
 								<div class="select-container">
 									<select
 										id="codeLens.recentChange.command"
@@ -66,44 +66,44 @@
 										data-enablement="codeLens.enabled &amp; codeLens.recentChange.enabled &amp; codeLens.recentChange.command !false"
 										disabled
 									>
-										<option value="gitlens.toggleFileBlame">toggles the file blame</option>
-										<option value="gitlens.toggleFileHeatmap">toggles the file heatmap</option>
+										<option value="gitlens.toggleFileBlame">切换文件责任</option>
+										<option value="gitlens.toggleFileHeatmap">切换文件热图</option>
 										<option value="gitlens.toggleFileChanges">
-											toggles the file changes since before the commit
+											切换自提交之前以来的文件更改
 										</option>
 										<option value="gitlens.toggleFileChangesOnly">
-											toggles the file changes from the commit
+											切换提交后的文件更改
 										</option>
 										<option value="gitlens.diffWithPrevious">
-											opens changes with the previous revision
+											打开与先前版本的更改
 										</option>
 										<option value="gitlens.revealCommitInView">
-											reveals the commit in the Side Bar
+											在侧栏中显示提交
 										</option>
-										<option value="gitlens.showCommitsInView">searches for the commit</option>
+										<option value="gitlens.showCommitsInView">搜索提交</option>
 										<option value="gitlens.showQuickCommitDetails">
-											shows details of the commit
+											显示提交的详细信息
 										</option>
 										<option value="gitlens.showQuickCommitFileDetails">
-											shows file details of the commit
+											显示提交的文件详细信息
 										</option>
 										<option value="gitlens.showQuickFileHistory">
-											shows the current file history
+											显示当前文件历史记录
 										</option>
 										<option value="gitlens.showQuickRepoHistory">
-											shows the current branch history
+											显示当前分支历史记录
 										</option>
 										<option value="gitlens.openCommitOnRemote">
-											opens the commit on the remote service (when available)
+											打开远程服务上的提交（如果可用）
 										</option>
 										<option value="gitlens.copyRemoteCommitUrl">
-											copies the remote commit url to the clipboard (when available)
+											将远程提交 URL 复制到剪贴板（如果可用）
 										</option>
 										<option value="gitlens.openFileOnRemote">
-											opens the file revision on the remote service (when available)
+											在远程服务上打开文件修订（如果可用）
 										</option>
 										<option value="gitlens.copyRemoteFileUrl">
-											copies the remote file revision url to the clipboard (when available)
+											将远程文件修订 URL 复制到剪贴板（如果可用）
 										</option>
 									</select>
 								</div>
@@ -121,7 +121,7 @@
 								disabled
 							/>
 							<label for="codeLens.authors.enabled">
-								Add the number of authors and the most prominent author of the file or code block
+								添加作者数量以及文件或代码块的最著名作者
 							</label>
 						</div>
 					</div>
@@ -137,7 +137,7 @@
 									data-setting
 									disabled
 								/>
-								<label class="nowrap" for="codeLens.authors.command">When clicked</label>
+								<label class="nowrap" for="codeLens.authors.command">单击时</label>
 								<div class="select-container">
 									<select
 										id="codeLens.authors.command"
@@ -146,46 +146,46 @@
 										data-enablement="codeLens.enabled &amp; codeLens.authors.enabled &amp; codeLens.authors.command !false"
 										disabled
 									>
-										<option value="gitlens.toggleFileBlame">toggles the file blame</option>
-										<option value="gitlens.toggleFileHeatmap">toggles the file heatmap</option>
+										<option value="gitlens.toggleFileBlame">切换文件责任</option>
+										<option value="gitlens.toggleFileHeatmap">切换文件热图</option>
 										<option value="gitlens.toggleFileChanges">
-											toggles the file changes since before the commit
+											切换自提交之前以来的文件更改
 										</option>
 										<option value="gitlens.toggleFileChangesOnly">
-											toggles the file changes from the commit
+											切换提交后的文件更改
 										</option>
 										<option value="gitlens.diffWithPrevious">
-											opens changes with the previous revision
+											打开与先前版本的更改
 										</option>
 										<option value="gitlens.revealCommitInView">
-											reveals the commit in the Side Bar
+											在侧栏中显示提交
 										</option>
 										<option value="gitlens.showCommitsInView">
-											searches for commits within the range
+											搜索范围内的提交
 										</option>
 										<option value="gitlens.showQuickCommitDetails">
-											shows details of the commit
+											显示提交的详细信息
 										</option>
 										<option value="gitlens.showQuickCommitFileDetails">
-											show file details of the commit
+											显示提交的文件详细信息
 										</option>
 										<option value="gitlens.showQuickFileHistory">
-											shows the current file history
+											显示当前文件历史记录
 										</option>
 										<option value="gitlens.showQuickRepoHistory">
-											shows the current branch history
+											显示当前分支历史记录
 										</option>
 										<option value="gitlens.openCommitOnRemote">
-											opens the commit on the remote service (when available)
+											打开远程服务上的提交（如果可用）
 										</option>
 										<option value="gitlens.copyRemoteCommitUrl">
-											copies the remote commit url to the clipboard (when available)
+											将远程提交 URL 复制到剪贴板（如果可用）
 										</option>
 										<option value="gitlens.copyRemoteFileUrl">
-											copies the remote file revision url to the clipboard (when available)
+											将远程文件修订 URL 复制到剪贴板（如果可用）
 										</option>
 										<option value="gitlens.openFileOnRemote">
-											opens the file revision on the remote service (when available)
+											在远程服务上打开文件修订（如果可用）
 										</option>
 									</select>
 								</div>
@@ -195,7 +195,7 @@
 
 					<div class="setting" data-enablement="codeLens.enabled">
 						<div class="setting__input">
-							<label class="non-interactive">Add code lens to the following scopes</label>
+							<label class="non-interactive">将代码镜头添加到以下范围</label>
 						</div>
 					</div>
 
@@ -211,9 +211,9 @@
 									data-setting-type="array"
 									disabled
 								/>
-								<label for="codeLens.scopes">File scope</label>
+								<label for="codeLens.scopes">文件范围</label>
 							</div>
-							<p class="setting__hint">At the top of the file</p>
+							<p class="setting__hint">在文件顶部</p>
 						</div>
 
 						<div class="setting" data-enablement="codeLens.enabled">
@@ -227,9 +227,9 @@
 									data-setting-type="array"
 									disabled
 								/>
-								<label for="codeLens.scopes-1">Containers scope</label>
+								<label for="codeLens.scopes-1">容器范围</label>
 							</div>
-							<p class="setting__hint">At the start of modules, classes, interfaces, etc</p>
+							<p class="setting__hint">在模块、类、接口等的开头</p>
 						</div>
 
 						<div class="setting" data-enablement="codeLens.enabled">
@@ -243,9 +243,9 @@
 									data-setting-type="array"
 									disabled
 								/>
-								<label for="codeLens.scopes-2">Block scope</label>
+								<label for="codeLens.scopes-2">块作用域</label>
 							</div>
-							<p class="setting__hint">At the start of functions, methods, etc</p>
+							<p class="setting__hint">在函数、方法等的开头</p>
 						</div>
 					</div>
 				</div>
@@ -305,14 +305,14 @@
 
 		<div class="section__group">
 			<p class="section__hint">
-				<i class="icon icon__info"></i> For more options, open
+				<i class="icon icon__info"></i> 如需更多选项，请打开
 				<a
 					class="command"
-					title="Open Settings"
+					title="打开设置"
 					href="command:workbench.action.openSettings?%22gitlens.codeLens%22"
-					>Settings</a
+					>设置</a
 				>
-				and search for <b><i>gitlens.codeLens</i></b>
+				并搜索 <b><i>gitlens.codeLens</i></b>
 			</p>
 		</div>
 	</div>

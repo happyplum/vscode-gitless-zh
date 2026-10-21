@@ -191,8 +191,8 @@ export class RevealInSideBarQuickPickItem extends CommandQuickPickItem {
 	constructor(
 		private readonly reference: GitRevisionReference,
 		item: QuickPickItem = {
-			label: `$(eye) Reveal ${GitReference.isStash(reference) ? 'Stash' : 'Commit'} in Side Bar`,
-			description: GitReference.isStash(reference) ? '' : 'can take a while',
+			label: `$(eye) 在侧栏中显示 ${GitReference.isStash(reference) ? 'Stash' : 'Commit'}`,
+			description: GitReference.isStash(reference) ? '' : '可能需要一段时间',
 		},
 	) {
 		super(item, undefined, undefined);
@@ -233,7 +233,7 @@ export class SearchForCommitQuickPickItem extends CommandQuickPickItem {
 			},
 			{
 				label: {
-					label: `for ${GitReference.toString(this.reference, { icon: false })}`,
+					label: `对于${GitReference.toString(this.reference, { icon: false })}`,
 				},
 				reveal: {
 					select: true,

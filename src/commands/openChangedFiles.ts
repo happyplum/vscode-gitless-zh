@@ -26,7 +26,7 @@ export class OpenChangedFilesCommand extends Command {
 
 				const status = await Container.git.getStatusForRepo(repoPath);
 				if (status == null) {
-					void window.showWarningMessage('Unable to open changed files');
+					void window.showWarningMessage('无法打开已更改的文件');
 
 					return;
 				}
@@ -37,7 +37,7 @@ export class OpenChangedFilesCommand extends Command {
 			findOrOpenEditors(args.uris);
 		} catch (ex) {
 			Logger.error(ex, 'OpenChangedFilesCommand');
-			void Messages.showGenericErrorMessage('Unable to open all changed files');
+			void Messages.showGenericErrorMessage('无法打开所有已更改的文件');
 		}
 	}
 }

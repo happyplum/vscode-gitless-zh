@@ -226,7 +226,7 @@ export abstract class WebviewBase implements Disposable {
 								pr = new PullRequest(
 									{ id: 'github', name: 'GitHub', domain: 'github.com' },
 									{
-										name: 'Eric Amodio',
+										name: '埃里克·阿莫迪奥',
 										avatarUrl: 'https://avatars1.githubusercontent.com/u/641685?s=32&v=4',
 										url: 'https://github.com/eamodio',
 									},

@@ -31,7 +31,7 @@ export class ClearFileAnnotationsCommand extends EditorCommand {
 			void (await Container.fileAnnotations.clear(editor));
 		} catch (ex) {
 			Logger.error(ex, 'ClearFileAnnotationsCommand');
-			void Messages.showGenericErrorMessage('Unable to clear file annotations');
+			void Messages.showGenericErrorMessage('无法清除文件注释');
 		}
 	}
 }
@@ -135,7 +135,7 @@ async function toggleFileAnnotations<TArgs extends ToggleFileAnnotationCommandAr
 	} catch (ex) {
 		Logger.error(ex, 'ToggleFileAnnotationsCommand');
 		void window.showErrorMessage(
-			`Unable to toggle file ${args.type} annotations. See output channel for more details`,
+			`无法切换文件 ${args.type} 注释。有关更多详细信息，请参阅输出通道`,
 		);
 	}
 }

@@ -57,8 +57,8 @@ type SearchStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo'
 
 export class SearchGitCommand extends QuickCommand<State> {
 	constructor(args?: SearchGitCommandArgs) {
-		super('search', 'search', 'Commit Search', {
-			description: 'aka grep, searches for commits',
+		super('search', 'search', '搜索提交', {
+			description: '又名 grep，搜索提交',
 		});
 
 		let counter = 0;
@@ -170,7 +170,7 @@ export class SearchGitCommand extends QuickCommand<State> {
 					state.repo.path,
 					search,
 					{
-						label: { label: `for ${state.pattern}` },
+						label: { label: `对于${state.pattern}` },
 					},
 					context.resultsPromise,
 					state.showResultsInSideBar instanceof SearchResultsNode ? state.showResultsInSideBar : undefined,
@@ -199,7 +199,7 @@ export class SearchGitCommand extends QuickCommand<State> {
 								repoPath,
 								search,
 								{
-									label: { label: `for ${state.pattern}` },
+									label: { label: `对于${state.pattern}` },
 									reveal: {
 										select: true,
 										focus: false,
@@ -216,7 +216,7 @@ export class SearchGitCommand extends QuickCommand<State> {
 								repoPath,
 								search,
 								{
-									label: { label: `for ${state.pattern}` },
+									label: { label: `对于${state.pattern}` },
 									reveal: {
 										select: true,
 										focus: false,
@@ -258,27 +258,27 @@ export class SearchGitCommand extends QuickCommand<State> {
 		const items: QuickPickItemOfT<SearchOperators>[] = [
 			{
 				label: searchOperatorToTitleMap.get('')!,
-				description: `pattern or message: pattern or =: pattern ${GlyphChars.Dash} use quotes to search for phrases`,
+				description: `直接输入模式，或使用 message:、=: 前缀 ${GlyphChars.Dash} 用引号搜索词组`,
 				item: 'message:',
 			},
 			{
 				label: searchOperatorToTitleMap.get('author:')!,
-				description: 'author: pattern or @: pattern',
+				description: '使用 author: 或 @: 搜索作者',
 				item: 'author:',
 			},
 			{
 				label: searchOperatorToTitleMap.get('commit:')!,
-				description: 'commit: sha or #: sha',
+				description: '使用 commit: 或 #: 搜索提交 SHA',
 				item: 'commit:',
 			},
 			{
 				label: searchOperatorToTitleMap.get('file:')!,
-				description: 'file: glob or ?: glob',
+				description: '使用 file: 或 ?: 搜索文件通配符',
 				item: 'file:',
 			},
 			{
 				label: searchOperatorToTitleMap.get('change:')!,
-				description: 'change: pattern or ~: pattern',
+				description: '使用 change: 或 ~: 搜索更改',
 				item: 'change:',
 			},
 		];
@@ -289,7 +289,7 @@ export class SearchGitCommand extends QuickCommand<State> {
 
 		const step = QuickCommand.createPickStep<QuickPickItemOfT<SearchOperators>>({
 			title: appendReposToTitle(context.title, state, context),
-			placeholder: 'e.g. "Updates dependencies" author:eamodio',
+			placeholder: '例如 "更新依赖" author:eamodio',
 			matchOnDescription: true,
 			matchOnDetail: true,
 			additionalButtons: [matchCaseButton, matchAllButton, matchRegexButton],
@@ -332,7 +332,7 @@ export class SearchGitCommand extends QuickCommand<State> {
 				quickpick.title = appendReposToTitle(
 					operations.size === 0 || operations.size > 1
 						? context.title
-						: `Commit ${searchOperatorToTitleMap.get(operations.keys().next().value)!}`,
+						: `提交${searchOperatorToTitleMap.get(operations.keys().next().value)!}`,
 					state,
 					context,
 				);
@@ -346,7 +346,7 @@ export class SearchGitCommand extends QuickCommand<State> {
 
 					quickpick.items = [
 						{
-							label: 'Search for',
+							label: '搜索',
 							description: quickpick.value,
 							item: quickpick.value as SearchOperators,
 						},

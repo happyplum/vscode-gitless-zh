@@ -673,10 +673,10 @@ export class ViewCommands {
 
 		if (commit?.hash !== node.ref.ref) {
 			void window.showWarningMessage(
-				`Commit ${GitReference.toString(node.ref, {
+				`提交 ${GitReference.toString(node.ref, {
 					capitalize: true,
 					icon: false,
-				})} cannot be undone, because it is no longer the most recent commit.`,
+				})} 无法撤消，因为它不再是最近的提交。`,
 			);
 
 			return;
@@ -761,7 +761,7 @@ export class ViewCommands {
 
 		return Container.searchAndCompareView.compare(
 			node.repoPath,
-			{ ref: commonAncestor, label: `ancestry with ${node.ref.ref} (${GitRevision.shorten(commonAncestor)})` },
+			{ ref: commonAncestor, label: `血统与${node.ref.ref}(${GitRevision.shorten(commonAncestor)})` },
 			'',
 		);
 	}

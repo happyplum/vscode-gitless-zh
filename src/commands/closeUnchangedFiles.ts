@@ -30,7 +30,7 @@ export class CloseUnchangedFilesCommand extends Command {
 
 				const status = await Container.git.getStatusForRepo(repoPath);
 				if (status == null) {
-					void window.showWarningMessage('Unable to close unchanged files');
+					void window.showWarningMessage('无法关闭未更改的文件');
 
 					return;
 				}
@@ -100,7 +100,7 @@ export class CloseUnchangedFilesCommand extends Command {
 			disposable.dispose();
 		} catch (ex) {
 			Logger.error(ex, 'CloseUnchangedFilesCommand');
-			void Messages.showGenericErrorMessage('Unable to close all unchanged files');
+			void Messages.showGenericErrorMessage('无法关闭所有未更改的文件');
 		}
 	}
 

@@ -42,8 +42,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 			  new ThemeIcon('diff')
 			: new ThemeIcon('diff');
 		item.tooltip = new MarkdownString(
-			`Incoming changes to $(file)${GlyphChars.Space}${this.file.fileName}${
-				this.status.incoming != null
+			`$(file)${GlyphChars.Space}${this.file.fileName}${this.status.incoming != null
 					? ` from ${GitReference.toString(this.status.incoming)}${
 							commit != null
 								? `\n\n${await CommitFormatter.fromTemplateAsync(
@@ -64,8 +63,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 								  })}`
 								: `\n\n${GitReference.toString(this.status.HEAD, { capitalize: true, label: false })}`
 					  }`
-					: ''
-			}`,
+					: ''} 的传入更改`,
 			true,
 		);
 		item.command = this.getCommand();
@@ -76,7 +74,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 	override getCommand(): Command | undefined {
 		if (this.status.mergeBase == null) {
 			return {
-				title: 'Open Revision',
+				title: '打开修订版',
 				command: BuiltInCommands.Open,
 				arguments: [GitUri.toRevisionUri(this.status.HEAD.ref, this.file.fileName, this.status.repoPath)],
 			};
@@ -86,7 +84,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 			lhs: {
 				sha: this.status.mergeBase,
 				uri: GitUri.fromFile(this.file, this.status.repoPath, undefined, true),
-				title: `${this.file.fileName} (merge-base)`,
+				title: `${this.file.fileName}（合并基础）`,
 			},
 			rhs: {
 				sha: this.status.HEAD.ref,
@@ -105,7 +103,7 @@ export class MergeConflictIncomingChangesNode extends ViewNode<ViewsWithCommits 
 			},
 		};
 		return {
-			title: 'Open Changes',
+			title: '打开更改',
 			command: Commands.DiffWith,
 			arguments: [commandArgs],
 		};

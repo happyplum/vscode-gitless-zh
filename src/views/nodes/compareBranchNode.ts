@@ -6,7 +6,7 @@ import { Container } from '../../container';
 import { GitBranch, GitRevision } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
 import { CommandQuickPickItem, ReferencePicker } from '../../quickpicks';
-import { debug, gate, log, Strings } from '../../system';
+import { debug, gate, log } from '../../system';
 import { BranchesView } from '../branchesView';
 import { CommitsView } from '../commitsView';
 import { RepositoriesView } from '../repositoriesView';
@@ -79,7 +79,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 					this.view,
 					this,
 					this.uri.repoPath!,
-					'Behind',
+					'落后',
 					{
 						query: this.getCommitsQuery(GitRevision.createRange(behind.ref1, behind.ref2, '..')),
 						comparison: behind,
@@ -92,7 +92,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 					},
 					{
 						id: 'behind',
-						description: Strings.pluralize('commit', aheadBehindCounts?.behind ?? 0),
+						description: `${aheadBehindCounts?.behind ?? 0} 个提交`,
 						expand: false,
 					},
 				),
@@ -100,7 +100,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 					this.view,
 					this,
 					this.uri.repoPath!,
-					'Ahead',
+					'领先',
 					{
 						query: this.getCommitsQuery(
 							GitRevision.createRange(ahead.ref1, this.compareWithWorkingTree ? '' : ahead.ref2, '..'),
@@ -115,7 +115,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 					},
 					{
 						id: 'ahead',
-						description: Strings.pluralize('commit', aheadBehindCounts?.ahead ?? 0),
+						description: `${aheadBehindCounts?.ahead ?? 0} 个提交`,
 						expand: false,
 					},
 				),
@@ -165,9 +165,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 
 		if (this._compareWith == null) {
 			item.command = {
-				title: `Compare ${this.branch.name}${this.compareWithWorkingTree ? ' (working)' : ''} with${
-					GlyphChars.Ellipsis
-				}`,
+				title: `比较${this.branch.name}${this.compareWithWorkingTree ? ' (working)' : ''}与${GlyphChars.Ellipsis}`,
 				command: 'gitlens.views.editNode',
 				arguments: [this],
 			};
@@ -271,7 +269,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 		}
 
 		return {
-			label: `${Strings.pluralize('file', files?.length ?? 0, { zero: 'No' })} changed`,
+			label: `${files?.length ?? 0} 个文件已更改`,
 			files: files,
 		};
 	}
@@ -283,7 +281,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 		);
 
 		return {
-			label: `${Strings.pluralize('file', files?.length ?? 0, { zero: 'No' })} changed`,
+			label: `${files?.length ?? 0} 个文件已更改`,
 			files: files,
 		};
 	}
@@ -324,7 +322,7 @@ export class CompareBranchNode extends ViewNode<BranchesView | CommitsView | Rep
 		const files = await Container.git.getDiffStatus(this.uri.repoPath!, comparison);
 
 		return {
-			label: `${Strings.pluralize('file', files?.length ?? 0, { zero: 'No' })} changed`,
+			label: `${files?.length ?? 0} 个文件已更改`,
 			files: files,
 		};
 	}

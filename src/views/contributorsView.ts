@@ -50,7 +50,7 @@ export class ContributorsViewNode extends ViewNode<ContributorsView> {
 		if (this.children == null) {
 			const repositories = await Container.git.getOrderedRepositories();
 			if (repositories.length === 0) {
-				this.view.message = 'No contributors could be found.';
+				this.view.message = '找不到贡献者。';
 
 				return [];
 			}
@@ -67,7 +67,7 @@ export class ContributorsViewNode extends ViewNode<ContributorsView> {
 			const [child] = this.children;
 
 			if (!child.repo.supportsChangeEvents) {
-				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}Auto-refresh unavailable`;
+				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}自动刷新不可用`;
 			}
 
 			const children = await child.getChildren();
@@ -87,8 +87,8 @@ export class ContributorsViewNode extends ViewNode<ContributorsView> {
 
 			// const contributors = await child.repo.getContributors({ all: all, ref: ref });
 			if (children.length === 0) {
-				this.view.message = 'No contributors could be found.';
-				this.view.title = 'Contributors';
+				this.view.message = '找不到贡献者。';
+				this.view.title = '贡献者';
 
 				void child.ensureSubscription();
 
@@ -96,7 +96,7 @@ export class ContributorsViewNode extends ViewNode<ContributorsView> {
 			}
 
 			this.view.message = undefined;
-			this.view.title = `Contributors (${children.length})`;
+			this.view.title = `贡献者 (${children.length})`;
 
 			return children;
 		}

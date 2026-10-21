@@ -89,7 +89,7 @@ export class OpenBranchOnRemoteCommand extends ActiveEditorCommand {
 		} catch (ex) {
 			Logger.error(ex, 'OpenBranchOnRemoteCommand');
 			void window.showErrorMessage(
-				'Unable to open branch on remote provider. See output channel for more details',
+				'无法在远程提供商上打开分支。有关更多详细信息，请参阅输出通道',
 			);
 		}
 	}

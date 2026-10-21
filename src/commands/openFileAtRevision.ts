@@ -139,7 +139,7 @@ export class OpenFileAtRevisionCommand extends ActiveEditorCommand {
 			}));
 		} catch (ex) {
 			Logger.error(ex, 'OpenFileAtRevisionCommand');
-			void Messages.showGenericErrorMessage('Unable to open file at revision');
+			void Messages.showGenericErrorMessage('无法打开修订版的文件');
 		}
 	}
 }

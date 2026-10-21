@@ -21,6 +21,14 @@ import { DOM } from '../shared/dom';
 // import { Snow } from '../shared/snow';
 
 const rebaseActions = ['pick', 'reword', 'edit', 'squash', 'fixup', 'drop'];
+const rebaseActionLabels: Record<string, string> = {
+	pick: '保留',
+	reword: '改写',
+	edit: '编辑',
+	squash: '压缩',
+	fixup: '修正',
+	drop: '丢弃',
+};
 const rebaseActionsMap = new Map<string, RebaseEntryAction>([
 	['p', 'pick'],
 	['P', 'pick'],
@@ -312,9 +320,7 @@ class RebaseEditor extends App<RebaseState> {
 		$subhead.appendChild($el);
 
 		$el = document.createTextNode(
-			`Rebasing ${state.entries.length} commit${state.entries.length !== 1 ? 's' : ''}${
-				state.onto ? ' onto' : ''
-			}`,
+			`正在将 ${state.entries.length} 个提交变基${state.onto ? '到 ' : ''}`,
 		);
 		$subhead.appendChild($el);
 
@@ -339,7 +345,7 @@ class RebaseEditor extends App<RebaseState> {
 			const $entry = document.createElement('li');
 
 			const $el = document.createElement('h3');
-			$el.textContent = 'No commits to rebase';
+			$el.textContent = '没有可变基的提交';
 
 			$entry.appendChild($el);
 			$container.appendChild($entry);
@@ -425,7 +431,7 @@ class RebaseEditor extends App<RebaseState> {
 			for (const action of rebaseActions) {
 				const $option = document.createElement('option');
 				$option.value = action;
-				$option.text = action;
+				$option.text = rebaseActionLabels[action];
 
 				if (entry.action === action) {
 					$option.selected = true;

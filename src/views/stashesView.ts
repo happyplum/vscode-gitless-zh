@@ -50,7 +50,7 @@ export class StashesViewNode extends ViewNode<StashesView> {
 		if (this.children == null) {
 			const repositories = await Container.git.getOrderedRepositories();
 			if (repositories.length === 0) {
-				this.view.message = 'No stashes could be found.';
+				this.view.message = '找不到任何储藏。';
 
 				return [];
 			}
@@ -67,13 +67,13 @@ export class StashesViewNode extends ViewNode<StashesView> {
 			const [child] = this.children;
 
 			if (!child.repo.supportsChangeEvents) {
-				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}Auto-refresh unavailable`;
+				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}自动刷新不可用`;
 			}
 
 			const stash = await child.repo.getStash();
 			if (stash == null) {
-				this.view.message = 'No stashes could be found.';
-				this.view.title = 'Stashes';
+				this.view.message = '找不到任何储藏。';
+				this.view.title = '储藏';
 
 				void child.ensureSubscription();
 
@@ -81,7 +81,7 @@ export class StashesViewNode extends ViewNode<StashesView> {
 			}
 
 			this.view.message = undefined;
-			this.view.title = `Stashes (${stash?.commits.size ?? 0})`;
+			this.view.title = `储藏 (${stash?.commits.size ?? 0})`;
 
 			return child.getChildren();
 		}
@@ -207,7 +207,7 @@ export class StashesView extends ViewBase<StashesViewNode, StashesViewConfig> {
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(stash, { icon: false })} in the side bar...`,
+				title: `在侧边栏中显示${GitReference.toString(stash, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {

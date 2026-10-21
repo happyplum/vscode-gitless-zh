@@ -161,7 +161,7 @@ export class FileRevisionAsCommitNode extends ViewRefFileNode<ViewsWithCommits |
 
 		if (this.commit.hasConflicts) {
 			return {
-				title: 'Open Changes',
+				title: '打开更改',
 				command: Commands.DiffWith,
 				arguments: [
 					{
@@ -194,7 +194,7 @@ export class FileRevisionAsCommitNode extends ViewRefFileNode<ViewsWithCommits |
 			},
 		};
 		return {
-			title: 'Open Changes with Previous Revision',
+			title: '打开与上一修订版的更改',
 			command: Commands.DiffWithPrevious,
 			arguments: [undefined, commandArgs],
 		};

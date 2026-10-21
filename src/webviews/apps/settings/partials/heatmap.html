@@ -1,10 +1,10 @@
 <section id="heatmap" class="section--settings section--collapsible">
 	<div class="section__header">
 		<h2>
-			Gutter Heatmap
+			编辑器边栏热图
 			<a
 				class="link__learn-more"
-				title="Learn more"
+				title="了解更多"
 				href="https://github.com/eamodio/vscode-gitlens/#gutter-heatmap-"
 			>
 				<i class="icon icon__info"></i>
@@ -12,27 +12,27 @@
 		</h2>
 
 		<p class="section__header-hint">
-			Adds on-demand heatmap (age) indicator to the edge of the gutter to show how recently lines were changed
+			在编辑器边栏边缘添加按需热图（年龄）指示器，以显示最近行的更改情况
 		</p>
 		<div class="section__header-info">
 			<i class="icon icon--md icon__bulb"></i>
 			<div>
 				<p>
-					Use the
+					使用
 					<span class="command hidden" data-visibility="heatmap.toggleMode =file">
-						GitLens: Toggle File Heatmap Annotations
+						GitLess：切换文件热图注释
 					</span>
 					<a
 						class="command hidden"
-						title="Run command"
+						title="运行命令"
 						href="command:gitlens.toggleFileHeatmap"
 						data-visibility="heatmap.toggleMode =window"
 					>
-						GitLens: Toggle File Heatmap Annotations
+						GitLess：切换文件热图注释
 					</a>
-					command to turn the annotations on or off
+					打开或关闭注释的命令
 				</p>
-				<p>Press <kbd>Esc</kbd> to turn off the annotations</p>
+				<p>按 <kbd>退出</kbd> 关闭注释</p>
 			</div>
 		</div>
 	</div>
@@ -41,18 +41,18 @@
 		<div class="section__group">
 			<div class="section__content">
 				<p class="setting__hint">
-					<i class="icon icon__info"></i> Indicator color reflects the age of the most recent change (hot or
-					cold), while indicator brightness ranges from bright (newer) to dim (older) based on the relative
-					age
+					<i class="icon icon__info"></i> 指示器颜色反映了最近更改的时间（热门或
+					冷），而指示器亮度范围从亮（新）到暗（旧），基于相对
+					年龄
 				</p>
 
 				<div class="setting">
 					<div class="setting__input">
-						<label for="heatmap.toggleMode">Toggle annotations </label>
+						<label for="heatmap.toggleMode">切换注释 </label>
 						<div class="select-container">
 							<select id="heatmap.toggleMode" name="heatmap.toggleMode" data-setting>
-								<option value="file">individually for each file</option>
-								<option value="window">for all files</option>
+								<option value="file">每个文件单独</option>
+								<option value="window">对于所有文件</option>
 							</select>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 								data-setting
 								data-setting-type="array"
 							/>
-							<label for="heatmap.locations">Add gutter indicator</label>
+							<label for="heatmap.locations">添加编辑器边栏指示器</label>
 						</div>
 					</div>
 
@@ -83,14 +83,14 @@
 								data-setting
 								data-setting-type="array"
 							/>
-							<label for="heatmap.locations-1">Add scroll bar indicator</label>
+							<label for="heatmap.locations-1">添加滚动条指示器</label>
 						</div>
 					</div>
 				</div>
 
 				<div class="setting">
 					<div class="setting__input">
-						<label for="heatmap.ageThreshold">Hot/cold threshold </label>
+						<label for="heatmap.ageThreshold">热/冷阈值 </label>
 						<input
 							id="heatmap.ageThreshold"
 							name="heatmap.ageThreshold"
@@ -99,7 +99,7 @@
 							data-setting
 							data-default-value="90"
 						/>
-						<label for="heatmap.ageThreshold"> days</label>
+						<label for="heatmap.ageThreshold"> 天</label>
 					</div>
 				</div>
 			</div>
@@ -121,14 +121,14 @@
 
 		<div class="section__group">
 			<p class="section__hint">
-				<i class="icon icon__info"></i> For more options, open
+				<i class="icon icon__info"></i> 如需更多选项，请打开
 				<a
 					class="command"
-					title="Open Settings"
+					title="打开设置"
 					href="command:workbench.action.openSettings?%22gitlens.heatmap%22"
-					>Settings</a
+					>设置</a
 				>
-				and search for <b><i>gitlens.heatmap</i></b>
+				并搜索 <b><i>gitlens.heatmap</i></b>
 			</p>
 		</div>
 	</div>

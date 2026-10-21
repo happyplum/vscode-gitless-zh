@@ -139,9 +139,7 @@ export class FileHistoryNode extends SubscribeableViewNode<FileHistoryView> impl
 		const item = new TreeItem(label, TreeItemCollapsibleState.Expanded);
 		item.contextValue = ContextValues.FileHistory;
 		item.description = this.uri.directory;
-		item.tooltip = `History of ${this.uri.fileName}\n${this.uri.directory}/${
-			this.uri.sha == null ? '' : `\n\n${this.uri.sha}`
-		}`;
+		item.tooltip = `${this.uri.fileName}的历史\n${this.uri.directory}/${this.uri.sha == null ? '' : `\n\n${this.uri.sha}`}`;
 
 		this.view.description = `${label}${
 			this.parent instanceof FileHistoryTrackerNode && !this.parent.followingEditor ? ' (pinned)' : ''

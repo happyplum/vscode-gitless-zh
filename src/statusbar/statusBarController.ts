@@ -71,11 +71,11 @@ export class StatusBarController implements Disposable {
 						alignment,
 						alignment === StatusBarAlignment.Right ? 999 : 1,
 					);
-				this._statusBarMode.name = 'GitLens Modes';
+				this._statusBarMode.name = 'GitLess 模式';
 				this._statusBarMode.command = Commands.SwitchMode;
 				this._statusBarMode.text = mode.statusBarItemName;
 				this._statusBarMode.tooltip = new MarkdownString(
-					`**${mode.statusBarItemName}** ${GlyphChars.Dash} ${mode.description}\n\n---\n\nClick to Switch GitLens Mode`,
+					`**${mode.statusBarItemName}** ${GlyphChars.Dash} ${mode.description}\n\n---\n\n点击切换 GitLess 模式`,
 					true,
 				);
 				this._statusBarMode.show();
@@ -105,7 +105,7 @@ export class StatusBarController implements Disposable {
 					alignment,
 					alignment === StatusBarAlignment.Right ? 1000 : 0,
 				);
-			this._statusBarBlame.name = 'GitLens Current Line Blame';
+			this._statusBarBlame.name = 'GitLess 当前行逐行追溯';
 			this._statusBarBlame.command = Container.config.statusBar.command;
 
 			if (configuration.changed(e, 'statusBar.enabled')) {
@@ -261,7 +261,7 @@ export class StatusBarController implements Disposable {
 				break;
 			case StatusBarCommand.ToggleFileChanges: {
 				this._statusBarBlame.command = command<[Uri, ToggleFileChangesAnnotationCommandArgs]>({
-					title: 'Toggle File Changes',
+					title: '切换文件更改',
 					command: Commands.ToggleFileChanges,
 					arguments: [
 						commit.uri,
@@ -276,7 +276,7 @@ export class StatusBarController implements Disposable {
 			}
 			case StatusBarCommand.ToggleFileChangesOnly: {
 				this._statusBarBlame.command = command<[Uri, ToggleFileChangesAnnotationCommandArgs]>({
-					title: 'Toggle File Changes',
+					title: '切换文件更改',
 					command: Commands.ToggleFileChanges,
 					arguments: [
 						commit.uri,

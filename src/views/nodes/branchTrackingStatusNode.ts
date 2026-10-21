@@ -4,7 +4,7 @@ import { Colors } from '../../constants';
 import { Container } from '../../container';
 import { GitBranch, GitLog, GitRemote, GitRevision, GitTrackingState } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
-import { Dates, debug, gate, Iterables, Strings } from '../../system';
+import { Dates, debug, gate, Iterables } from '../../system';
 import { ViewsWithCommits } from '../viewBase';
 import { BranchNode } from './branchNode';
 import { BranchTrackingStatusFilesNode } from './branchTrackingStatusFilesNode';
@@ -162,16 +162,12 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 			case 'ahead': {
 				const remote = await this.branch.getRemote();
 
-				label = `Changes to push to ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)}${
-					remote?.provider?.name ? ` on ${remote?.provider.name}` : ''
+				label = `待推送到 ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)} 的更改${
+					remote?.provider?.name ? `（${remote?.provider.name}）` : ''
 				}`;
-				description = Strings.pluralize('commit', this.status.state.ahead);
-				tooltip = `Branch $(git-branch) ${this.branch.name} is ${Strings.pluralize(
-					'commit',
-					this.status.state.ahead,
-					{ infix: '$(arrow-up) ' },
-				)} ahead of $(git-branch) ${this.status.upstream}${
-					remote?.provider?.name ? ` on ${remote.provider.name}` : ''
+				description = `${this.status.state.ahead} 个提交`;
+				tooltip = `分支 $(git-branch) ${this.branch.name} 比 $(git-branch) ${this.status.upstream} 领先 $(arrow-up) ${this.status.state.ahead} 个提交${
+					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
 
 				collapsibleState = TreeItemCollapsibleState.Collapsed;
@@ -185,16 +181,12 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 			case 'behind': {
 				const remote = await this.branch.getRemote();
 
-				label = `Changes to pull from ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)}${
-					remote?.provider?.name ? ` on ${remote.provider.name}` : ''
+				label = `待从 ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)} 拉取的更改${
+					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
-				description = Strings.pluralize('commit', this.status.state.behind);
-				tooltip = `Branch $(git-branch) ${this.branch.name} is ${Strings.pluralize(
-					'commit',
-					this.status.state.behind,
-					{ infix: '$(arrow-down) ' },
-				)} behind $(git-branch) ${this.status.upstream}${
-					remote?.provider?.name ? ` on ${remote.provider.name}` : ''
+				description = `${this.status.state.behind} 个提交`;
+				tooltip = `分支 $(git-branch) ${this.branch.name} 比 $(git-branch) ${this.status.upstream} 落后 $(arrow-down) ${this.status.state.behind} 个提交${
+					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
 
 				collapsibleState = TreeItemCollapsibleState.Collapsed;
@@ -208,13 +200,13 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 			case 'same': {
 				const remote = await this.branch.getRemote();
 
-				label = `Up to date with ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)}${
-					remote?.provider?.name ? ` on ${remote.provider.name}` : ''
+				label = `已与 ${remote?.name ?? GitBranch.getRemote(this.status.upstream!)} 同步${
+					remote?.provider?.name ? `（${remote.provider.name}）` : ''
 				}`;
-				description = lastFetched ? `Last fetched ${Dates.getFormatter(new Date(lastFetched)).fromNow()}` : '';
-				tooltip = `Branch $(git-branch) ${this.branch.name} is up to date with $(git-branch) ${
+				description = lastFetched ? `上次获取：${Dates.getFormatter(new Date(lastFetched)).fromNow()}` : '';
+				tooltip = `分支 $(git-branch) ${this.branch.name} 已与 $(git-branch) ${
 					this.status.upstream
-				}${remote?.provider?.name ? ` on ${remote.provider.name}` : ''}`;
+				} 同步${remote?.provider?.name ? `（${remote.provider.name}）` : ''}`;
 
 				collapsibleState = TreeItemCollapsibleState.None;
 				contextValue = this.root
@@ -229,9 +221,9 @@ export class BranchTrackingStatusNode extends ViewNode<ViewsWithCommits> impleme
 				const providers = GitRemote.getHighlanderProviders(remotes);
 				const providerName = providers?.length ? providers[0].name : undefined;
 
-				label = `Publish ${this.branch.name} to ${providerName ?? 'a remote'}`;
-				tooltip = `Branch $(git-branch) ${this.branch.name} hasn't been published to ${
-					providerName ?? 'a remote'
+				label = `将 ${this.branch.name} 发布到 ${providerName ?? '远程仓库'}`;
+				tooltip = `分支 $(git-branch) ${this.branch.name} 尚未发布到 ${
+					providerName ?? '远程仓库'
 				}`;
 
 				collapsibleState = TreeItemCollapsibleState.None;

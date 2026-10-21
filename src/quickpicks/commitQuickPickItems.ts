@@ -126,7 +126,7 @@ export class CommitCopyIdQuickPickItem extends CommandQuickPickItem {
 
 	override async onDidPressKey(key: Keys): Promise<void> {
 		await super.onDidPressKey(key);
-		void window.showInformationMessage('Commit SHA copied to the clipboard');
+		void window.showInformationMessage('提交 SHA 复制到剪贴板');
 	}
 }
 
@@ -142,7 +142,7 @@ export class CommitCopyMessageQuickPickItem extends CommandQuickPickItem {
 	override async onDidPressKey(key: Keys): Promise<void> {
 		await super.onDidPressKey(key);
 		void window.showInformationMessage(
-			`${this.commit.isStash ? 'Stash' : 'Commit'} Message copied to the clipboard`,
+			`${this.commit.isStash ? 'Stash' : 'Commit'} 消息已复制到剪贴板`,
 		);
 	}
 }
@@ -281,8 +281,8 @@ export class CommitRestoreFileChangesCommandQuickPickItem extends CommandQuickPi
 	constructor(private readonly commit: GitLogCommit, private readonly file: string | GitFile, item?: QuickPickItem) {
 		super(
 			item ?? {
-				label: 'Restore',
-				description: 'aka checkout',
+				label: '恢复',
+				description: '也称为检出',
 			},
 		);
 	}

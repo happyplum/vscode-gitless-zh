@@ -82,7 +82,7 @@ export class CompareWithCommand extends ActiveEditorCommand {
 			}
 		} catch (ex) {
 			Logger.error(ex, 'CompareWithCommmand');
-			void Messages.showGenericErrorMessage('Unable to open comparison');
+			void Messages.showGenericErrorMessage('无法打开比较');
 		}
 	}
 }

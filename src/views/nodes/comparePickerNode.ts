@@ -47,9 +47,9 @@ export class ComparePickerNode extends ViewNode<SearchAndCompareView> {
 			);
 			item.contextValue = ContextValues.ComparePicker;
 			item.description = description;
-			item.tooltip = `Click to select or enter a reference for compare${GlyphChars.Ellipsis}`;
+			item.tooltip = `单击以选择或输入比较${GlyphChars.Ellipsis} 的参考`;
 			item.command = {
-				title: `Compare${GlyphChars.Ellipsis}`,
+				title: `比较${GlyphChars.Ellipsis}`,
 				command: this.view.getQualifiedCommand('selectForCompare'),
 			};
 		} else {
@@ -59,9 +59,9 @@ export class ComparePickerNode extends ViewNode<SearchAndCompareView> {
 			);
 			item.contextValue = ContextValues.ComparePickerWithRef;
 			item.description = description;
-			item.tooltip = `Click to compare ${selectedRef.label} with${GlyphChars.Ellipsis}`;
+			item.tooltip = `点击比较${selectedRef.label}与${GlyphChars.Ellipsis}`;
 			item.command = {
-				title: `Compare ${selectedRef.label} with${GlyphChars.Ellipsis}`,
+				title: `比较${selectedRef.label}与${GlyphChars.Ellipsis}`,
 				command: this.view.getQualifiedCommand('compareWithSelected'),
 			};
 		}

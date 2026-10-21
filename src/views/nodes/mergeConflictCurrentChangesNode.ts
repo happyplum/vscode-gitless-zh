@@ -37,10 +37,9 @@ export class MergeConflictCurrentChangesNode extends ViewNode<ViewsWithCommits |
 			  new ThemeIcon('diff')
 			: new ThemeIcon('diff');
 		item.tooltip = new MarkdownString(
-			`Current changes to $(file)${GlyphChars.Space}${this.file.fileName} on ${GitReference.toString(
+			`${GitReference.toString(
 				this.status.current,
-			)}${
-				commit != null
+			)}${commit != null
 					? `\n\n${await CommitFormatter.fromTemplateAsync(
 							`$(git-commit)&nbsp;\${id} ${GlyphChars.Dash} \${avatar}&nbsp;__\${author}__, \${ago}\${' via 'pullRequest} &nbsp; _(\${date})_ \n\n\${message}`,
 							commit,
@@ -52,8 +51,7 @@ export class MergeConflictCurrentChangesNode extends ViewNode<ViewsWithCommits |
 								messageIndent: 4,
 							},
 					  )}`
-					: ''
-			}`,
+					: ''} 上的 $(file)${GlyphChars.Space}${this.file.fileName} 的当前更改`,
 			true,
 		);
 		item.command = this.getCommand();
@@ -64,7 +62,7 @@ export class MergeConflictCurrentChangesNode extends ViewNode<ViewsWithCommits |
 	override getCommand(): Command | undefined {
 		if (this.status.mergeBase == null) {
 			return {
-				title: 'Open Revision',
+				title: '打开修订版',
 				command: BuiltInCommands.Open,
 				arguments: [GitUri.toRevisionUri('HEAD', this.file.fileName, this.status.repoPath)],
 			};
@@ -74,7 +72,7 @@ export class MergeConflictCurrentChangesNode extends ViewNode<ViewsWithCommits |
 			lhs: {
 				sha: this.status.mergeBase,
 				uri: GitUri.fromFile(this.file, this.status.repoPath, undefined, true),
-				title: `${this.file.fileName} (merge-base)`,
+				title: `${this.file.fileName}（合并基础）`,
 			},
 			rhs: {
 				sha: 'HEAD',
@@ -92,7 +90,7 @@ export class MergeConflictCurrentChangesNode extends ViewNode<ViewsWithCommits |
 			},
 		};
 		return {
-			title: 'Open Changes',
+			title: '打开更改',
 			command: Commands.DiffWith,
 			arguments: [commandArgs],
 		};

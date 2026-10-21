@@ -137,7 +137,7 @@ export class FileHistoryView extends ViewBase<FileHistoryTrackerNode | LineHisto
 		this._followCursor = enabled;
 		void setContext(ContextKeys.ViewsFileHistoryCursorFollowing, enabled);
 
-		this.title = this._followCursor ? 'Line History' : 'File History';
+		this.title = this._followCursor ? '行历史' : '文件历史记录';
 
 		const root = this.ensureRoot(true);
 		if (uri != null) {

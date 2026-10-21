@@ -44,14 +44,14 @@ export class LineHistoryTrackerNode extends SubscribeableViewNode<FileHistoryVie
 			if (!this.hasUri) {
 				this.view.description = undefined;
 
-				this.view.message = 'There are no editors open that can provide line history information.';
+				this.view.message = '没有打开的编辑器可以提供行历史信息。';
 				return [];
 			}
 
 			if (this._selection == null) {
 				this.view.description = undefined;
 
-				this.view.message = 'There was no selection provided for line history.';
+				this.view.message = '没有为行历史记录提供选择。';
 				this.view.description = `${this.uri.fileName}${
 					this.uri.sha
 						? ` ${

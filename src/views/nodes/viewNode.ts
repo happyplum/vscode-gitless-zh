@@ -402,17 +402,12 @@ export abstract class RepositoryFolderNode<
 			}
 
 			item.tooltip = new MarkdownString(
-				`${this.repo.formattedName ?? this.uri.repoPath ?? ''}${
-					lastFetched
+				`${this.repo.formattedName ?? this.uri.repoPath ?? ''}${lastFetched
 						? `${Strings.pad(GlyphChars.Dash, 2, 2)}Last fetched ${Repository.formatLastFetched(
 								lastFetched,
 								false,
 						  )}`
-						: ''
-				}${this.repo.formattedName ? `\n${this.uri.repoPath}` : ''}\n\nCurrent branch $(git-branch) ${
-					branch.name
-				}${
-					branch.upstream != null
+						: ''}${this.repo.formattedName ? `\n${this.uri.repoPath}` : ''}\n\n当前分支 $(git-branch) ${branch.name}${branch.upstream != null
 						? ` is ${branch.getTrackingStatus({
 								empty: branch.upstream.missing
 									? `missing upstream $(git-branch) ${branch.upstream.name}`
@@ -426,12 +421,9 @@ export abstract class RepositoryFolderNode<
 									providerName ? ` on ${providerName}` : ''
 								}`,
 						  })}`
-						: `hasn't been published to ${providerName ?? 'a remote'}`
-				}${
-					this.repo.supportsChangeEvents
+						: `hasn't been published to ${providerName ?? 'a remote'}`}${this.repo.supportsChangeEvents
 						? ''
-						: `\n\n${GlyphChars.Warning} Unable to automatically detect repository changes`
-				}`,
+						: `\n\n${GlyphChars.Warning} Unable to automatically detect repository changes`}`,
 				true,
 			);
 		} else {

@@ -175,7 +175,7 @@ export class DiffWithCommand extends Command {
 			));
 		} catch (ex) {
 			Logger.error(ex, 'DiffWithCommand', 'getVersionedFile');
-			void Messages.showGenericErrorMessage('Unable to open compare');
+			void Messages.showGenericErrorMessage('无法打开比较');
 		}
 	}
 }

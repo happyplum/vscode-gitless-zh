@@ -319,7 +319,7 @@ export function getValidateGitReferenceFn(
 			if (inRefMode) {
 				quickpick.items = [
 					DirectiveQuickPickItem.create(Directive.Back, true, {
-						label: 'Enter a reference or commit SHA',
+						label: '输入引用或提交 SHA',
 					}),
 				];
 				return true;
@@ -363,7 +363,7 @@ export async function* inputBranchNameStep<
 		title: appendReposToTitle(`${context.title}${options.titleContext ?? ''}`, state, context),
 		placeholder: options.placeholder,
 		value: options.value,
-		prompt: 'Enter branch name',
+		prompt: '输入分行名称',
 		validate: async (value: string | undefined): Promise<[boolean, string | undefined]> => {
 			if (value == null) return [false, undefined];
 
@@ -398,7 +398,7 @@ export async function* inputTagNameStep<
 		title: appendReposToTitle(`${context.title}${options.titleContext ?? ''}`, state, context),
 		placeholder: options.placeholder,
 		value: options.value,
-		prompt: 'Enter tag name',
+		prompt: '输入标签名称',
 		validate: async (value: string | undefined): Promise<[boolean, string | undefined]> => {
 			if (value == null) return [false, undefined];
 
@@ -447,7 +447,7 @@ export async function* pickBranchStep<
 
 	const step = QuickCommand.createPickStep<BranchQuickPickItem>({
 		title: appendReposToTitle(`${context.title}${titleContext ?? ''}`, state, context),
-		placeholder: branches.length === 0 ? `No branches found in ${state.repo.formattedName}` : placeholder,
+		placeholder: branches.length === 0 ? `${state.repo.formattedName} 中未找到分支` : placeholder,
 		matchOnDetail: true,
 		items:
 			branches.length === 0
@@ -506,7 +506,7 @@ export async function* pickBranchesStep<
 	const step = QuickCommand.createPickStep<BranchQuickPickItem>({
 		multiselect: branches.length !== 0,
 		title: appendReposToTitle(`${context.title}${titleContext ?? ''}`, state, context),
-		placeholder: branches.length === 0 ? `No branches found in ${state.repo.formattedName}` : placeholder,
+		placeholder: branches.length === 0 ? `${state.repo.formattedName} 中未找到分支` : placeholder,
 		matchOnDetail: true,
 		items:
 			branches.length === 0
@@ -577,10 +577,10 @@ export async function* pickBranchOrTagStep<
 		title: appendReposToTitle(`${context.title}${titleContext ?? ''}`, state, context),
 		placeholder:
 			branchesAndOrTags.length === 0
-				? `No branches${context.showTags ? ' or tags' : ''} found in ${state.repo.formattedName}`
+				? `在${state.repo.formattedName}中找不到分支${context.showTags ? ' or tags' : ''}`
 				: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(
 						3,
-				  )}(or enter a reference using #)`,
+				  )}（或使用#输入参考号）`,
 		matchOnDescription: true,
 		matchOnDetail: true,
 		value: value,
@@ -612,10 +612,8 @@ export async function* pickBranchOrTagStep<
 					const branchesAndOrTags = await getBranchesAndOrTagsFn();
 					quickpick.placeholder =
 						branchesAndOrTags.length === 0
-							? `${state.repo.formattedName} has no branches${context.showTags ? ' or tags' : ''}`
-							: `${
-									typeof placeholder === 'string' ? placeholder : placeholder(context)
-							  }${GlyphChars.Space.repeat(3)}(or enter a reference using #)`;
+							? `${state.repo.formattedName}没有分支${context.showTags ? ' or tags' : ''}`
+							: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(3)}（或使用#输入参考号）`;
 					quickpick.items = branchesAndOrTags;
 				} finally {
 					quickpick.busy = false;
@@ -681,10 +679,10 @@ export async function* pickBranchOrTagStepMultiRepo<
 		title: appendReposToTitle(`${context.title}${titleContext ?? ''}`, state, context),
 		placeholder:
 			branchesAndOrTags.length === 0
-				? `No branches${context.showTags ? ' or tags' : ''} found in ${state.repos[0].formattedName}`
+				? `在${state.repos[0].formattedName}中找不到分支${context.showTags ? ' or tags' : ''}`
 				: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(
 						3,
-				  )}(or enter a reference using #)`,
+				  )}（或使用#输入参考号）`,
 		matchOnDescription: true,
 		matchOnDetail: true,
 		value: value ?? (GitReference.isRevision(state.reference) ? state.reference.ref : undefined),
@@ -716,10 +714,8 @@ export async function* pickBranchOrTagStepMultiRepo<
 					const branchesAndOrTags = await getBranchesAndOrTagsFn();
 					quickpick.placeholder =
 						branchesAndOrTags.length === 0
-							? `${state.repos[0].formattedName} has no branches${context.showTags ? ' or tags' : ''}`
-							: `${
-									typeof placeholder === 'string' ? placeholder : placeholder(context)
-							  }${GlyphChars.Space.repeat(3)}(or enter a reference using #)`;
+							? `${state.repos[0].formattedName}没有分支${context.showTags ? ' or tags' : ''}`
+							: `${typeof placeholder === 'string' ? placeholder : placeholder(context)}${GlyphChars.Space.repeat(3)}（或使用#输入参考号）`;
 					quickpick.items = branchesAndOrTags;
 				} finally {
 					quickpick.busy = false;
@@ -835,7 +831,7 @@ export async function* pickCommitStep<
 						{ pattern: SearchPattern.fromCommit(item.item.ref) },
 						{
 							label: {
-								label: `for ${GitReference.toString(item.item, { icon: false })}`,
+								label: `对于${GitReference.toString(item.item, { icon: false })}`,
 							},
 							reveal: {
 								select: true,
@@ -878,7 +874,7 @@ export async function* pickCommitStep<
 					commit.repoPath,
 					{ pattern: SearchPattern.fromCommit(commit) },
 					{
-						label: { label: `for ${GitReference.toString(commit, { icon: false })}` },
+						label: { label: `对于${GitReference.toString(commit, { icon: false })}` },
 						reveal: {
 							select: true,
 							focus: false,
@@ -979,7 +975,7 @@ export function* pickCommitsStep<
 						{ pattern: SearchPattern.fromCommit(item.ref) },
 						{
 							label: {
-								label: `for ${GitReference.toString(item, { icon: false })}`,
+								label: `对于${GitReference.toString(item, { icon: false })}`,
 							},
 							reveal: {
 								select: true,
@@ -1007,7 +1003,7 @@ export function* pickCommitsStep<
 					commit.repoPath,
 					{ pattern: SearchPattern.fromCommit(commit) },
 					{
-						label: { label: `for ${GitReference.toString(commit, { icon: false })}` },
+						label: { label: `对于${GitReference.toString(commit, { icon: false })}` },
 						reveal: {
 							select: true,
 							focus: false,
@@ -1103,7 +1099,7 @@ export async function* pickRepositoriesStep<
 	context: Context,
 	options?: { placeholder?: string; skipIfPossible?: boolean },
 ): AsyncStepResultGenerator<Repository[]> {
-	options = { placeholder: 'Choose repositories', skipIfPossible: false, ...options };
+	options = { placeholder: '选择仓库', skipIfPossible: false, ...options };
 
 	let actives: Repository[];
 	if (state.repos != null) {
@@ -1258,7 +1254,7 @@ export async function* pickTagsStep<
 	const step = QuickCommand.createPickStep<TagQuickPickItem>({
 		multiselect: tags.length !== 0,
 		title: appendReposToTitle(`${context.title}${titleContext ?? ''}`, state, context),
-		placeholder: tags.length === 0 ? `No tags found in ${state.repo.formattedName}` : placeholder,
+		placeholder: tags.length === 0 ? `${state.repo.formattedName} 中未找到标签` : placeholder,
 		matchOnDetail: true,
 		items:
 			tags.length === 0
@@ -1316,7 +1312,7 @@ export async function* showCommitOrStashStep<
 						state.repo.path,
 						{ pattern: SearchPattern.fromCommit(state.reference.ref) },
 						{
-							label: { label: `for ${GitReference.toString(state.reference, { icon: false })}` },
+							label: { label: `对于${GitReference.toString(state.reference, { icon: false })}` },
 							reveal: {
 								select: true,
 								focus: false,
@@ -1571,7 +1567,7 @@ export function* showCommitOrStashFilesStep<
 					state.repo.path,
 					{ pattern: SearchPattern.fromCommit(state.reference.ref) },
 					{
-						label: { label: `for ${GitReference.toString(state.reference, { icon: false })}` },
+						label: { label: `对于${GitReference.toString(state.reference, { icon: false })}` },
 						reveal: {
 							select: true,
 							focus: false,
@@ -1630,7 +1626,7 @@ export async function* showCommitOrStashFileStep<
 		),
 		placeholder: `${GitUri.getFormattedPath(state.fileName, {
 			relativeTo: state.repo.path,
-		})} in ${GitReference.toString(state.reference, {
+		})} 在 ${GitReference.toString(state.reference, {
 			icon: false,
 		})}`,
 		ignoreFocusOut: true,
@@ -1643,7 +1639,7 @@ export async function* showCommitOrStashFileStep<
 					state.repo.path,
 					{ pattern: SearchPattern.fromCommit(state.reference.ref) },
 					{
-						label: { label: `for ${GitReference.toString(state.reference, { icon: false })}` },
+						label: { label: `对于${GitReference.toString(state.reference, { icon: false })}` },
 						reveal: {
 							select: true,
 							focus: false,
@@ -1827,28 +1823,28 @@ function getShowRepositoryStatusStepItems<
 		if (context.status.state.ahead === 0 && context.status.state.behind === 0) {
 			items.push(
 				DirectiveQuickPickItem.create(Directive.Noop, true, {
-					label: `$(git-branch) ${context.status.branch} is up to date with $(git-branch) ${context.status.upstream}`,
+					label: `$(git-branch) ${context.status.branch} 已与 $(git-branch) ${context.status.upstream} 保持同步`,
 					detail: workingTreeStatus,
 				}),
 			);
 		} else if (context.status.state.ahead !== 0 && context.status.state.behind !== 0) {
 			items.push(
 				DirectiveQuickPickItem.create(Directive.Noop, true, {
-					label: `$(git-branch) ${context.status.branch} has diverged from $(git-branch) ${context.status.upstream}`,
+					label: `$(git-branch) ${context.status.branch} 与 $(git-branch) ${context.status.upstream} 不同`,
 					detail: workingTreeStatus,
 				}),
 			);
 		} else if (context.status.state.ahead !== 0) {
 			items.push(
 				DirectiveQuickPickItem.create(Directive.Noop, true, {
-					label: `$(git-branch) ${context.status.branch} is ahead of $(git-branch) ${context.status.upstream}`,
+					label: `$(git-branch) ${context.status.branch} 领先于 $(git-branch) ${context.status.upstream}`,
 					detail: workingTreeStatus,
 				}),
 			);
 		} else if (context.status.state.behind !== 0) {
 			items.push(
 				DirectiveQuickPickItem.create(Directive.Noop, true, {
-					label: `$(git-branch) ${context.status.branch} is behind $(git-branch) ${context.status.upstream}`,
+					label: `$(git-branch) ${context.status.branch} 落后于 $(git-branch) ${context.status.upstream}`,
 					detail: workingTreeStatus,
 				}),
 			);
@@ -1892,7 +1888,7 @@ function getShowRepositoryStatusStepItems<
 	} else {
 		items.push(
 			DirectiveQuickPickItem.create(Directive.Noop, true, {
-				label: `$(git-branch) ${context.status.branch} has no upstream`,
+				label: `$(git-branch) ${context.status.branch} 无上行`,
 				detail: workingTreeStatus,
 			}),
 		);

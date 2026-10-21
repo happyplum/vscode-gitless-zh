@@ -18,7 +18,7 @@ export class ShowLastQuickPickCommand extends Command {
 			return commands.executeCommand(command.command, ...command.args);
 		} catch (ex) {
 			Logger.error(ex, 'ShowLastQuickPickCommand');
-			return Messages.showGenericErrorMessage('Unable to show last quick pick');
+			return Messages.showGenericErrorMessage('无法显示上次快速选择');
 		}
 	}
 }

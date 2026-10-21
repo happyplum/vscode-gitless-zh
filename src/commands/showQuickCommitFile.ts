@@ -97,7 +97,7 @@ export class ShowQuickCommitFileCommand extends ActiveEditorCachedCommand {
 				args.commit = blame.commit;
 			} catch (ex) {
 				Logger.error(ex, 'ShowQuickCommitFileDetailsCommand', `getBlameForLine(${blameline})`);
-				void window.showErrorMessage('Unable to show commit file details. See output channel for more details');
+				void window.showErrorMessage('无法显示提交文件详细信息。有关更多详细信息，请参阅输出通道');
 
 				return;
 			}
@@ -187,7 +187,7 @@ export class ShowQuickCommitFileCommand extends ActiveEditorCachedCommand {
 			// return undefined;
 		} catch (ex) {
 			Logger.error(ex, 'ShowQuickCommitFileDetailsCommand');
-			void Messages.showGenericErrorMessage('Unable to show commit file details');
+			void Messages.showGenericErrorMessage('无法显示提交文件详细信息');
 		}
 	}
 }

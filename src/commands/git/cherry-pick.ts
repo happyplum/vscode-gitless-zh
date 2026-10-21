@@ -43,8 +43,8 @@ type CherryPickStepState<T extends State = State> = ExcludeSome<StepState<T>, 'r
 
 export class CherryPickGitCommand extends QuickCommand<State> {
 	constructor(args?: CherryPickGitCommandArgs) {
-		super('cherry-pick', 'cherry-pick', 'Cherry Pick', {
-			description: 'integrates changes from specified commits into the current branch',
+		super('cherry-pick', 'cherry-pick', '拣选提交', {
+			description: '将指定提交的更改集成到当前分支中',
 		});
 
 		let counter = 0;
@@ -126,7 +126,7 @@ export class CherryPickGitCommand extends QuickCommand<State> {
 				context.destination = branch;
 			}
 
-			context.title = `${this.title} into ${GitReference.toString(context.destination, { icon: false })}`;
+			context.title = `${this.title} 转换为 ${GitReference.toString(context.destination, { icon: false })}`;
 
 			if (state.counter < 2 || state.references == null || state.references.length === 0) {
 				const result: StepResult<GitReference> = yield* pickBranchOrTagStep(
@@ -208,23 +208,23 @@ export class CherryPickGitCommand extends QuickCommand<State> {
 			[
 				FlagsQuickPickItem.create<Flags>(state.flags, [], {
 					label: this.title,
-					detail: `Will apply ${GitReference.toString(state.references)} to ${GitReference.toString(
+					detail: `将 ${GitReference.toString(state.references)} 应用于 ${GitReference.toString(
 						context.destination,
 					)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--edit'], {
-					label: `${this.title} & Edit`,
+					label: `${this.title} & 编辑`,
 					description: '--edit',
-					detail: `Will edit and apply ${GitReference.toString(state.references)} to ${GitReference.toString(
+					detail: `将编辑 ${GitReference.toString(state.references)} 并将其应用到 ${GitReference.toString(
 						context.destination,
 					)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--no-commit'], {
-					label: `${this.title} without Committing`,
+					label: `${this.title} 无需提交`,
 					description: '--no-commit',
-					detail: `Will apply ${GitReference.toString(state.references)} to ${GitReference.toString(
+					detail: `将 ${GitReference.toString(state.references)} 应用于 ${GitReference.toString(
 						context.destination,
-					)} without Committing`,
+					)}，无需提交`,
 				}),
 			],
 			context,

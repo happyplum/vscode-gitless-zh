@@ -85,7 +85,7 @@ export class OpenDirectoryCompareCommand extends ActiveEditorCommand {
 			void GitActions.Commit.openDirectoryCompare(repoPath, args.ref1, args.ref2);
 		} catch (ex) {
 			Logger.error(ex, 'OpenDirectoryCompareCommand');
-			void Messages.showGenericErrorMessage('Unable to open directory compare');
+			void Messages.showGenericErrorMessage('无法打开目录比较');
 		}
 	}
 }

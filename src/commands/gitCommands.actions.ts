@@ -231,9 +231,9 @@ export namespace GitActions {
 
 			if (files.length > 10) {
 				const result = await window.showWarningMessage(
-					`Are your sure you want to open the changes for all ${files.length} files?`,
-					{ title: 'Yes' },
-					{ title: 'No', isCloseAffordance: true },
+					`您确定要打开所有 ${files.length} 文件的更改吗？`,
+					{ title: '是的' },
+					{ title: '否', isCloseAffordance: true },
 				);
 				if (result == null || result.title === 'No') return;
 			}
@@ -267,9 +267,9 @@ export namespace GitActions {
 
 			if (files.length > 10) {
 				const result = await window.showWarningMessage(
-					`Are your sure you want to open the changes for all ${files.length} files?`,
-					{ title: 'Yes' },
-					{ title: 'No', isCloseAffordance: true },
+					`您确定要打开所有 ${files.length} 文件的更改吗？`,
+					{ title: '是的' },
+					{ title: '否', isCloseAffordance: true },
 				);
 				if (result == null || result.title === 'No') return;
 			}
@@ -310,9 +310,9 @@ export namespace GitActions {
 
 			if (files.length > 10) {
 				const result = await window.showWarningMessage(
-					`Are your sure you want to open the changes for all ${files.length} files?`,
-					{ title: 'Yes' },
-					{ title: 'No', isCloseAffordance: true },
+					`您确定要打开所有 ${files.length} 文件的更改吗？`,
+					{ title: '是的' },
+					{ title: '否', isCloseAffordance: true },
 				);
 				if (result == null || result.title === 'No') return;
 			}
@@ -580,9 +580,9 @@ export namespace GitActions {
 
 			if (files.length > 10) {
 				const result = await window.showWarningMessage(
-					`Are your sure you want to open all ${files.length} files?`,
-					{ title: 'Yes' },
-					{ title: 'No', isCloseAffordance: true },
+					`您确定要打开所有 ${files.length} 文件吗？`,
+					{ title: '是的' },
+					{ title: '否', isCloseAffordance: true },
 				);
 				if (result == null || result.title === 'No') return;
 			}
@@ -620,9 +620,9 @@ export namespace GitActions {
 
 			if (files.length > 10) {
 				const result = await window.showWarningMessage(
-					`Are your sure you want to open all ${files.length} file revisions?`,
-					{ title: 'Yes' },
-					{ title: 'No', isCloseAffordance: true },
+					`您确定要打开所有 ${files.length} 文件修订版吗？`,
+					{ title: '是的' },
+					{ title: '否', isCloseAffordance: true },
 				);
 				if (result == null || result.title === 'No') return;
 			}
@@ -734,16 +734,16 @@ export namespace GitActions {
 			}
 
 			const name = await window.showInputBox({
-				prompt: 'Please provide a name for the remote',
-				placeHolder: 'Remote name',
+				prompt: '请提供远程仓库的名称',
+				placeHolder: '远程名称',
 				value: undefined,
 				ignoreFocusOut: true,
 			});
 			if (name == null || name.length === 0) return undefined;
 
 			const url = await window.showInputBox({
-				prompt: 'Please provide the repository url for the remote',
-				placeHolder: 'Remote repository url',
+				prompt: '请提供远程的仓库 URL',
+				placeHolder: '远程仓库 url',
 				value: undefined,
 				ignoreFocusOut: true,
 			});

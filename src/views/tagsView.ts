@@ -57,7 +57,7 @@ export class TagsViewNode extends ViewNode<TagsView> {
 		if (this.children == null) {
 			const repositories = await Container.git.getOrderedRepositories();
 			if (repositories.length === 0) {
-				this.view.message = 'No tags could be found.';
+				this.view.message = '找不到标签。';
 
 				return [];
 			}
@@ -74,13 +74,13 @@ export class TagsViewNode extends ViewNode<TagsView> {
 			const [child] = this.children;
 
 			if (!child.repo.supportsChangeEvents) {
-				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}Auto-refresh unavailable`;
+				this.view.description = `${Strings.pad(GlyphChars.Warning, 0, 2)}自动刷新不可用`;
 			}
 
 			const tags = await child.repo.getTags();
 			if (tags.length === 0) {
-				this.view.message = 'No tags could be found.';
-				this.view.title = 'Tags';
+				this.view.message = '找不到标签。';
+				this.view.title = '标签';
 
 				void child.ensureSubscription();
 
@@ -88,7 +88,7 @@ export class TagsViewNode extends ViewNode<TagsView> {
 			}
 
 			this.view.message = undefined;
-			this.view.title = `Tags (${tags.length})`;
+			this.view.title = `标签 (${tags.length})`;
 
 			return child.getChildren();
 		}
@@ -236,7 +236,7 @@ export class TagsView extends ViewBase<TagsViewNode, TagsViewConfig> {
 		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
-				title: `Revealing ${GitReference.toString(tag, { icon: false })} in the side bar...`,
+				title: `在侧边栏中显示${GitReference.toString(tag, { icon: false })}...`,
 				cancellable: true,
 			},
 			async (progress, token) => {

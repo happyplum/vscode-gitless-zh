@@ -124,9 +124,7 @@ export abstract class ViewBase<
 				}
 
 				if (typeof item.tooltip === 'string') {
-					item.tooltip = `${item.tooltip}\n\n---\ncontext: ${item.contextValue}\nnode: ${node.toString()}${
-						parent != null ? `\nparent: ${parent.toString()}` : ''
-					}`;
+					item.tooltip = `${item.tooltip}\n\n---\n上下文：${item.contextValue}\n节点：${node.toString()}${parent != null ? `\nparent: ${parent.toString()}` : ''}`;
 				} else {
 					item.tooltip.appendMarkdown(
 						`\n\n---\n\ncontext: \`${item.contextValue}\`\\\nnode: \`${node.toString()}\`${

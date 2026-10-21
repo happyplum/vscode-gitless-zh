@@ -64,7 +64,7 @@ export class OpenRepoOnRemoteCommand extends ActiveEditorCommand {
 		} catch (ex) {
 			Logger.error(ex, 'OpenRepoOnRemoteCommand');
 			void window.showErrorMessage(
-				'Unable to open repository on remote provider. See output channel for more details',
+				'无法打开远程提供程序上的仓库。有关更多详细信息，请参阅输出通道',
 			);
 		}
 	}

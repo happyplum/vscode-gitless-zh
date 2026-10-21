@@ -159,7 +159,7 @@ export class StatusFilesNode extends ViewNode<RepositoriesView> {
 			}
 		}
 
-		const label = files === -1 ? '?? files changed' : `${Strings.pluralize('file', files)} changed`;
+		const label = files === -1 ? '文件更改数量未知' : `${files} 个文件已更改`;
 		const item = new TreeItem(label, TreeItemCollapsibleState.Collapsed);
 		item.id = this.id;
 		item.contextValue = ContextValues.StatusFiles;

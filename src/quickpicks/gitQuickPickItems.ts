@@ -253,12 +253,12 @@ export namespace RefQuickPickItem {
 	): RefQuickPickItem {
 		if (ref === '') {
 			return {
-				label: `${options.icon ? Strings.pad('$(file-directory)', 0, 2) : ''}Working Tree`,
+				label: `${options.icon ? Strings.pad('$(file-directory)', 0, 2) : ''}工作树`,
 				description: '',
 				alwaysShow: options.alwaysShow,
 				buttons: options.buttons,
 				picked: picked,
-				item: GitReference.create(ref, repoPath, { refType: 'revision', name: 'Working Tree' }),
+				item: GitReference.create(ref, repoPath, { refType: 'revision', name: '工作树' }),
 				current: false,
 				ref: ref,
 				remote: false,
@@ -267,7 +267,7 @@ export namespace RefQuickPickItem {
 
 		if (ref === 'HEAD') {
 			return {
-				label: `${options.icon ? Strings.pad('$(git-branch)', 0, 2) : ''}HEAD`,
+				label: `${options.icon ? Strings.pad('$(git-branch)', 0, 2) : ''}头`,
 				description: '',
 				alwaysShow: options.alwaysShow,
 				buttons: options.buttons,
@@ -283,7 +283,7 @@ export namespace RefQuickPickItem {
 
 		if (GitRevision.isRange(ref)) {
 			return {
-				label: `Range ${gitRef.name}`,
+				label: `范围${gitRef.name}`,
 				description: '',
 				alwaysShow: options.alwaysShow,
 				buttons: options.buttons,
@@ -296,7 +296,7 @@ export namespace RefQuickPickItem {
 		}
 
 		const item: RefQuickPickItem = {
-			label: `Commit ${gitRef.name}`,
+			label: `提交${gitRef.name}`,
 			description: options.ref ? `$(git-commit) ${ref}` : '',
 			alwaysShow: options.alwaysShow,
 			buttons: options.buttons,

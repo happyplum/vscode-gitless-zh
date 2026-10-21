@@ -18,7 +18,7 @@ export class WelcomeWebview extends WebviewBase {
 	}
 
 	get title(): string {
-		return 'Welcome to GitLens';
+		return '欢迎使用 GitLess';
 	}
 
 	override renderEndOfBody() {

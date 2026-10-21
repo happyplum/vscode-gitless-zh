@@ -181,7 +181,7 @@ export abstract class PagerNode extends ViewNode {
 
 	override getCommand(): Command | undefined {
 		return {
-			title: 'Load more',
+			title: '加载更多',
 			command: 'gitlens.views.loadMoreChildren',
 			arguments: [this],
 		};

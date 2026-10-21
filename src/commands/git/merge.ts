@@ -46,8 +46,8 @@ type MergeStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo',
 
 export class MergeGitCommand extends QuickCommand<State> {
 	constructor(args?: MergeGitCommandArgs) {
-		super('merge', 'merge', 'Merge', {
-			description: 'integrates changes from a specified branch into the current branch',
+		super('merge', 'merge', '合并', {
+			description: '将指定分支的更改集成到当前分支中',
 		});
 
 		let counter = 0;
@@ -119,7 +119,7 @@ export class MergeGitCommand extends QuickCommand<State> {
 				context.destination = branch;
 			}
 
-			context.title = `${this.title} into ${GitReference.toString(context.destination, { icon: false })}`;
+			context.title = `${this.title} 转换为 ${GitReference.toString(context.destination, { icon: false })}`;
 
 			if (state.counter < 2 || state.reference == null) {
 				const pickCommitToggle = new QuickCommandButtons.PickCommitToggle(context.pickCommit, context, () => {
@@ -204,10 +204,10 @@ export class MergeGitCommand extends QuickCommand<State> {
 				appendReposToTitle(`Confirm ${context.title}`, state, context),
 				[],
 				DirectiveQuickPickItem.create(Directive.Cancel, true, {
-					label: `Cancel ${this.title}`,
+					label: `取消${this.title}`,
 					detail: `${GitReference.toString(context.destination, {
 						capitalize: true,
-					})} is up to date with ${GitReference.toString(state.reference)}`,
+					})} 已与 ${GitReference.toString(state.reference)} 更新`,
 				}),
 			);
 			const selection: StepSelection<typeof step> = yield step;
@@ -220,40 +220,40 @@ export class MergeGitCommand extends QuickCommand<State> {
 			[
 				FlagsQuickPickItem.create<Flags>(state.flags, [], {
 					label: this.title,
-					detail: `Will merge ${Strings.pluralize('commit', count)} from ${GitReference.toString(
+					detail: `将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
 						state.reference,
-					)} into ${GitReference.toString(context.destination)}`,
+					)} 合并到 ${GitReference.toString(context.destination)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--ff-only'], {
-					label: `Fast-forward ${this.title}`,
+					label: `快进${this.title}`,
 					description: '--ff-only',
-					detail: `Will fast-forward merge ${Strings.pluralize('commit', count)} from ${GitReference.toString(
+					detail: `将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
 						state.reference,
-					)} into ${GitReference.toString(context.destination)}`,
+					)} 快进合并到 ${GitReference.toString(context.destination)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--squash'], {
-					label: `Squash ${this.title}`,
+					label: `压缩 ${this.title}`,
 					description: '--squash',
-					detail: `Will squash ${Strings.pluralize('commit', count)} from ${GitReference.toString(
+					detail: `合并到 ${GitReference.toString(context.destination)} 时会将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
 						state.reference,
-					)} into one when merging into ${GitReference.toString(context.destination)}`,
+					)} 压缩为一个`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--no-ff'], {
-					label: `${this.title} without Fast-Forwarding`,
+					label: `${this.title} 不带快进`,
 					description: '--no-ff',
-					detail: `Will create a merge commit when merging ${Strings.pluralize(
+					detail: `将 ${Strings.pluralize(
 						'commit',
 						count,
-					)} from ${GitReference.toString(state.reference)} into ${GitReference.toString(
+					)} 从 ${GitReference.toString(state.reference)} 合并到 ${GitReference.toString(
 						context.destination,
-					)}`,
+					)} 时将创建合并提交`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--no-ff', '--no-commit'], {
-					label: `${this.title} without Fast-Forwarding or Committing`,
+					label: `${this.title} 不快进或提交`,
 					description: '--no-ff --no-commit',
-					detail: `Will merge ${Strings.pluralize('commit', count)} from ${GitReference.toString(
+					detail: `将 ${Strings.pluralize('commit', count)} 从 ${GitReference.toString(
 						state.reference,
-					)} into ${GitReference.toString(context.destination)} without Committing`,
+					)} 合并到 ${GitReference.toString(context.destination)} 而不提交`,
 				}),
 			],
 		);

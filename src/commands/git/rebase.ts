@@ -47,9 +47,9 @@ type RebaseStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo'
 
 export class RebaseGitCommand extends QuickCommand<State> {
 	constructor(args?: RebaseGitCommandArgs) {
-		super('rebase', 'rebase', 'Rebase', {
+		super('rebase', 'rebase', '变基', {
 			description:
-				'integrates changes from a specified branch into the current branch, by changing the base of the branch and reapplying the commits on top',
+				'通过更改分支的基础并重新应用顶部的提交，将指定分支的更改集成到当前分支中',
 		});
 
 		let counter = 0;
@@ -228,10 +228,10 @@ export class RebaseGitCommand extends QuickCommand<State> {
 				appendReposToTitle(`Confirm ${context.title}`, state, context),
 				[],
 				DirectiveQuickPickItem.create(Directive.Cancel, true, {
-					label: `Cancel ${this.title}`,
+					label: `取消${this.title}`,
 					detail: `${GitReference.toString(context.destination, {
 						capitalize: true,
-					})} is up to date with ${GitReference.toString(state.reference)}`,
+					})} 已与 ${GitReference.toString(state.reference)} 更新`,
 				}),
 			);
 			const selection: StepSelection<typeof step> = yield step;
@@ -244,18 +244,18 @@ export class RebaseGitCommand extends QuickCommand<State> {
 			[
 				FlagsQuickPickItem.create<Flags>(state.flags, [], {
 					label: this.title,
-					detail: `Will update ${GitReference.toString(context.destination)} by applying ${Strings.pluralize(
+					detail: `将通过在 ${GitReference.toString(state.reference)} 之上应用 ${Strings.pluralize(
 						'commit',
 						count,
-					)} on top of ${GitReference.toString(state.reference)}`,
+					)} 来更新 ${GitReference.toString(context.destination)}`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--interactive'], {
-					label: `Interactive ${this.title}`,
+					label: `互动${this.title}`,
 					description: '--interactive',
-					detail: `Will interactively update ${GitReference.toString(
-						context.destination,
-					)} by applying ${Strings.pluralize('commit', count)} on top of ${GitReference.toString(
+					detail: `将通过在 ${GitReference.toString(
 						state.reference,
+					)} 之上应用 ${Strings.pluralize('commit', count)} 来交互式更新 ${GitReference.toString(
+						context.destination,
 					)}`,
 				}),
 			],

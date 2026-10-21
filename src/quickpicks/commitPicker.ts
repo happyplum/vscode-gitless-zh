@@ -41,7 +41,7 @@ export namespace CommitPicker {
 			log = await log;
 
 			if (log == null) {
-				quickpick.placeholder = 'Unable to show commit history';
+				quickpick.placeholder = '无法显示提交历史记录';
 			}
 		}
 

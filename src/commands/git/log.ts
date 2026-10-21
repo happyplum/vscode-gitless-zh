@@ -39,8 +39,8 @@ export interface LogGitCommandArgs {
 
 export class LogGitCommand extends QuickCommand<State> {
 	constructor(args?: LogGitCommandArgs) {
-		super('log', 'history', 'Commits', {
-			description: 'aka log, shows commit history',
+		super('log', 'history', '提交记录', {
+			description: '又名日志，显示提交历史记录',
 		});
 
 		let counter = 0;
@@ -112,7 +112,7 @@ export class LogGitCommand extends QuickCommand<State> {
 
 			if (state.counter < 2 || state.reference == null) {
 				const result = yield* pickBranchOrTagStep(state as LogStepState, context, {
-					placeholder: 'Choose a branch or tag to show its commit history',
+					placeholder: '选择一个分支或标签以显示其提交历史记录',
 					picked: context.selectedBranchOrTag?.ref,
 					value: context.selectedBranchOrTag == null ? state.reference?.ref : undefined,
 					ranges: true,

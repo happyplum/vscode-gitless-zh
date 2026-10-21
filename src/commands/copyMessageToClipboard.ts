@@ -82,7 +82,7 @@ export class CopyMessageToClipboardCommand extends ActiveEditorCommand {
 						}
 					} catch (ex) {
 						Logger.error(ex, 'CopyMessageToClipboardCommand', `getBlameForLine(${blameline})`);
-						void Messages.showGenericErrorMessage('Unable to copy message');
+						void Messages.showGenericErrorMessage('无法复制消息');
 
 						return;
 					}
@@ -98,7 +98,7 @@ export class CopyMessageToClipboardCommand extends ActiveEditorCommand {
 			void (await env.clipboard.writeText(args.message));
 		} catch (ex) {
 			Logger.error(ex, 'CopyMessageToClipboardCommand');
-			void Messages.showGenericErrorMessage('Unable to copy message');
+			void Messages.showGenericErrorMessage('无法复制消息');
 		}
 	}
 }

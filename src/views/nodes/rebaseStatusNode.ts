@@ -91,7 +91,7 @@ export class RebaseStatusNode extends ViewNode<ViewsWithCommits> {
 
 	getTreeItem(): TreeItem {
 		const item = new TreeItem(
-			`${this.status?.hasConflicts ? 'Resolve conflicts to continue rebasing' : 'Rebasing'} ${
+			`${this.status?.hasConflicts ? '解决冲突后继续变基' : '正在变基'} ${
 				this.rebaseStatus.incoming != null
 					? `${GitReference.toString(this.rebaseStatus.incoming, { expand: false, icon: false })}`
 					: ''
@@ -101,24 +101,20 @@ export class RebaseStatusNode extends ViewNode<ViewsWithCommits> {
 		item.id = this.id;
 		item.contextValue = ContextValues.Rebase;
 		item.description = this.status?.hasConflicts
-			? Strings.pluralize('conflict', this.status.conflicts.length)
+			? `${this.status.conflicts.length} 个冲突`
 			: undefined;
 		item.iconPath = this.status?.hasConflicts
 			? new ThemeIcon('warning', new ThemeColor('list.warningForeground'))
 			: new ThemeIcon('debug-pause', new ThemeColor('list.foreground'));
 		item.tooltip = new MarkdownString(
-			`${`Rebasing ${
+			`${`正在变基 ${
 				this.rebaseStatus.incoming != null ? GitReference.toString(this.rebaseStatus.incoming) : ''
-			}onto ${GitReference.toString(this.rebaseStatus.current)}`}\n\nStep ${
-				this.rebaseStatus.steps.current.number
-			} of ${this.rebaseStatus.steps.total}\\\nPaused at ${GitReference.toString(
+			}到 ${GitReference.toString(this.rebaseStatus.current)}`}\n\n第 ${this.rebaseStatus.steps.current.number} 步，共 ${this.rebaseStatus.steps.total} 步\\\n暂停于 ${GitReference.toString(
 				this.rebaseStatus.steps.current.commit,
 				{ icon: true },
-			)}${
-				this.status?.hasConflicts
-					? `\n\n${Strings.pluralize('conflicted file', this.status.conflicts.length)}`
-					: ''
-			}`,
+			)}${this.status?.hasConflicts
+					? `\n\n${`${this.status.conflicts.length} 个冲突文件`}`
+					: ''}`,
 			true,
 		);
 
@@ -220,7 +216,7 @@ export class RebaseCommitNode extends ViewRefNode<ViewsWithCommits, GitRevisionR
 			},
 		};
 		return {
-			title: 'Open Changes with Previous Revision',
+			title: '打开与上一修订版的更改',
 			command: Commands.DiffWithPrevious,
 			arguments: [undefined, commandArgs],
 		};

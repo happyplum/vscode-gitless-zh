@@ -94,7 +94,7 @@ export class CommitFormatter extends Formatter<GitCommit, CommitFormatOptions> {
 	}
 
 	private get _authorDateAgoShort() {
-		return this._item.formatCommitterDateFromNow('en-short');
+		return this._item.formatCommitterDateFromNow('zh-cn-short');
 	}
 
 	private get _committerDate() {
@@ -106,7 +106,7 @@ export class CommitFormatter extends Formatter<GitCommit, CommitFormatOptions> {
 	}
 
 	private get _committerDateAgoShort() {
-		return this._item.formatCommitterDateFromNow('en-short');
+		return this._item.formatCommitterDateFromNow('zh-cn-short');
 	}
 
 	private get _date() {
@@ -118,7 +118,7 @@ export class CommitFormatter extends Formatter<GitCommit, CommitFormatOptions> {
 	}
 
 	private get _dateAgoShort() {
-		return this._item.formatDateFromNow('en-short');
+		return this._item.formatDateFromNow('zh-cn-short');
 	}
 
 	private get _pullRequestDate() {

@@ -54,12 +54,12 @@ export class SettingsApp extends AppWithConfig<SettingsState> {
 
 		for (const el of document.querySelectorAll<HTMLInputElement>('[data-setting]')) {
 			if (!el.title && el.type === 'checkbox') {
-				el.title = `Setting name: "gitlens.${el.name}"`;
+				el.title = `设置名称：“gitlens.${el.name}”`;
 			}
 
 			for (const label of document.querySelectorAll<HTMLLabelElement>(`label[for="${el.id}"]`)) {
 				if (!label.title) {
-					label.title = `Setting name: "gitlens.${el.name}"`;
+					label.title = `设置名称：“gitlens.${el.name}”`;
 				}
 			}
 		}

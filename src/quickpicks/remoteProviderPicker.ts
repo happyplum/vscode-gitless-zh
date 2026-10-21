@@ -16,7 +16,7 @@ import { CommandQuickPickItem, getQuickPickIgnoreFocusOut } from '../quickpicks'
 
 export class ConfigureCustomRemoteProviderCommandQuickPickItem extends CommandQuickPickItem {
 	constructor() {
-		super({ label: 'See how to configure a custom remote provider...' });
+		super({ label: '了解如何配置自定义远程提供程序...' });
 	}
 
 	override async execute(): Promise<void> {
@@ -113,7 +113,7 @@ export class CopyRemoteResourceCommandQuickPickItem extends CommandQuickPickItem
 
 	override async onDidPressKey(key: Keys): Promise<void> {
 		await super.onDidPressKey(key);
-		void window.showInformationMessage('Url copied to the clipboard');
+		void window.showInformationMessage('网址已复制到剪贴板');
 	}
 }
 
@@ -140,7 +140,7 @@ export class OpenRemoteResourceCommandQuickPickItem extends CommandQuickPickItem
 namespace QuickCommandButtons {
 	export const SetRemoteAsDefault: QuickInputButton = {
 		iconPath: new ThemeIcon('settings-gear'),
-		tooltip: 'Set as Default Remote',
+		tooltip: '设置为默认远程仓库',
 	};
 }
 

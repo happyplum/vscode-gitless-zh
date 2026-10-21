@@ -206,7 +206,7 @@ export class OpenFileOnRemoteCommand extends ActiveEditorCommand {
 			}));
 		} catch (ex) {
 			Logger.error(ex, 'OpenFileOnRemoteCommand');
-			void window.showErrorMessage('Unable to open file on remote provider. See output channel for more details');
+			void window.showErrorMessage('无法打开远程提供程序上的文件。有关更多详细信息，请参阅输出通道');
 		}
 	}
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<meta charset="utf-8" />
 		<style nonce="#{cspNonce}">
@@ -11,127 +11,127 @@
 	</head>
 
 	<template id="token-popup">
-		<h3 class="token-popup__title">Available Tokens</h3>
+		<h3 class="token-popup__title">可用格式标记</h3>
 		<div class="token-popup__scroller">
 			<table class="token-popup__table">
 				<tbody>
 					<tr>
-						<td>Commit SHA</td>
-						<td><span class="token" data-token="id">id</span></td>
+						<td>提交 SHA</td>
+						<td><span class="token" data-token="id">编号</span></td>
 					</tr>
 					<tr>
-						<td>Commit Author</td>
-						<td><span class="token" data-token="author">author</span></td>
+						<td>提交作者</td>
+						<td><span class="token" data-token="author">作者</span></td>
 					</tr>
 					<tr>
-						<td>Commit Author (except you)</td>
-						<td><span class="token" data-token="authorNotYou">authorNotYou</span></td>
+						<td>提交作者（除了你）</td>
+						<td><span class="token" data-token="authorNotYou">作者不是你</span></td>
 					</tr>
 					<tr>
-						<td>Commit Author E-mail</td>
-						<td><span class="token" data-token="email">email</span></td>
+						<td>提交作者电子邮件</td>
+						<td><span class="token" data-token="email">电子邮件</span></td>
 					</tr>
 					<tr>
-						<td>Commit Message</td>
-						<td><span class="token" data-token="message">message</span></td>
-					</tr>
-					<tr>
-						<td>
-							Commit or Authored Date<br /><i
-								>Relative, e.g. 1 day ago<br />Committed vs Authored based on setting</i
-							>
-						</td>
-						<td><span class="token" data-token="ago">ago</span></td>
+						<td>提交消息</td>
+						<td><span class="token" data-token="message">消息</span></td>
 					</tr>
 					<tr>
 						<td>
-							Commit or Authored Date<br /><i
-								>Absolute, e.g. August 8th, 2016 10:48am<br />Committed vs Authored based on setting</i
+							提交或创作日期<br /><i
+								>相对的，例如1 天前<br />基于设置的承诺与创作</i
 							>
 						</td>
-						<td><span class="token" data-token="date">date</span></td>
+						<td><span class="token" data-token="ago">前</span></td>
 					</tr>
 					<tr>
 						<td>
-							Commit or Authored Date<br /><i
-								>Relative or absolute based on date setting<br />Committed vs Authored based on
-								setting</i
+							提交或创作日期<br /><i
+								>绝对，例如2016 年 8 月 8 日 10:48<br />基于设置的承诺与创作</i
 							>
 						</td>
-						<td><span class="token" data-token="agoOrDate">agoOrDate</span></td>
+						<td><span class="token" data-token="date">日期</span></td>
 					</tr>
 					<tr>
 						<td>
-							Commit or Authored Date (Short)<br /><i
-								>Short relative or absolute based on date setting<br />Committed vs Authored based on
-								setting</i
+							提交或创作日期<br /><i
+								>基于日期设置的相对或绝对<br />承诺与创作基于
+								设置</i
 							>
 						</td>
-						<td><span class="token" data-token="agoOrDateShort">agoOrDateShort</span></td>
-					</tr>
-					<tr>
-						<td>Authored Date<br /><i>Relative date</i></td>
-						<td><span class="token" data-token="authorAgo">authorAgo</span></td>
-					</tr>
-					<tr>
-						<td>Authored Date<br /><i>Absolute, e.g. August 8th, 2016 10:48am</i></td>
-						<td><span class="token" data-token="authorDate">authorDate</span></td>
-					</tr>
-					<tr>
-						<td>Authored Date<br /><i>Relative or absolute date based on date setting</i></td>
-						<td><span class="token" data-token="authorAgoOrDate">authorAgoOrDate</span></td>
-					</tr>
-					<tr>
-						<td>Authored Date (Short)<br /><i>Short relative or absolute date based on date setting</i></td>
-						<td><span class="token" data-token="authorAgoOrDateShort">authorAgoOrDateShort</span></td>
-					</tr>
-					<tr>
-						<td>Commit Date<br /><i>Relative date</i></td>
-						<td><span class="token" data-token="committerAgo">committerAgo</span></td>
-					</tr>
-					<tr>
-						<td>Commit Date<br /><i>Absolute, e.g. August 8th, 2016 10:48am</i></td>
-						<td><span class="token" data-token="committerDate">committerDate</span></td>
-					</tr>
-					<tr>
-						<td>Commit Date<br /><i>Relative or absolute date based on date setting</i></td>
-						<td><span class="token" data-token="committerAgoOrDate">committerAgoOrDate</span></td>
-					</tr>
-					<tr>
-						<td>Commit Date (Short)<br /><i>Short relative or absolute date based on date setting</i></td>
-						<td><span class="token" data-token="committerAgoOrDateShort">committerAgoOrDateShort</span></td>
-					</tr>
-					<tr>
-						<td>Branch & Tag Tips<br /><i>Indicates if the commit is a tip of any branches or tags</i></td>
-						<td><span class="token" data-token="tips">tips</span></td>
+						<td><span class="token" data-token="agoOrDate">前或日期</span></td>
 					</tr>
 					<tr>
 						<td>
-							Changes Indicator<br /><i
-								>Indicates adds, changes, renames, and deletes<br />e.g +1 ~3 -0</i
+							提交或创作日期（短）<br /><i
+								>基于日期设置的短相对或绝对<br />承诺与创作基于
+								设置</i
 							>
 						</td>
-						<td><span class="token" data-token="changes">changes</span></td>
+						<td><span class="token" data-token="agoOrDateShort">前或日期短</span></td>
+					</tr>
+					<tr>
+						<td>创作日期<br /><i>相对日期</i></td>
+						<td><span class="token" data-token="authorAgo">作者之前</span></td>
+					</tr>
+					<tr>
+						<td>创作日期<br /><i>绝对，例如2016 年 8 月 8 日 10:48</i></td>
+						<td><span class="token" data-token="authorDate">作者日期</span></td>
+					</tr>
+					<tr>
+						<td>创作日期<br /><i>基于日期设置的相对或绝对日期</i></td>
+						<td><span class="token" data-token="authorAgoOrDate">作者过去或日期</span></td>
+					</tr>
+					<tr>
+						<td>创作日期（短）<br /><i>基于日期设置的短相对或绝对日期</i></td>
+						<td><span class="token" data-token="authorAgoOrDateShort">作者AgoOrDateShort</span></td>
+					</tr>
+					<tr>
+						<td>提交日期<br /><i>相对日期</i></td>
+						<td><span class="token" data-token="committerAgo">提交者之前</span></td>
+					</tr>
+					<tr>
+						<td>提交日期<br /><i>绝对，例如2016 年 8 月 8 日 10:48</i></td>
+						<td><span class="token" data-token="committerDate">提交者日期</span></td>
+					</tr>
+					<tr>
+						<td>提交日期<br /><i>基于日期设置的相对或绝对日期</i></td>
+						<td><span class="token" data-token="committerAgoOrDate">提交者过去或日期</span></td>
+					</tr>
+					<tr>
+						<td>提交日期（短）<br /><i>基于日期设置的短相对或绝对日期</i></td>
+						<td><span class="token" data-token="committerAgoOrDateShort">提交者AgoOrDateShort</span></td>
+					</tr>
+					<tr>
+						<td>分支和标签提示<br /><i>指示提交是否是任何分支或标签的提示</i></td>
+						<td><span class="token" data-token="tips">提示</span></td>
 					</tr>
 					<tr>
 						<td>
-							Changes Indicator (short)<br /><i
-								>Indicates adds, changes, renames, and deletes<br />e.g +1~3</i
+							改变指标<br /><i
+								>表示添加、更改、重命名和删除<br />e.g +1 ~3 -0</i
 							>
 						</td>
-						<td><span class="token" data-token="changesShort">changesShort</span></td>
-					</tr>
-					<tr>
-						<td>Pull Request<br /><i>Pull request (if any) that introduced the commit</i></td>
-						<td><span class="token" data-token="pullRequest">pullRequest</span></td>
+						<td><span class="token" data-token="changes">变化</span></td>
 					</tr>
 					<tr>
 						<td>
-							Pull Request State<br /><i
-								>State (open, merged, closed) of the pull request (if any) that introduced the commit</i
+							变化指示器（短）<br /><i
+								>表示添加、更改、重命名和删除<br />e.g +1~3</i
 							>
 						</td>
-						<td><span class="token" data-token="pullRequestState">pullRequestState</span></td>
+						<td><span class="token" data-token="changesShort">更改短</span></td>
+					</tr>
+					<tr>
+						<td>拉取请求<br /><i>引入提交的拉取请求（如果有）</i></td>
+						<td><span class="token" data-token="pullRequest">拉请求</span></td>
+					</tr>
+					<tr>
+						<td>
+							拉取请求状态<br /><i
+								>引入提交的拉取请求（如果有）的状态（打开、合并、关闭）</i
+							>
+						</td>
+						<td><span class="token" data-token="pullRequestState">拉请求状态</span></td>
 					</tr>
 					<!-- <tr>
 						<td>Author Avatar</td>
@@ -148,10 +148,10 @@
 		</div>
 		<span class="token-popup__hint">
 			<i class="icon icon__info"></i>
-			<a href="https://github.com/eamodio/vscode-gitlens/wiki/Custom-Formatting" title="Open formatting docs"
-				>Learn more</a
+			<a href="https://github.com/eamodio/vscode-gitlens/wiki/Custom-Formatting" title="打开格式文档"
+				>了解更多</a
 			>
-			about formatting options
+			关于格式选项
 		</span>
 	</template>
 
@@ -166,33 +166,34 @@
 
 		<div class="container">
 			<header>
-				<a class="header__link" title="Learn more about GitLens" href="https://gitlens.amod.io">
+				<a class="header__link" title="了解有关 GitLess 的更多信息" href="https://gitlens.amod.io">
 					<div class="header__logo">
 						<img class="image__logo" src="#{root}/images/gitlens-icon.png" />
 						<div>
-							<h1 class="header__title">Git<span class="header__title--highlight">Lens</span></h1>
-							<p class="header__subtitle">Git supercharged</p>
+							<h1 class="header__title">git<span class="header__title--highlight">镜头</span></h1>
+							<p class="header__subtitle">Git 增压</p>
 						</div>
 					</div>
 				</a>
 				<p class="header__blurb">
-					GitLens <b>supercharges</b> the Git capabilities built into Visual Studio Code. It helps you to
-					<b>visualize code authorship</b> at a glance via Git blame annotations and code lens,
-					<b>seamlessly navigate and explore</b> Git repositories, <b>gain valuable insights</b> via powerful
-					comparison commands, and so much more.
+					GitLess <b>增压</b> Visual Studio Code 中内置的 Git 功能。它可以帮助您
+					<b>可视化代码作者身份</b> 通过 Git 逐行追溯注释和代码镜头一目了然，
+					<b>无缝导航和探索</b> Git 仓库， <b>获得宝贵的见解</b> 通过强大
+					比较命令等等。
 				</p>
 			</header>
 
 			<div class="hero__area hero__area--sticky">
 				<div class="hero__row">
-					<h2 class="hero__title">Settings</h2>
+					<h2 class="hero__title">设置</h2>
 					<div class="hero__title-actions">
-						<a href="#" data-action="collapse" title="Collapse all sections">collapse all</a>
-						<a href="#" data-action="expand" class="hidden" title="Expand all sections">expand all</a>
+						<a href="#" data-action="collapse" title="折叠所有部分">全部折叠</a>
+						<a href="#" data-action="expand" class="hidden" title="展开所有部分">全部展开
+Visual Studio Code 的</a>
 					</div>
 					<div class="hero__toolbar">
 						<div class="hero__toolbar-scope hidden">
-							<label for="scopes">Save Settings to</label>
+							<label for="scopes">将设置保存到</label>
 							<div class="select-container">
 								<select id="scopes" name="scope"></select>
 							</div>
@@ -200,15 +201,15 @@
 					</div>
 				</div>
 				<p class="hero__subtitle">
-					For advanced customizations, refer to the
+					有关高级自定义，请参阅
 					<a
-						title="See the GitLens settings docs"
+						title="请参阅 GitLess 设置文档"
 						href="https://github.com/eamodio/vscode-gitlens/#gitlens-settings-"
-						>GitLens docs</a
+						>GitLess 文档</a
 					>
-					and edit your
-					<a class="command" title="Open User Settings" href="command:workbench.action.openGlobalSettings"
-						>User Settings</a
+					并编辑您的
+					<a class="command" title="打开用户设置" href="command:workbench.action.openGlobalSettings"
+						>用户设置</a
 					>
 				</p>
 			</div>
@@ -264,15 +265,15 @@
 
 			<div class="sidebar">
 				<div class="sidebar__group">
-					<h2>Jump to</h2>
+					<h2>跳转至</h2>
 					<ul>
 						<li>
 							<a
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#current-line"
-								title="Jump to Current Line Blame settings"
-								>Current Line Blame</a
+								title="跳转到当前行逐行追溯设置"
+								>当前行逐行追溯</a
 							>
 						</li>
 						<li>
@@ -280,8 +281,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#code-lens"
-								title="Jump to Git Code Lens settings"
-								>Git Code Lens</a
+								title="跳转到 Git 代码镜头设置"
+								>Git 代码镜头</a
 							>
 						</li>
 						<li>
@@ -289,8 +290,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#status-bar"
-								title="Jump to Status Bar Blame settings"
-								>Status Bar Blame</a
+								title="跳转到状态栏逐行追溯设置"
+								>状态栏逐行追溯</a
 							>
 						</li>
 						<li>
@@ -298,8 +299,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#hovers"
-								title="Jump to Hovers settings"
-								>Hovers</a
+								title="跳转至悬停设置"
+								>悬停</a
 							>
 						</li>
 
@@ -308,8 +309,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#views"
-								title="Jump to Views settings"
-								>Views</a
+								title="跳转至视图设置"
+								>浏览次数</a
 							>
 						</li>
 						<li>
@@ -317,8 +318,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#commits-view"
-								title="Jump to Commits view settings"
-								>Commits view</a
+								title="跳转至提交视图设置"
+								>提交视图</a
 							>
 						</li>
 						<li>
@@ -326,8 +327,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#repositories-view"
-								title="Jump to Repositories view settings"
-								>Repositories view</a
+								title="跳转到仓库视图设置"
+								>仓库视图</a
 							>
 						</li>
 						<li>
@@ -335,8 +336,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#file-history-view"
-								title="Jump to File History view settings"
-								>File History view</a
+								title="跳转到文件历史记录视图设置"
+								>文件历史记录视图</a
 							>
 						</li>
 						<li>
@@ -344,8 +345,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#line-history-view"
-								title="Jump to Line History view settings"
-								>Line History view</a
+								title="跳转至行历史记录视图设置"
+								>行历史视图</a
 							>
 						</li>
 						<li>
@@ -353,8 +354,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#branches-view"
-								title="Jump to Branches view settings"
-								>Branches view</a
+								title="跳转到分支视图设置"
+								>分支视图</a
 							>
 						</li>
 						<li>
@@ -362,8 +363,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#remotes-view"
-								title="Jump to Remotes view settings"
-								>Remotes view</a
+								title="跳转至远程仓库视图设置"
+								>远程仓库视图</a
 							>
 						</li>
 						<li>
@@ -371,8 +372,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#stashes-view"
-								title="Jump to Stashes view settings"
-								>Stashes view</a
+								title="跳转到“隐藏”视图设置"
+								>隐藏视图</a
 							>
 						</li>
 						<li>
@@ -380,8 +381,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#tags-view"
-								title="Jump to Tags view settings"
-								>Tags view</a
+								title="跳转至标签视图设置"
+								>标签视图</a
 							>
 						</li>
 						<li>
@@ -389,8 +390,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#contributors-view"
-								title="Jump to Contributors view settings"
-								>Contributors view</a
+								title="跳转到贡献者视图设置"
+								>贡献者观点</a
 							>
 						</li>
 						<li>
@@ -398,8 +399,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#search-compare-view"
-								title="Jump to Search &amp; Compare view settings"
-								>Search &amp; Compare view</a
+								title="跳转至搜索 &amp; 比较视图设置"
+								>搜索 &amp; 比较视图</a
 							>
 						</li>
 
@@ -408,8 +409,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#blame"
-								title="Jump to Gutter Blame settings"
-								>Gutter Blame</a
+								title="跳转到编辑器边栏逐行追溯设置"
+								>编辑器边栏逐行追溯</a
 							>
 						</li>
 						<li>
@@ -417,8 +418,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#changes"
-								title="Jump to Gutter Changes settings"
-								>Gutter Changes</a
+								title="跳转到编辑器边栏更改设置"
+								>编辑器边栏变化</a
 							>
 						</li>
 						<li>
@@ -426,8 +427,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#heatmap"
-								title="Jump to Gutter Heatmap settings"
-								>Gutter Heatmap</a
+								title="跳转到编辑器边栏热图设置"
+								>编辑器边栏热图</a
 							>
 						</li>
 
@@ -436,8 +437,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#rebase-editor"
-								title="Jump to Interactive Rebase Editor settings"
-								>Interactive Rebase Editor</a
+								title="跳转到交互式变基编辑器设置"
+								>交互式变基编辑器</a
 							>
 						</li>
 
@@ -446,8 +447,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#dates"
-								title="Jump to Dates & Times settings"
-								>Dates & Times</a
+								title="跳转至日期和时间设置"
+								>日期和时间</a
 							>
 						</li>
 						<li>
@@ -455,8 +456,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#menus"
-								title="Jump to Menus & Toolbars settings"
-								>Menus & Toolbars</a
+								title="跳转至菜单和工具栏设置"
+								>菜单和工具栏</a
 							>
 						</li>
 						<li>
@@ -464,8 +465,8 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#shortcuts"
-								title="Jump to Keyboard Shortcuts settings"
-								>Keyboard Shortcuts</a
+								title="跳转至键盘快捷键设置"
+								>键盘快捷键</a
 							>
 						</li>
 						<li>
@@ -473,40 +474,40 @@
 								class="sidebar__jump-link"
 								data-action="jump"
 								href="#modes"
-								title="Jump to Modes settings"
-								>Modes</a
+								title="跳转至模式设置"
+								>模式</a
 							>
 						</li>
 					</ul>
 				</div>
 				<div class="sidebar__group">
-					<h2>Help</h2>
+					<h2>帮助</h2>
 					<ul>
 						<li>
-							<a href="https://github.com/eamodio/vscode-gitlens#readme">Documentation</a>
+							<a href="https://github.com/eamodio/vscode-gitlens#readme">文档</a>
 						</li>
 						<li>
-							<a href="https://github.com/eamodio/vscode-gitlens/issues">Questions &amp; Issues</a>
+							<a href="https://github.com/eamodio/vscode-gitlens/issues">问题 &amp; 问题</a>
 						</li>
 						<li>
-							<a href="https://vscode-slack.amod.io">Slack</a>
-							<small> &nbsp;&nbsp;&mdash;&nbsp; #gitlens channel</small>
+							<a href="https://vscode-slack.amod.io">松弛</a>
+							<small> &nbsp;&nbsp;&mdash;&nbsp; #gitlens 频道</small>
 						</li>
-						<li><a href="https://twitter.com/gitlens">Twitter</a></li>
+						<li><a href="https://twitter.com/gitlens">推特</a></li>
 					</ul>
 				</div>
 				<div class="sidebar__group">
-					<h2>Resources</h2>
+					<h2>资源</h2>
 					<ul>
-						<li><a href="https://gitlens.amod.io">Website</a></li>
-						<li><a href="https://gitlens.amod.io/#whats-new">What's New</a></li>
+						<li><a href="https://gitlens.amod.io">网站</a></li>
+						<li><a href="https://gitlens.amod.io/#whats-new">最新消息</a></li>
 						<li>
 							<a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens"
-								>Marketplace</a
+								>市场</a
 							>
 						</li>
 						<li><a href="https://github.com/eamodio/vscode-gitlens">GitHub</a></li>
-						<li><a href="https://github.com/eamodio/vscode-gitlens/blob/main/LICENSE">License</a></li>
+						<li><a href="https://github.com/eamodio/vscode-gitlens/blob/main/LICENSE">许可证</a></li>
 					</ul>
 				</div>
 			</div>

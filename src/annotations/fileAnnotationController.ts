@@ -528,7 +528,7 @@ export class FileAnnotationController implements Disposable {
 			}
 
 			progress.report({
-				message: `Computing ${annotationsLabel} for ${paths.basename(editor.document.fileName)}`,
+				message: `为${paths.basename(editor.document.fileName)}计算${annotationsLabel}`,
 			});
 		}
 

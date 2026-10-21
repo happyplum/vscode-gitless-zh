@@ -50,7 +50,7 @@ export class ShowCommitsInViewCommand extends ActiveEditorCommand {
 					];
 				} catch (ex) {
 					Logger.error(ex, 'ShowCommitsInViewCommand', 'getBlameForRange');
-					return Messages.showGenericErrorMessage('Unable to find commits');
+					return Messages.showGenericErrorMessage('无法找到提交');
 				}
 			} else {
 				if (gitUri.sha == null) return undefined;

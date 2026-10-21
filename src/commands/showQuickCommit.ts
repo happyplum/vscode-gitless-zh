@@ -109,7 +109,7 @@ export class ShowQuickCommitCommand extends ActiveEditorCachedCommand {
 				args.commit = blame.commit;
 			} catch (ex) {
 				Logger.error(ex, 'ShowQuickCommitCommand', `getBlameForLine(${blameline})`);
-				void Messages.showGenericErrorMessage('Unable to show commit');
+				void Messages.showGenericErrorMessage('无法显示提交');
 
 				return;
 			}
@@ -155,7 +155,7 @@ export class ShowQuickCommitCommand extends ActiveEditorCachedCommand {
 			}));
 		} catch (ex) {
 			Logger.error(ex, 'ShowQuickCommitCommand');
-			void Messages.showGenericErrorMessage('Unable to show commit');
+			void Messages.showGenericErrorMessage('无法显示提交');
 		}
 	}
 }

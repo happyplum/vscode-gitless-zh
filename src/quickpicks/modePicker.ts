@@ -20,9 +20,7 @@ export namespace ModePicker {
 		const items = modeKeys.map(key => {
 			const modeCfg = modes[key];
 			const item: ModesQuickPickItem = {
-				label: `${mode === key ? '$(check)\u00a0\u00a0' : '\u00a0\u00a0\u00a0\u00a0\u00a0'}${
-					modeCfg.name
-				} mode`,
+				label: `${mode === key ? '$(check)\u00a0\u00a0' : '\u00a0\u00a0\u00a0\u00a0\u00a0'}${modeCfg.name}模式`,
 				description: modeCfg.description ? `\u00a0${GlyphChars.Dash}\u00a0 ${modeCfg.description}` : '',
 				key: key,
 			};
@@ -31,13 +29,13 @@ export namespace ModePicker {
 
 		if (mode) {
 			items.splice(0, 0, {
-				label: `Exit ${modes[mode].name} mode`,
+				label: `退出${modes[mode].name}模式`,
 				key: undefined,
 			});
 		}
 
 		const pick = await window.showQuickPick(items, {
-			placeHolder: 'select a GitLens mode to enter',
+			placeHolder: '选择一种GitLess模式进入',
 		});
 
 		return pick;
