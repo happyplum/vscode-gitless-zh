@@ -2,65 +2,69 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-const fetch = require('node-fetch');
+const licenseChecker = require('license-checker');
 
 /** @typedef { { licenses: string; repository: string; licenseFile: string } } PackageInfo **/
 
+const codeOnlyPackages = [
+	[
+		'microsoft/vscode',
+		{
+			licenses: 'MIT',
+			repository: 'https://github.com/microsoft/vscode',
+			licenseFile: path.join(__dirname, 'licenses', 'microsoft-vscode.txt'),
+		},
+	],
+	[
+		'chalk/ansi-regex',
+		{
+			licenses: 'MIT',
+			repository: 'https://github.com/chalk/ansi-regex',
+			licenseFile: path.join(__dirname, 'licenses', 'chalk-ansi-regex.txt'),
+		},
+	],
+	[
+		'sindresorhus/string-width',
+		{
+			licenses: 'MIT',
+			repository: 'https://github.com/sindresorhus/string-width',
+			licenseFile: path.join(__dirname, 'licenses', 'sindresorhus-string-width.txt'),
+		},
+	],
+	[
+		'sindresorhus/is-fullwidth-code-point',
+		{
+			licenses: 'MIT',
+			repository: 'https://github.com/sindresorhus/is-fullwidth-code-point',
+			licenseFile: path.join(__dirname, 'licenses', 'sindresorhus-is-fullwidth-code-point.txt'),
+		},
+	],
+];
+
 /**
- * @param { string } file
+ * @param { string } cwd
+ * @param { typeof licenseChecker } checker
  */
-async function generateThirdpartyNotices(file) {
-	file = path.join(process.cwd(), file);
-	const data = fs.readFileSync(file, 'utf8');
-	fs.rmSync(file);
+function getProductionPackages(cwd, checker) {
+	return new Promise((resolve, reject) => {
+		checker.init({ start: cwd, production: true, relativeLicensePath: true }, (error, packages) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(packages);
+		});
+	});
+}
 
-	/**
-	 *	@type { { [key: string]: PackageInfo } }
-	 */
-	const packages = JSON.parse(data);
-
-	// Add any packages used in directly in the code
-
-	/**
-	 *	@type [string, PackageInfo][]
-	 */
-	const codeOnlyPackages = [
-		[
-			'microsoft/vscode',
-			{
-				licenses: 'MIT',
-				repository: 'https://github.com/microsoft/vscode',
-				licenseFile: 'https://raw.github.com/microsoft/vscode/main/LICENSE.txt',
-			},
-		],
-		[
-			'chalk/ansi-regex',
-			{
-				licenses: 'MIT',
-				repository: 'https://github.com/chalk/ansi-regex',
-				licenseFile: 'https://raw.github.com/chalk/ansi-regex/main/license',
-			},
-		],
-		[
-			'sindresorhus/string-width',
-			{
-				licenses: 'MIT',
-				repository: 'https://github.com/sindresorhus/string-width',
-				licenseFile: 'https://raw.github.com/sindresorhus/string-width/main/license',
-			},
-		],
-		[
-			'sindresorhus/is-fullwidth-code-point',
-			{
-				licenses: 'MIT',
-				repository: 'https://github.com/sindresorhus/is-fullwidth-code-point',
-				licenseFile: 'https://raw.github.com/sindresorhus/is-fullwidth-code-point/main/license',
-			},
-		],
-	];
-
+/**
+ * @param { { cwd?: string; checker?: typeof licenseChecker } } [options]
+ */
+async function generate(options = {}) {
+	const cwd = options.cwd || process.cwd();
+	const checker = options.checker || licenseChecker;
+	const packages = await getProductionPackages(cwd, checker);
+	const projectName = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8')).name;
 	const packageOutputs = [];
 	const licenseOutputs = [];
 
@@ -77,16 +81,10 @@ async function generateThirdpartyNotices(file) {
 			name = key;
 		}
 
-		if (name === 'gitlens') continue;
+		if (name === projectName) continue;
 
-		let license;
-		if (data.licenseFile.startsWith('https://')) {
-			const response = await fetch(data.licenseFile);
-			license = await response.text();
-		} else {
-			license = fs.readFileSync(data.licenseFile, 'utf8');
-		}
-
+		const licensePath = path.isAbsolute(data.licenseFile) ? data.licenseFile : path.resolve(cwd, data.licenseFile);
+		const license = fs.readFileSync(licensePath, 'utf8').replace(/[ \t]+(?=\r?$)/gm, '');
 		packageOutputs.push(`${++count}. ${name}${version ? ` version ${version}` : ''} (${data.repository})`);
 		licenseOutputs.push(
 			`\n%% ${name} NOTICES AND INFORMATION BEGIN HERE\n=========================================\n${license}\n=========================================\nEND OF  ${name} NOTICES AND INFORMATION`,
@@ -96,12 +94,24 @@ async function generateThirdpartyNotices(file) {
 	const content = `GitLens\n\nTHIRD-PARTY SOFTWARE NOTICES AND INFORMATION\nThis project incorporates components from the projects listed below.\n\n${packageOutputs.join(
 		'\n',
 	)}\n${licenseOutputs.join('\n')}`;
-	fs.writeFileSync(path.join(process.cwd(), 'ThirdPartyNotices.txt'), content, 'utf8');
+	const outputPath = path.join(cwd, 'ThirdPartyNotices.txt');
+	const temporaryPath = `${outputPath}.${process.pid}.tmp`;
+
+	try {
+		fs.writeFileSync(temporaryPath, content, 'utf8');
+		fs.renameSync(temporaryPath, outputPath);
+	} finally {
+		if (fs.existsSync(temporaryPath)) {
+			fs.rmSync(temporaryPath);
+		}
+	}
 }
 
-async function generate() {
-	await exec('npx license-checker --json --production --relativeLicensePath > thirdparty.json');
-	void generateThirdpartyNotices('thirdparty.json');
+if (require.main === module) {
+	generate().catch(error => {
+		console.error(error);
+		process.exitCode = 1;
+	});
 }
 
-void generate();
+module.exports = { generate };
