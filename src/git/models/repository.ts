@@ -202,6 +202,7 @@ export class Repository implements Disposable {
 	private _fireFileSystemChangeDebounced: (() => void) | undefined = undefined;
 	private _fsWatchCounter = 0;
 	private _fsWatcherDisposable: Disposable | undefined;
+	private _gitStateWatcherDisposable: Disposable | undefined;
 	private _pendingFileSystemChange?: RepositoryFileSystemChangeEvent;
 	private _pendingRepoChange?: RepositoryChangeEvent;
 	private _providers: RemoteProviders | undefined;
@@ -267,10 +268,9 @@ export class Repository implements Disposable {
 			configuration.onDidChange(this.onConfigurationChanged, this),
 		);
 		this.onConfigurationChanged();
+		void this.tryWatchingForChangesViaBuiltInApi();
 
 		if (!this.supportsChangeEvents) {
-			void this.tryWatchingForChangesViaBuiltInApi();
-
 			if (Logger.willLog('debug')) {
 				Logger.debug(
 					`Repository(${
@@ -294,6 +294,7 @@ export class Repository implements Disposable {
 		// }
 
 		this._remotesDisposable?.dispose();
+		this._gitStateWatcherDisposable?.dispose();
 		this._repoWatcherDisposable?.dispose();
 		this._disposable.dispose();
 	}
@@ -1105,6 +1106,18 @@ export class Repository implements Disposable {
 	private async tryWatchingForChangesViaBuiltInApi() {
 		const repo = await GitService.getOrOpenBuiltInGitRepository(this.path);
 		if (repo != null) {
+			let head = `${repo.state.HEAD?.name ?? ''}:${repo.state.HEAD?.commit ?? ''}`;
+			this._gitStateWatcherDisposable = repo.state.onDidChange(() => {
+				const nextHead = `${repo.state.HEAD?.name ?? ''}:${repo.state.HEAD?.commit ?? ''}`;
+				if (head === nextHead) return;
+
+				head = nextHead;
+				this.resetCaches('branch');
+				this.fireChange(RepositoryChange.Heads);
+			});
+
+			if (this.supportsChangeEvents) return;
+
 			const internalRepo = (repo as any)._repository;
 			if (internalRepo != null && 'onDidChangeRepository' in internalRepo) {
 				try {

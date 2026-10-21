@@ -1,35 +1,7 @@
 'use strict';
-import { Disposable, Terminal, window } from 'vscode';
-import { Container } from './container';
+import { window } from 'vscode';
 
-let _terminal: Terminal | undefined;
-let _terminalCwd: string | undefined;
-let _disposable: Disposable | undefined;
-
-const extensionTerminalName = 'GitLens';
-
-function ensureTerminal(cwd: string): Terminal {
-	if (_terminal === undefined) {
-		_terminal = window.createTerminal(extensionTerminalName);
-		_disposable = window.onDidCloseTerminal((e: Terminal) => {
-			if (e.name === extensionTerminalName) {
-				_terminal = undefined;
-				_disposable!.dispose();
-				_disposable = undefined;
-			}
-		});
-
-		Container.context.subscriptions.push(_disposable);
-		_terminalCwd = undefined;
-	}
-
-	if (_terminalCwd !== cwd) {
-		_terminal.sendText(`cd "${cwd}"`, true);
-		_terminalCwd = cwd;
-	}
-
-	return _terminal;
-}
+const extensionTerminalName = 'GitLess';
 
 export function runGitCommandInTerminal(command: string, args: string, cwd: string, execute: boolean = false) {
 	// let git = Git.getGitPath();
@@ -37,7 +9,7 @@ export function runGitCommandInTerminal(command: string, args: string, cwd: stri
 	//     git = `"${git}"`;
 	// }
 
-	const terminal = ensureTerminal(cwd);
+	const terminal = window.createTerminal({ name: extensionTerminalName, cwd: cwd });
 	terminal.show(false);
 	terminal.sendText(`git ${command} ${args}`, execute);
 }
