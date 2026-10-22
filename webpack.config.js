@@ -204,6 +204,19 @@ function getExtensionConfig(mode, env) {
  */
 function getWebviewsConfig(mode) {
 	const basePath = path.join(__dirname, 'src', 'webviews', 'apps');
+	const htmlMinify =
+		mode === 'production'
+			? {
+					removeComments: true,
+					collapseWhitespace: true,
+					removeRedundantAttributes: false,
+					useShortDoctype: true,
+					removeEmptyAttributes: true,
+					removeStyleLinkTypeAttributes: true,
+					keepClosingSlash: true,
+					minifyCSS: true,
+				}
+			: false;
 
 	const cspHtmlPlugin = new CspHtmlPlugin(
 		{
@@ -264,19 +277,7 @@ function getWebviewsConfig(mode) {
 			filename: path.join(__dirname, 'dist', 'webviews', 'rebase.html'),
 			inject: true,
 			inlineSource: mode === 'production' ? '.css$' : undefined,
-			minify:
-				mode === 'production'
-					? {
-							removeComments: true,
-							collapseWhitespace: true,
-							removeRedundantAttributes: false,
-							useShortDoctype: true,
-							removeEmptyAttributes: true,
-							removeStyleLinkTypeAttributes: true,
-							keepClosingSlash: true,
-							minifyCSS: true,
-						}
-					: false,
+			minify: htmlMinify,
 		}),
 		new HtmlPlugin({
 			template: 'settings/settings.html',
@@ -284,19 +285,7 @@ function getWebviewsConfig(mode) {
 			filename: path.join(__dirname, 'dist', 'webviews', 'settings.html'),
 			inject: true,
 			inlineSource: mode === 'production' ? '.css$' : undefined,
-			minify:
-				mode === 'production'
-					? {
-							removeComments: true,
-							collapseWhitespace: true,
-							removeRedundantAttributes: false,
-							useShortDoctype: true,
-							removeEmptyAttributes: true,
-							removeStyleLinkTypeAttributes: true,
-							keepClosingSlash: true,
-							minifyCSS: true,
-						}
-					: false,
+			minify: htmlMinify,
 		}),
 		new HtmlPlugin({
 			template: 'welcome/welcome.html',
@@ -304,19 +293,7 @@ function getWebviewsConfig(mode) {
 			filename: path.join(__dirname, 'dist', 'webviews', 'welcome.html'),
 			inject: true,
 			inlineSource: mode === 'production' ? '.css$' : undefined,
-			minify:
-				mode === 'production'
-					? {
-							removeComments: true,
-							collapseWhitespace: true,
-							removeRedundantAttributes: false,
-							useShortDoctype: true,
-							removeEmptyAttributes: true,
-							removeStyleLinkTypeAttributes: true,
-							keepClosingSlash: true,
-							minifyCSS: true,
-						}
-					: false,
+			minify: htmlMinify,
 		}),
 		cspHtmlPlugin,
 		new InlineChunkHtmlPlugin(HtmlPlugin, mode === 'production' ? ['\\.css$'] : []),
