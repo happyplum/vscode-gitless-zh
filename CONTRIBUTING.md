@@ -106,6 +106,10 @@ corepack yarn run pack
 
 Automatically executed interactive Git commands run in a new VS Code process task through `dist/gitTerminalRunner.js`, which the bundle copies from `scripts/`. When changing terminal execution or packaging, verify that both the bundle and VSIX contain this runner. Remote removal still opens an editable command in the user's default terminal for manual execution.
 
+The root `package.json` owns extension metadata, development scripts, and dependencies. Extension contributions live in the twelve plain JSON files in `manifest/`; `scripts/extensionManifest.js` composes them in their declared order into `dist/extension/package.json`. Edit these source files rather than the generated manifest. Both webpack compilers refresh the generated manifest and static resources in normal builds and watch mode. Extension code is built into `dist/extension/dist`, webviews into `dist/extension/dist/webviews`, and settings images into `dist/extension/images/settings`.
+
+`pack` and `pack-insiders` bundle first, then package `dist/extension` through the public VSCE API with dependency collection disabled because runtime dependencies are bundled. VSIX files are written to the repository root. Insiders metadata and its README prefix are applied only in the generated directory; source files remain unchanged. `pub` builds and packages the Stable extension before publishing that VSIX. Generated manifests omit development scripts so packaging cannot recursively invoke `vscode:prepublish`.
+
 ### Debugging
 
 #### Using VS Code
@@ -113,6 +117,8 @@ Automatically executed interactive Git commands run in a new VS Code process tas
 1. Open the `vscode-gitlens` folder
 2. Ensure the required [dependencies](#dependencies) are installed
 3. Choose the `Watch & Launch GitLens` launch configuration from the launch dropdown in the Run and Debug viewlet and press `F5`.
+
+All launch configurations load `dist/extension`. The two `Run` configurations refresh its manifest and static resources with the `prepare:extension` task; build the code first with `corepack yarn run build`. The `Watch & Launch` configurations perform the initial build and keep watching.
 
 ## Submitting a Pull Request
 

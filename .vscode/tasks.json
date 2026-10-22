@@ -18,6 +18,11 @@
 	"tasks": [
 		{
 			"type": "npm",
+			"script": "prepare:extension",
+			"problemMatcher": []
+		},
+		{
+			"type": "npm",
 			"script": "build",
 			"group": "build",
 			"problemMatcher": ["$ts-checker-webpack", "$eslint-stylish"]

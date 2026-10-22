@@ -1,0 +1,2132 @@
+[
+	{
+		"command": "gitlens.showSettingsPage",
+		"title": "打开设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#views",
+		"title": "打开设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#branches-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#commits-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#contributors-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#file-history-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#line-history-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#remotes-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#repositories-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#search-compare-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#stashes-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showSettingsPage#tags-view",
+		"title": "打开视图设置",
+		"category": "GitLess",
+		"icon": "$(gear)"
+	},
+	{
+		"command": "gitlens.showWelcomePage",
+		"title": "欢迎（快速设置）",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showBranchesView",
+		"title": "显示分支视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showCommitsView",
+		"title": "显示提交视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showContributorsView",
+		"title": "显示贡献者视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showFileHistoryView",
+		"title": "显示文件历史记录视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showLineHistoryView",
+		"title": "显示行历史视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showRemotesView",
+		"title": "显示远程仓库视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showRepositoriesView",
+		"title": "显示仓库视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showSearchAndCompareView",
+		"title": "显示搜索和比较提交视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showStashesView",
+		"title": "显示储藏视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showTagsView",
+		"title": "显示标签视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showWelcomeView",
+		"title": "显示欢迎视图",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.closeWelcomeView",
+		"title": "关闭",
+		"category": "GitLess",
+		"icon": "$(close)"
+	},
+	{
+		"command": "gitlens.compareWith",
+		"title": "比较引用...",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.compareHeadWith",
+		"title": "比较 HEAD 与...",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.compareWorkingWith",
+		"title": "将工作树与指定版本比较...",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.diffDirectory",
+		"title": "使用差异工具与指定版本比较目录...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.diffDirectoryWithHead",
+		"title": "使用差异工具打开目录比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.diffWithNext",
+		"title": "打开与下一修订版的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-next-commit.svg",
+			"light": "images/light/icon-next-commit.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/"
+	},
+	{
+		"command": "gitlens.diffWithNextInDiffLeft",
+		"title": "打开与下一修订版的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-next-commit.svg",
+			"light": "images/light/icon-next-commit.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/"
+	},
+	{
+		"command": "gitlens.diffWithNextInDiffRight",
+		"title": "打开与下一修订版的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-next-commit.svg",
+			"light": "images/light/icon-next-commit.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/"
+	},
+	{
+		"command": "gitlens.diffWithPrevious",
+		"title": "打开与上一修订版的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-prev-commit.svg",
+			"light": "images/light/icon-prev-commit.svg"
+		}
+	},
+	{
+		"command": "gitlens.diffWithPreviousInDiffLeft",
+		"title": "打开与上一修订版的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-prev-commit.svg",
+			"light": "images/light/icon-prev-commit.svg"
+		}
+	},
+	{
+		"command": "gitlens.diffWithPreviousInDiffRight",
+		"title": "打开与上一修订版的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-prev-commit.svg",
+			"light": "images/light/icon-prev-commit.svg"
+		}
+	},
+	{
+		"command": "gitlens.diffLineWithPrevious",
+		"title": "打开与上一修订版的行更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.diffWithRevision",
+		"title": "打开与指定修订版的更改...",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-prev-commit-menu.svg",
+			"light": "images/light/icon-prev-commit-menu.svg"
+		}
+	},
+	{
+		"command": "gitlens.diffWithRevisionFrom",
+		"title": "打开与分支或标签的更改...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.diffWithWorking",
+		"title": "打开与工作区文件的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-compare-ref-working.svg",
+			"light": "images/light/icon-compare-ref-working.svg"
+		}
+	},
+	{
+		"command": "gitlens.diffWithWorkingInDiffLeft",
+		"title": "打开与工作区文件的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-compare-ref-working.svg",
+			"light": "images/light/icon-compare-ref-working.svg"
+		}
+	},
+	{
+		"command": "gitlens.diffWithWorkingInDiffRight",
+		"title": "打开与工作区文件的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-compare-ref-working.svg",
+			"light": "images/light/icon-compare-ref-working.svg"
+		}
+	},
+	{
+		"command": "gitlens.diffLineWithWorking",
+		"title": "打开与工作区文件的行更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.disableRebaseEditor",
+		"title": "禁用交互式变基编辑器",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.enableRebaseEditor",
+		"title": "启用交互式变基编辑器",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.toggleFileBlame",
+		"title": "切换文件逐行追溯",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleFileBlameInDiffLeft",
+		"title": "切换文件逐行追溯",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleFileBlameInDiffRight",
+		"title": "切换文件逐行追溯",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.clearFileAnnotations",
+		"title": "清除文件注释",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git-orange.svg",
+			"light": "images/light/icon-git-orange.svg"
+		}
+	},
+	{
+		"command": "gitlens.computingFileAnnotations",
+		"title": "计算文件注释...",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git-progress.svg",
+			"light": "images/light/icon-git-progress.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleFileHeatmap",
+		"title": "切换文件热图",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleFileHeatmapInDiffLeft",
+		"title": "切换文件热图",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleFileHeatmapInDiffRight",
+		"title": "切换文件热图",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleFileChanges",
+		"title": "切换文件更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleFileChangesOnly",
+		"title": "切换文件更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"command": "gitlens.toggleLineBlame",
+		"title": "切换当前行提交信息",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.toggleCodeLens",
+		"title": "切换 Git 代码透镜",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands",
+		"title": "Git 命令菜单",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.branch",
+		"title": "Git 分支...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.cherryPick",
+		"title": "Git 拣选...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.merge",
+		"title": "Git 合并...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.rebase",
+		"title": "Git 变基...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.reset",
+		"title": "Git 重置...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.revert",
+		"title": "Git 还原提交...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.switch",
+		"title": "Git 切换...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.gitCommands.tag",
+		"title": "Git 标签...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.switchMode",
+		"title": "切换模式",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.toggleReviewMode",
+		"title": "切换审阅模式",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.toggleZenMode",
+		"title": "切换专注模式",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.setViewsLayout",
+		"title": "设置视图布局",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showCommitSearch",
+		"title": "搜索提交",
+		"category": "GitLess",
+		"icon": "$(search)"
+	},
+	{
+		"command": "gitlens.showLastQuickPick",
+		"title": "显示上次打开的快速选择菜单",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.revealCommitInView",
+		"title": "在侧栏中显示提交",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showCommitInView",
+		"title": "在侧栏中搜索提交",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showCommitsInView",
+		"title": "在选择范围内搜索提交",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showFileHistoryInView",
+		"title": "打开文件历史记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openFileHistory",
+		"title": "打开文件历史记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openFolderHistory",
+		"title": "打开文件夹历史记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showQuickCommitDetails",
+		"title": "显示提交",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showQuickCommitFileDetails",
+		"title": "显示当前行的提交",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showQuickRevisionDetails",
+		"title": "显示修订提交",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-commit-horizontal.svg",
+			"light": "images/light/icon-commit-horizontal.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.showQuickRevisionDetailsInDiffLeft",
+		"title": "显示修订提交",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-commit-horizontal.svg",
+			"light": "images/light/icon-commit-horizontal.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.showQuickRevisionDetailsInDiffRight",
+		"title": "显示修订提交",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-commit-horizontal.svg",
+			"light": "images/light/icon-commit-horizontal.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.showQuickFileHistory",
+		"title": "显示文件历史记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.quickOpenFileHistory",
+		"title": "快速打开文件历史记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showQuickBranchHistory",
+		"title": "显示分支历史记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showQuickRepoHistory",
+		"title": "显示当前分支历史记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showQuickRepoStatus",
+		"title": "显示仓库状态",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.showQuickStashList",
+		"title": "显示储藏",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.addAuthors",
+		"title": "添加共同作者",
+		"category": "GitLess",
+		"icon": "$(person-add)"
+	},
+	{
+		"command": "gitlens.connectRemoteProvider",
+		"title": "连接到远程",
+		"category": "GitLess",
+		"icon": "$(plug)"
+	},
+	{
+		"command": "gitlens.disconnectRemoteProvider",
+		"title": "断开远程连接",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-unplug.svg",
+			"light": "images/light/icon-unplug.svg"
+		}
+	},
+	{
+		"command": "gitlens.copyCurrentBranch",
+		"title": "复制当前分支名称",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.copyMessageToClipboard",
+		"title": "复制消息",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.copyShaToClipboard",
+		"title": "复制 SHA",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.closeUnchangedFiles",
+		"title": "关闭未更改的文件",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openChangedFiles",
+		"title": "打开更改的文件",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openBranchesOnRemote",
+		"title": "在远程打开分支",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemoteBranchesUrl",
+		"title": "复制远程分支 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openBranchOnRemote",
+		"title": "在远程打开分支",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemoteBranchUrl",
+		"title": "复制远程分支 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openCommitOnRemote",
+		"title": "在远程服务中打开提交",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemoteCommitUrl",
+		"title": "复制远程提交 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openComparisonOnRemote",
+		"title": "在远程服务中打开比较",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemoteComparisonUrl",
+		"title": "复制远程比较 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openFileFromRemote",
+		"title": "从远程打开文件",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openFileOnRemote",
+		"title": "在远程服务中打开文件",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemoteFileUrlToClipboard",
+		"title": "复制远程文件 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.copyRemoteFileUrlWithoutRange",
+		"title": "复制远程文件 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openFileOnRemoteFrom",
+		"title": "从指定版本在远程服务中打开文件...",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemoteFileUrlFrom",
+		"title": "复制远程文件 URL...",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openBlamePriorToChange",
+		"title": "查看更改前的逐行追溯",
+		"icon": "$(versions)",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openFileRevision",
+		"title": "打开修订版本的文件...",
+		"icon": {
+			"dark": "images/dark/icon-open-revision.svg",
+			"light": "images/light/icon-open-revision.svg"
+		},
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openFileRevisionFrom",
+		"title": "从指定修订版打开文件...",
+		"icon": {
+			"dark": "images/dark/icon-open-revision.svg",
+			"light": "images/light/icon-open-revision.svg"
+		},
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.openPullRequestOnRemote",
+		"title": "在远程打开拉取请求",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemotePullRequestUrl",
+		"title": "复制拉取请求 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openAssociatedPullRequestOnRemote",
+		"title": "打开关联的拉取请求",
+		"category": "GitLess",
+		"icon": "$(git-pull-request)"
+	},
+	{
+		"command": "gitlens.openRepoOnRemote",
+		"title": "在远程打开仓库",
+		"category": "GitLess",
+		"icon": "$(globe)"
+	},
+	{
+		"command": "gitlens.copyRemoteRepositoryUrl",
+		"title": "复制远程仓库 URL",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.openRevisionFile",
+		"title": "打开修订版本的文件",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-open-revision.svg",
+			"light": "images/light/icon-open-revision.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.openRevisionFileInDiffLeft",
+		"title": "打开修订版本的文件",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-open-revision.svg",
+			"light": "images/light/icon-open-revision.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.openRevisionFileInDiffRight",
+		"title": "打开修订版本的文件",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-open-revision.svg",
+			"light": "images/light/icon-open-revision.svg"
+		},
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.openWorkingFile",
+		"title": "打开文件",
+		"category": "GitLess",
+		"icon": "$(go-to-file)"
+	},
+	{
+		"command": "gitlens.openWorkingFileInDiffLeft",
+		"title": "打开文件",
+		"category": "GitLess",
+		"icon": "$(go-to-file)"
+	},
+	{
+		"command": "gitlens.openWorkingFileInDiffRight",
+		"title": "打开文件",
+		"category": "GitLess",
+		"icon": "$(go-to-file)"
+	},
+	{
+		"command": "gitlens.stashApply",
+		"title": "应用储藏",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-stash-pop.svg",
+			"light": "images/light/icon-stash-pop.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.deleteStash",
+		"title": "删除储藏...",
+		"category": "GitLess",
+		"icon": "$(trash)"
+	},
+	{
+		"command": "gitlens.stashSave",
+		"title": "储藏所有更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-stash-save.svg",
+			"light": "images/light/icon-stash-save.svg"
+		}
+	},
+	{
+		"command": "gitlens.stashSaveFiles",
+		"title": "储藏更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-stash-save.svg",
+			"light": "images/light/icon-stash-save.svg"
+		}
+	},
+	{
+		"command": "gitlens.externalDiff",
+		"title": "打开更改 (difftool)",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.externalDiffAll",
+		"title": "打开所有更改 (difftool)",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.resetAvatarCache",
+		"title": "重置头像缓存",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.resetSuppressedWarnings",
+		"title": "重置抑制的警告",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.inviteToLiveShare",
+		"title": "邀请实时分享",
+		"category": "GitLess",
+		"icon": "$(live-share)"
+	},
+	{
+		"command": "gitlens.browseRepoAtRevision",
+		"title": "浏览修订版中的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)",
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.browseRepoAtRevisionInNewWindow",
+		"title": "在新窗口中浏览修订版中的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)",
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.browseRepoBeforeRevision",
+		"title": "浏览修订版之前的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)",
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.browseRepoBeforeRevisionInNewWindow",
+		"title": "在新窗口中浏览修订版之前的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)",
+		"enablement": "gitlens:activeFileStatus =~ /revision/ && resourceScheme != git"
+	},
+	{
+		"command": "gitlens.views.browseRepoAtRevision",
+		"title": "浏览此处版本的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)"
+	},
+	{
+		"command": "gitlens.views.browseRepoAtRevisionInNewWindow",
+		"title": "在新窗口中浏览此处版本的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)"
+	},
+	{
+		"command": "gitlens.views.browseRepoBeforeRevision",
+		"title": "浏览此处之前版本的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)"
+	},
+	{
+		"command": "gitlens.views.browseRepoBeforeRevisionInNewWindow",
+		"title": "在新窗口中浏览此处之前版本的仓库",
+		"category": "GitLess",
+		"icon": "$(folder-opened)"
+	},
+	{
+		"command": "gitlens.fetchRepositories",
+		"title": "抓取",
+		"category": "GitLess",
+		"icon": "$(sync)"
+	},
+	{
+		"command": "gitlens.pullRepositories",
+		"title": "拉取",
+		"category": "GitLess",
+		"icon": "$(arrow-down)"
+	},
+	{
+		"command": "gitlens.pushRepositories",
+		"title": "推送",
+		"category": "GitLess",
+		"icon": "$(arrow-up)"
+	},
+	{
+		"command": "gitlens.views.addRemote",
+		"title": "添加远程仓库",
+		"category": "GitLess",
+		"icon": "$(add)"
+	},
+	{
+		"command": "gitlens.views.highlightChanges",
+		"title": "高亮此提交之前至今的所有更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.highlightRevisionChanges",
+		"title": "突出显示此提交的更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.restore",
+		"title": "还原（检出）",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-checkout.svg",
+			"light": "images/light/icon-checkout.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.switchToAnotherBranch",
+		"title": "切换到另一个分支...",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-checkout.svg",
+			"light": "images/light/icon-checkout.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.switchToBranch",
+		"title": "切换到分支...",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-checkout.svg",
+			"light": "images/light/icon-checkout.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.switchToCommit",
+		"title": "切换到提交...",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-checkout.svg",
+			"light": "images/light/icon-checkout.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.switchToTag",
+		"title": "切换到标签...",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-checkout.svg",
+			"light": "images/light/icon-checkout.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.copy",
+		"title": "复制",
+		"category": "GitLess",
+		"icon": "$(copy)"
+	},
+	{
+		"command": "gitlens.views.pruneRemote",
+		"title": "清理失效引用",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.fetch",
+		"title": "抓取",
+		"category": "GitLess",
+		"icon": "$(sync)"
+	},
+	{
+		"command": "gitlens.views.publishBranch",
+		"title": "发布分支",
+		"category": "GitLess",
+		"icon": "$(cloud-upload)"
+	},
+	{
+		"command": "gitlens.views.publishRepository",
+		"title": "发布仓库",
+		"category": "GitLess",
+		"icon": "$(cloud-upload)"
+	},
+	{
+		"command": "gitlens.views.pull",
+		"title": "拉取",
+		"category": "GitLess",
+		"icon": "$(arrow-down)"
+	},
+	{
+		"command": "gitlens.views.push",
+		"title": "推送",
+		"category": "GitLess",
+		"icon": "$(arrow-up)"
+	},
+	{
+		"command": "gitlens.views.pushWithForce",
+		"title": "强制推送",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-push-force.svg",
+			"light": "images/light/icon-push-force.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.openInTerminal",
+		"title": "在终端中打开",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.setAsDefault",
+		"title": "设置为默认值",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.unsetAsDefault",
+		"title": "取消设置为默认值",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.stageDirectory",
+		"title": "暂存所有更改",
+		"category": "GitLess",
+		"icon": "$(add)"
+	},
+	{
+		"command": "gitlens.views.stageFile",
+		"title": "暂存更改",
+		"category": "GitLess",
+		"icon": "$(add)"
+	},
+	{
+		"command": "gitlens.views.unstageDirectory",
+		"title": "取消暂存所有更改",
+		"category": "GitLess",
+		"icon": "$(remove)"
+	},
+	{
+		"command": "gitlens.views.unstageFile",
+		"title": "取消暂存更改",
+		"category": "GitLess",
+		"icon": "$(remove)"
+	},
+	{
+		"command": "gitlens.views.star",
+		"title": "添加到收藏夹",
+		"category": "GitLess",
+		"icon": "$(star-empty)"
+	},
+	{
+		"command": "gitlens.views.unstar",
+		"title": "从收藏夹中删除",
+		"category": "GitLess",
+		"icon": "$(star-full)"
+	},
+	{
+		"command": "gitlens.views.openDirectoryDiff",
+		"title": "打开目录比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.openDirectoryDiffWithWorking",
+		"title": "打开与工作树的目录比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.openChanges",
+		"title": "打开更改",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.views.openChangesWithWorking",
+		"title": "打开与工作区文件的更改",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-compare-ref-working.svg",
+			"light": "images/light/icon-compare-ref-working.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.openPreviousChangesWithWorking",
+		"title": "打开上一修订版与工作区文件的更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.openFile",
+		"title": "打开文件",
+		"category": "GitLess",
+		"icon": "$(go-to-file)"
+	},
+	{
+		"command": "gitlens.views.openFileRevision",
+		"title": "打开修订版本的文件",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-open-revision.svg",
+			"light": "images/light/icon-open-revision.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.openChangedFiles",
+		"title": "打开文件",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.openChangedFileDiffs",
+		"title": "打开所有更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.openChangedFileDiffsWithWorking",
+		"title": "打开与工作树的全部更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.openChangedFileRevisions",
+		"title": "打开修订版本的文件",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.applyChanges",
+		"title": "应用更改",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.closeRepository",
+		"title": "关闭仓库",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.compareAncestryWithWorking",
+		"title": "比较祖先版本与工作树",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.compareWithHead",
+		"title": "与 HEAD 比较",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.views.compareWithUpstream",
+		"title": "与上游比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.compareWithSelected",
+		"title": "与所选内容比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.selectForCompare",
+		"title": "选择进行比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.compareFileWithSelected",
+		"title": "与所选内容比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.selectFileForCompare",
+		"title": "选择进行比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.compareWithWorking",
+		"title": "与工作树比较",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-compare-ref-working.svg",
+			"light": "images/light/icon-compare-ref-working.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.addAuthors",
+		"title": "添加共同作者",
+		"category": "GitLess",
+		"icon": "$(person-add)"
+	},
+	{
+		"command": "gitlens.views.addAuthor",
+		"title": "添加为共同作者",
+		"category": "GitLess",
+		"icon": "$(person-add)"
+	},
+	{
+		"command": "gitlens.views.cherryPick",
+		"title": "拣选提交...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.createBranch",
+		"title": "创建分支...",
+		"category": "GitLess",
+		"icon": "$(add)"
+	},
+	{
+		"command": "gitlens.views.deleteBranch",
+		"title": "删除分支...",
+		"category": "GitLess",
+		"icon": "$(trash)"
+	},
+	{
+		"command": "gitlens.views.renameBranch",
+		"title": "重命名分支...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.createTag",
+		"title": "创建标签...",
+		"category": "GitLess",
+		"icon": "$(add)"
+	},
+	{
+		"command": "gitlens.views.deleteTag",
+		"title": "删除标签...",
+		"category": "GitLess",
+		"icon": "$(trash)"
+	},
+	{
+		"command": "gitlens.views.mergeBranchInto",
+		"title": "将分支合并到当前分支...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.pushToCommit",
+		"title": "推送至指定提交...",
+		"category": "GitLess",
+		"icon": "$(arrow-up)"
+	},
+	{
+		"command": "gitlens.views.rebaseOntoBranch",
+		"title": "将当前分支变基到指定分支...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.rebaseOntoCommit",
+		"title": "将当前分支变基到指定提交...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.rebaseOntoUpstream",
+		"title": "将当前分支变基到上游...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.resetCommit",
+		"title": "将当前分支重置为上一个提交...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.resetToCommit",
+		"title": "将当前分支重置到指定提交...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.revert",
+		"title": "还原提交...",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.undoCommit",
+		"title": "撤消提交",
+		"category": "GitLess",
+		"icon": "$(discard)"
+	},
+	{
+		"command": "gitlens.views.terminalRemoveRemote",
+		"title": "删除远程（通过终端）",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.setBranchComparisonToWorking",
+		"title": "切换比较：分支",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.views.setBranchComparisonToBranch",
+		"title": "切换比较：工作树",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.views.createPullRequest",
+		"title": "创建拉取请求...",
+		"category": "GitLess",
+		"icon": "$(git-pull-request-create)"
+	},
+	{
+		"command": "gitlens.views.openPullRequest",
+		"title": "打开拉取请求",
+		"category": "GitLess",
+		"icon": "$(git-pull-request)"
+	},
+	{
+		"command": "gitlens.views.clearNode",
+		"title": "清除",
+		"category": "GitLess",
+		"icon": "$(close)"
+	},
+	{
+		"command": "gitlens.views.dismissNode",
+		"title": "忽略",
+		"category": "GitLess",
+		"icon": "$(close)"
+	},
+	{
+		"command": "gitlens.views.editNode",
+		"title": "编辑...",
+		"category": "GitLess",
+		"icon": "$(edit)"
+	},
+	{
+		"command": "gitlens.views.expandNode",
+		"title": "展开",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.refreshNode",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.loadMoreChildren",
+		"title": "加载更多",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.loadAllChildren",
+		"title": "加载全部",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-unfold.svg",
+			"light": "images/light/icon-unfold.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.setShowRelativeDateMarkersOn",
+		"title": "显示日期标记",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.setShowRelativeDateMarkersOff",
+		"title": "隐藏日期标记",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.branches.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.branches.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.branches.setLayoutToList",
+		"title": "切换视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.branches.setLayoutToTree",
+		"title": "切换视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.branches.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.branches.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.branches.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.branches.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.branches.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.branches.setShowBranchComparisonOn",
+		"title": "显示分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.branches.setShowBranchComparisonOff",
+		"title": "隐藏分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.branches.setShowBranchPullRequestOn",
+		"title": "显示分支拉取请求",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.branches.setShowBranchPullRequestOff",
+		"title": "隐藏分支拉取请求",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.commits.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.commits.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.commits.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.commits.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.commits.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.commits.setMyCommitsOnlyOn",
+		"title": "切换过滤器：所有提交",
+		"category": "GitLess",
+		"icon": "$(filter)"
+	},
+	{
+		"command": "gitlens.views.commits.setMyCommitsOnlyOff",
+		"title": "切换过滤器：仅我的提交",
+		"category": "GitLess",
+		"icon": "$(filter-filled)"
+	},
+	{
+		"command": "gitlens.views.commits.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.commits.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.commits.setShowBranchComparisonOn",
+		"title": "显示分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.commits.setShowBranchComparisonOff",
+		"title": "隐藏分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.commits.setShowBranchPullRequestOn",
+		"title": "显示当前分支拉取请求",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.commits.setShowBranchPullRequestOff",
+		"title": "隐藏当前分支拉取请求",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.contributors.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.contributors.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.contributors.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.contributors.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.contributors.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.contributors.setShowAllBranchesOn",
+		"title": "切换过滤器：仅当前分支",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.contributors.setShowAllBranchesOff",
+		"title": "切换过滤器：所有分支",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.contributors.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.contributors.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.contributors.setShowStatisticsOn",
+		"title": "显示统计数据",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.contributors.setShowStatisticsOff",
+		"title": "隐藏统计数据",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.fileHistory.changeBase",
+		"title": "更改比较基准...",
+		"category": "GitLess",
+		"icon": "$(history)"
+	},
+	{
+		"command": "gitlens.views.fileHistory.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.fileHistory.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setCursorFollowingOn",
+		"title": "按文件显示历史记录",
+		"category": "GitLess",
+		"icon": "$(file)",
+		"enablement": "gitlens:views:fileHistory:editorFollowing"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setCursorFollowingOff",
+		"title": "按所选行显示历史记录",
+		"category": "GitLess",
+		"icon": "$(list-selection)",
+		"enablement": "gitlens:views:fileHistory:editorFollowing || gitlens:views:fileHistory:cursorFollowing"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setEditorFollowingOn",
+		"title": "取消固定当前历史记录",
+		"category": "GitLess",
+		"icon": "$(pinned)"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setEditorFollowingOff",
+		"title": "固定当前历史记录",
+		"category": "GitLess",
+		"icon": "$(pin)"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setRenameFollowingOn",
+		"title": "切换关注重命名：关闭",
+		"category": "GitLess",
+		"enablement": "!config.gitlens.advanced.fileHistoryShowAllBranches"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setRenameFollowingOff",
+		"title": "切换关注重命名：开",
+		"category": "GitLess",
+		"enablement": "!config.gitlens.advanced.fileHistoryShowAllBranches"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setShowAllBranchesOn",
+		"title": "切换过滤器：仅当前分支",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setShowAllBranchesOff",
+		"title": "切换过滤器：所有分支",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.fileHistory.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.lineHistory.changeBase",
+		"title": "更改比较基准...",
+		"category": "GitLess",
+		"icon": "$(history)"
+	},
+	{
+		"command": "gitlens.views.lineHistory.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.lineHistory.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.lineHistory.setEditorFollowingOn",
+		"title": "取消固定当前历史记录",
+		"category": "GitLess",
+		"icon": "$(pinned)"
+	},
+	{
+		"command": "gitlens.views.lineHistory.setEditorFollowingOff",
+		"title": "固定当前历史记录",
+		"category": "GitLess",
+		"icon": "$(pin)"
+	},
+	{
+		"command": "gitlens.views.lineHistory.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.lineHistory.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.remotes.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.remotes.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.remotes.setLayoutToList",
+		"title": "切换视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.remotes.setLayoutToTree",
+		"title": "切换视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.remotes.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.remotes.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.remotes.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.remotes.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.remotes.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.remotes.setShowBranchPullRequestOn",
+		"title": "显示分支拉取请求",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.remotes.setShowBranchPullRequestOff",
+		"title": "隐藏分支拉取请求",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.repositories.setAutoRefreshToOn",
+		"title": "启用自动刷新",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setAutoRefreshToOff",
+		"title": "禁用自动刷新",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setBranchesLayoutToList",
+		"title": "切换分支视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.repositories.setBranchesLayoutToTree",
+		"title": "切换分支视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.repositories.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.repositories.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.repositories.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowBranchComparisonOn",
+		"title": "显示分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowBranchComparisonOff",
+		"title": "隐藏分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setBranchesShowBranchComparisonOn",
+		"title": "显示分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setBranchesShowBranchComparisonOff",
+		"title": "隐藏分支比较",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowBranchesOn",
+		"title": "显示分支",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowBranchesOff",
+		"title": "隐藏分支",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowCommitsOn",
+		"title": "显示提交",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowCommitsOff",
+		"title": "隐藏提交",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowContributorsOn",
+		"title": "显示贡献者",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowContributorsOff",
+		"title": "隐藏贡献者",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowRemotesOn",
+		"title": "显示远程仓库",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowRemotesOff",
+		"title": "隐藏远程仓库",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowStashesOn",
+		"title": "显示储藏",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowStashesOff",
+		"title": "隐藏储藏",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowTagsOn",
+		"title": "显示标签",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowTagsOff",
+		"title": "隐藏标签",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowUpstreamStatusOn",
+		"title": "显示当前分支状态",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowUpstreamStatusOff",
+		"title": "隐藏当前分支状态",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.repositories.setShowSectionOff",
+		"title": "隐藏",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.clear",
+		"title": "清除结果",
+		"category": "GitLess",
+		"icon": "$(clear-all)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.pin",
+		"title": "固定",
+		"category": "GitLess",
+		"icon": "$(pin)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.unpin",
+		"title": "取消固定",
+		"category": "GitLess",
+		"icon": "$(pinned)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.searchCommits",
+		"title": "搜索提交...",
+		"category": "GitLess",
+		"icon": "$(search)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.selectForCompare",
+		"title": "比较引用...",
+		"category": "GitLess",
+		"icon": "$(compare-changes)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setKeepResultsToOn",
+		"title": "保留结果",
+		"category": "GitLess",
+		"icon": "$(unlock)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setKeepResultsToOff",
+		"title": "保留结果",
+		"category": "GitLess",
+		"icon": "$(lock)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.swapComparison",
+		"title": "互换比较",
+		"category": "GitLess",
+		"icon": "$(arrow-swap)"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setFilesFilterOnLeft",
+		"title": "仅显示左侧文件",
+		"category": "GitLess",
+		"enablement": "viewItem =~ /gitlens:results:files\\b(?!.*?\\b\\+filtered~left\\b)/"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setFilesFilterOnRight",
+		"title": "仅显示右侧文件",
+		"category": "GitLess",
+		"enablement": "viewItem =~ /gitlens:results:files\\b(?!.*?\\b\\+filtered~right\\b)/"
+	},
+	{
+		"command": "gitlens.views.searchAndCompare.setFilesFilterOff",
+		"title": "清除过滤器",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.stashes.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.stashes.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.stashes.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.stashes.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.stashes.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.tags.copy",
+		"title": "复制",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.tags.refresh",
+		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.tags.setLayoutToList",
+		"title": "切换视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.tags.setLayoutToTree",
+		"title": "切换视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.tags.setFilesLayoutToAuto",
+		"title": "切换文件视图：树",
+		"category": "GitLess",
+		"icon": "$(list-tree)"
+	},
+	{
+		"command": "gitlens.views.tags.setFilesLayoutToList",
+		"title": "切换文件视图：自动",
+		"category": "GitLess",
+		"icon": {
+			"dark": "images/dark/icon-view-auto.svg",
+			"light": "images/light/icon-view-auto.svg"
+		}
+	},
+	{
+		"command": "gitlens.views.tags.setFilesLayoutToTree",
+		"title": "切换文件视图：列表",
+		"category": "GitLess",
+		"icon": "$(list-flat)"
+	},
+	{
+		"command": "gitlens.views.tags.setShowAvatarsOn",
+		"title": "显示头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.views.tags.setShowAvatarsOff",
+		"title": "隐藏头像",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.enableDebugLogging",
+		"title": "启用调试日志记录",
+		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.disableDebugLogging",
+		"title": "禁用调试日志记录",
+		"category": "GitLess"
+	}
+]

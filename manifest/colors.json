@@ -1,0 +1,236 @@
+[
+	{
+		"id": "gitlens.gutterBackgroundColor",
+		"description": "指定编辑器边栏逐行追溯注释的背景颜色",
+		"defaults": {
+			"dark": "#FFFFFF13",
+			"light": "#0000000C",
+			"highContrast": "#FFFFFF13"
+		}
+	},
+	{
+		"id": "gitlens.gutterForegroundColor",
+		"description": "指定编辑器边栏逐行追溯注释的前景色",
+		"defaults": {
+			"dark": "#BEBEBE",
+			"light": "#747474",
+			"highContrast": "#BEBEBE"
+		}
+	},
+	{
+		"id": "gitlens.gutterUncommittedForegroundColor",
+		"description": "指定编辑器边栏逐行追溯注释中未提交行的前景色",
+		"defaults": {
+			"dark": "#00BCF299",
+			"light": "#00BCF299",
+			"highContrast": "#00BCF2FF"
+		}
+	},
+	{
+		"id": "gitlens.trailingLineBackgroundColor",
+		"description": "指定当前行逐行追溯注释的背景颜色",
+		"defaults": {
+			"dark": "#00000000",
+			"light": "#00000000",
+			"highContrast": "#00000000"
+		}
+	},
+	{
+		"id": "gitlens.trailingLineForegroundColor",
+		"description": "指定当前行逐行追溯注释的前景色",
+		"defaults": {
+			"dark": "#99999959",
+			"light": "#99999959",
+			"highContrast": "#99999999"
+		}
+	},
+	{
+		"id": "gitlens.lineHighlightBackgroundColor",
+		"description": "指定责任注释中关联线突出显示的背景颜色",
+		"defaults": {
+			"dark": "#00BCF233",
+			"light": "#00BCF233",
+			"highContrast": "#00BCF233"
+		}
+	},
+	{
+		"id": "gitlens.lineHighlightOverviewRulerColor",
+		"description": "指定责任注释中关联线突出显示的概述标尺颜色",
+		"defaults": {
+			"dark": "#00BCF299",
+			"light": "#00BCF299",
+			"highContrast": "#00BCF299"
+		}
+	},
+	{
+		"id": "gitlens.closedPullRequestIconColor",
+		"description": "指定 GitLess 视图中已关闭拉取请求的图标颜色",
+		"defaults": {
+			"dark": "#f85149",
+			"light": "#f85149",
+			"highContrast": "#ff544b"
+		}
+	},
+	{
+		"id": "gitlens.openPullRequestIconColor",
+		"description": "指定 GitLess 视图中打开的拉取请求的图标颜色",
+		"defaults": {
+			"dark": "#56d364",
+			"light": "#56d364",
+			"highContrast": "#68ff79"
+		}
+	},
+	{
+		"id": "gitlens.mergedPullRequestIconColor",
+		"description": "指定 GitLess 视图中合并拉取请求的图标颜色",
+		"defaults": {
+			"dark": "#995dff",
+			"light": "#995dff",
+			"highContrast": "#8945ff"
+		}
+	},
+	{
+		"id": "gitlens.unpushlishedChangesIconColor",
+		"description": "指定 GitLess 视图中未发布更改的图标颜色",
+		"defaults": {
+			"dark": "#35b15e",
+			"light": "#35b15e",
+			"highContrast": "#4dff88"
+		}
+	},
+	{
+		"id": "gitlens.unpublishedCommitIconColor",
+		"description": "指定 GitLess 视图中未发布提交的图标颜色",
+		"defaults": {
+			"dark": "#35b15e",
+			"light": "#35b15e",
+			"highContrast": "#4dff88"
+		}
+	},
+	{
+		"id": "gitlens.unpulledChangesIconColor",
+		"description": "指定 GitLess 视图中未拉取的更改的图标颜色",
+		"defaults": {
+			"dark": "#b15e35",
+			"light": "#b15e35",
+			"highContrast": "#ff874c"
+		}
+	},
+	{
+		"id": "gitlens.decorations.addedForegroundColor",
+		"description": "指定添加文件的装饰前景色",
+		"defaults": {
+			"light": "gitDecoration.addedResourceForeground",
+			"dark": "gitDecoration.addedResourceForeground",
+			"highContrast": "gitDecoration.addedResourceForeground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.copiedForegroundColor",
+		"description": "指定复制文件的装饰前景色",
+		"defaults": {
+			"light": "gitDecoration.renamedResourceForeground",
+			"dark": "gitDecoration.renamedResourceForeground",
+			"highContrast": "gitDecoration.renamedResourceForeground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.deletedForegroundColor",
+		"description": "指定已删除文件的装饰前景色",
+		"defaults": {
+			"light": "gitDecoration.deletedResourceForeground",
+			"dark": "gitDecoration.deletedResourceForeground",
+			"highContrast": "gitDecoration.deletedResourceForeground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.ignoredForegroundColor",
+		"description": "指定被忽略文件的装饰前景色",
+		"defaults": {
+			"light": "gitDecoration.ignoredResourceForeground",
+			"dark": "gitDecoration.ignoredResourceForeground",
+			"highContrast": "gitDecoration.ignoredResourceForeground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.modifiedForegroundColor",
+		"description": "指定修改文件的装饰前景色",
+		"defaults": {
+			"light": "gitDecoration.modifiedResourceForeground",
+			"dark": "gitDecoration.modifiedResourceForeground",
+			"highContrast": "gitDecoration.modifiedResourceForeground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.untrackedForegroundColor",
+		"description": "指定未跟踪文件的装饰前景色",
+		"defaults": {
+			"light": "gitDecoration.untrackedResourceForeground",
+			"dark": "gitDecoration.untrackedResourceForeground",
+			"highContrast": "gitDecoration.untrackedResourceForeground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.renamedForegroundColor",
+		"description": "指定重命名文件的装饰前景色",
+		"defaults": {
+			"light": "gitDecoration.renamedResourceForeground",
+			"dark": "gitDecoration.renamedResourceForeground",
+			"highContrast": "gitDecoration.renamedResourceForeground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.branchAheadForegroundColor",
+		"description": "指定上游分支之前的装饰前景色",
+		"defaults": {
+			"dark": "#35b15e",
+			"light": "#35b15e",
+			"highContrast": "#4dff88"
+		}
+	},
+	{
+		"id": "gitlens.decorations.branchBehindForegroundColor",
+		"description": "指定上游分支后面的装饰前景色",
+		"defaults": {
+			"dark": "#b15e35",
+			"light": "#b15e35",
+			"highContrast": "#ff874c"
+		}
+	},
+	{
+		"id": "gitlens.decorations.branchDivergedForegroundColor",
+		"description": "指定上游和下游分支的装饰前景色",
+		"defaults": {
+			"dark": "#D8AF1B",
+			"light": "#D8AF1B",
+			"highContrast": "#D8AF1B"
+		}
+	},
+	{
+		"id": "gitlens.decorations.branchUpToDateForegroundColor",
+		"description": "指定与其上游同步的分支的装饰前景色",
+		"defaults": {
+			"dark": "sideBar.foreground",
+			"light": "sideBar.foreground",
+			"highContrast": "sideBar.foreground"
+		}
+	},
+	{
+		"id": "gitlens.decorations.branchUnpublishedForegroundColor",
+		"description": "指定尚未发布到上游的分支的装饰前景色",
+		"defaults": {
+			"dark": "#35b15e",
+			"light": "#35b15e",
+			"highContrast": "#4dff88"
+		}
+	},
+	{
+		"id": "gitlens.decorations.branchMissingUpstreamForegroundColor",
+		"description": "指定缺少上游的分支的装饰前景色",
+		"defaults": {
+			"light": "#ad0707",
+			"dark": "#c74e39",
+			"highContrast": "#c74e39"
+		}
+	}
+]

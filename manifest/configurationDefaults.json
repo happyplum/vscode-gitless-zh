@@ -1,0 +1,41 @@
+{
+	"[azure-pipelines]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[ansible]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[css]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[html]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[json]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[jsonc]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[less]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[postcss]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[python]": {
+		"gitlens.codeLens.symbolScopes": ["!Module"]
+	},
+	"[scss]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[stylus]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[vue]": {
+		"gitlens.codeLens.scopes": ["document"]
+	},
+	"[yaml]": {
+		"gitlens.codeLens.scopes": ["document"]
+	}
+}

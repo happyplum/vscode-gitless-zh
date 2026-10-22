@@ -1,0 +1,11 @@
+[
+	{
+		"viewType": "gitlens.rebase",
+		"displayName": "GitLess 交互式 Rebase 编辑器",
+		"selector": [
+			{
+				"filenamePattern": "git-rebase-todo"
+			}
+		]
+	}
+]
