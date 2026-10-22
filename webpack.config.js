@@ -102,6 +102,9 @@ function getExtensionConfig(mode, env) {
 			formatter: 'basic',
 		}),
 		new SourceLintPlugin(__dirname, 'src'),
+		new CopyPlugin({
+			patterns: [{ from: 'scripts/gitTerminalRunner.js', to: 'gitTerminalRunner.js' }],
+		}),
 	];
 
 	if (env.analyzeDeps) {

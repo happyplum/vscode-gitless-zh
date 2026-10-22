@@ -21,7 +21,7 @@ import { Container } from '../../container';
 import { Logger } from '../../logger';
 import { Messages } from '../../messages';
 import { Arrays, Dates, debug, Functions, gate, Iterables, log, logName } from '../../system';
-import { runGitCommandInTerminal } from '../../terminal';
+import { runGitCommandInTask } from '../../terminal';
 import {
 	GitBranch,
 	GitContributor,
@@ -835,10 +835,7 @@ export class Repository implements Disposable {
 	@gate(() => '')
 	@log()
 	rebase(configs: string[] | undefined, ...args: string[]) {
-		this.runTerminalCommand(
-			configs != null && configs.length !== 0 ? `${configs.join(' ')} rebase` : 'rebase',
-			...args,
-		);
+		this.runTerminalCommand(...(configs ?? []), 'rebase', ...args);
 	}
 
 	@gate(() => '')
@@ -1107,11 +1104,8 @@ export class Repository implements Disposable {
 		this._onDidChangeFileSystem.fire(e);
 	}
 
-	private runTerminalCommand(command: string, ...args: string[]) {
-		const parsedArgs = args.map(arg =>
-			arg.startsWith('#') || arg.includes("'") || arg.includes('(') || arg.includes(')') ? `"${arg}"` : arg,
-		);
-		runGitCommandInTerminal(command, parsedArgs.join(' '), this.path, true);
+	private runTerminalCommand(...args: string[]) {
+		void runGitCommandInTask(args, this.path);
 
 		setTimeout(() => this.fireChange(RepositoryChange.Unknown), 2500);
 	}

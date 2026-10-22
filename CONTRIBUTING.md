@@ -102,6 +102,8 @@ To generate a VSIX (installation package) run the following from a terminal:
 corepack yarn run pack
 ```
 
+Automatically executed interactive Git commands run in a new VS Code process task through `dist/gitTerminalRunner.js`, which the bundle copies from `scripts/`. When changing terminal execution or packaging, verify that both the bundle and VSIX contain this runner. Remote removal still opens an editable command in the user's default terminal for manual execution.
+
 ### Debugging
 
 #### Using VS Code
