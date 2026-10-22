@@ -1,6 +1,7 @@
-@import 'base';
-@import 'buttons';
-@import 'utils';
+@use 'sass:meta';
+@use 'base';
+@use 'buttons';
+@use 'utils';
 
 body {
 	height: unset;
@@ -399,5 +400,5 @@ $entry-padding: 5px;
 	}
 }
 
-@import 'codicons';
+@include meta.load-css('codicons');
 // @import 'snow';

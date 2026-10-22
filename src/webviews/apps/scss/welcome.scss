@@ -1,6 +1,7 @@
-@import 'base';
-@import 'buttons';
-@import 'icons';
+@use 'sass:meta';
+@use 'base';
+@use 'buttons';
+@use 'icons';
 
 body {
 	&.vscode-light {
@@ -535,7 +536,7 @@ section {
 	}
 }
 
-@import 'utils';
+@include meta.load-css('utils');
 // @import 'snow';
 
 .sidebar {

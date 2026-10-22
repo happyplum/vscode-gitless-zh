@@ -1,6 +1,7 @@
-@import 'base';
-@import 'buttons';
-@import 'icons';
+@use 'sass:meta';
+@use 'base';
+@use 'buttons';
+@use 'icons';
 
 body {
 	&.vscode-light {
@@ -693,8 +694,8 @@ section {
 	}
 }
 
-@import 'utils';
-@import 'popup';
+@include meta.load-css('utils');
+@include meta.load-css('popup');
 // @import 'snow';
 
 .sidebar {
