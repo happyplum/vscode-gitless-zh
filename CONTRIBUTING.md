@@ -48,6 +48,8 @@ corepack yarn run build
 
 Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions. The `disallowAutomaticSingleRunInference` parser setting is a temporary workaround for a TypeScript 6.0.3 typed-lint issue in CI. Remove it after an upstream stable release fixes the issue and `CI=true` bundle/pack plus the GitHub Stable and Insiders workflows all pass without the setting.
 
+Git commands that run automatically in the terminal pass structured arguments to the extension's runner. The **Remove Remote (via Terminal)** action instead pre-fills an editable command for the user to execute in their configured shell. Keep this difference in mind when changing terminal command handling: the pre-filled text is shell input after the user presses Enter.
+
 ### Watch
 
 During development you can use a watcher to make builds on changes quick and easy. From a terminal, where you have cloned the repository, execute the following command:
