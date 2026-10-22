@@ -30,6 +30,17 @@ From a terminal, where you have cloned the repository, execute the following com
 corepack yarn install --frozen-lockfile
 ```
 
+### Pull request validation
+
+Before opening a pull request, run the checks used by the Stable workflow:
+
+```
+corepack yarn test
+corepack yarn run pack
+```
+
+The test command runs the upstream behavior regressions, shell error regression, and license generation tests, in that order. The Stable workflow runs these tests after installing dependencies and before packaging. Packaging runs the production bundle through `vscode:prepublish`, including the TypeScript and ESLint checks.
+
 ### Build
 
 From a terminal, where you have cloned the repository, execute the following command to re-build the project from scratch:
@@ -46,7 +57,7 @@ Or to just run a quick build, use:
 corepack yarn run build
 ```
 
-Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions. The `disallowAutomaticSingleRunInference` parser setting is a temporary workaround for a TypeScript 6.0.3 typed-lint issue in CI. Remove it after an upstream stable release fixes the issue and `CI=true` bundle/pack plus the GitHub Stable and Insiders workflows all pass without the setting.
+Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions. The `disallowAutomaticSingleRunInference` parser setting prevents a reproducible typed-lint crash under `CI=true` with TypeScript 6.0.3. Keep it for the current dependency set. When upgrading TypeScript or TypeScript-ESLint, remove the setting only if `CI=true` bundle/pack and the GitHub Stable and Insiders workflows all pass without it. Related reports: [TypeScript #64412](https://github.com/microsoft/TypeScript/issues/64412) and [TypeScript-ESLint #12749](https://github.com/typescript-eslint/typescript-eslint/issues/12749).
 
 ### Watch
 

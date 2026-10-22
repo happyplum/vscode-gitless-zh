@@ -1,6 +1,7 @@
 name: Build Stable
 
 on:
+    pull_request:
     workflow_dispatch:
 
 permissions:
@@ -21,9 +22,12 @@ jobs:
               run: corepack enable
             - name: Install
               run: yarn install --frozen-lockfile
+            - name: Test
+              run: yarn test
             - name: Package extension
               run: yarn run pack
             - name: Upload package
+              if: github.event_name == 'workflow_dispatch'
               uses: actions/upload-artifact@v4
               with:
                   name: gitless-zh-stable.vsix
