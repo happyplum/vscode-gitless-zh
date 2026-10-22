@@ -19,14 +19,6 @@ export class IpcCommandType<P = any> {
 	constructor(public readonly method: string) {}
 }
 
-export function onIpcCommand<CT extends IpcCommandType>(
-	type: CT,
-	command: IpcMessage,
-	fn: (params: IpcCommandParamsOf<CT>) => unknown,
-) {
-	fn(command.params);
-}
-
 export function onIpcNotification<NT extends IpcNotificationType>(
 	type: NT,
 	notification: IpcMessage,

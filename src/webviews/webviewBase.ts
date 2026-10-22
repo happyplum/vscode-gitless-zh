@@ -19,13 +19,13 @@ import { configuration } from '../configuration';
 import { Container } from '../container';
 import { CommitFormatter, GitBlameCommit, PullRequest, PullRequestState } from '../git/git';
 import { Logger } from '../logger';
+import { onIpcCommand } from './ipc';
 import {
 	DidChangeConfigurationNotificationType,
 	DidPreviewConfigurationNotificationType,
 	IpcMessage,
 	IpcNotificationParamsOf,
 	IpcNotificationType,
-	onIpcCommand,
 	PreviewConfigurationCommandType,
 	UpdateConfigurationCommandType,
 } from './protocol';
@@ -154,7 +154,7 @@ export abstract class WebviewBase implements Disposable {
 	protected onMessageReceived(e: IpcMessage) {
 		switch (e.method) {
 			case UpdateConfigurationCommandType.method:
-				onIpcCommand(UpdateConfigurationCommandType, e, async params => {
+				void onIpcCommand(UpdateConfigurationCommandType, e, async params => {
 					const target =
 						params.scope === 'workspace' ? ConfigurationTarget.Workspace : ConfigurationTarget.Global;
 
@@ -193,7 +193,7 @@ export abstract class WebviewBase implements Disposable {
 				break;
 
 			case PreviewConfigurationCommandType.method:
-				onIpcCommand(PreviewConfigurationCommandType, e, async params => {
+				void onIpcCommand(PreviewConfigurationCommandType, e, async params => {
 					switch (params.type) {
 						case 'commit': {
 							const commit = new GitBlameCommit(
