@@ -315,7 +315,7 @@ export class TagGitCommand extends QuickCommand<State> {
 					state.flags,
 					state.message.length !== 0 ? ['--force', '-m'] : ['--force'],
 					{
-						label: `力${context.title}`,
+						label: `强制${context.title}`,
 						description: `--force${state.message.length !== 0 ? ' -m' : ''}`,
 						detail: `将在${GitReference.toString(
 							state.reference,

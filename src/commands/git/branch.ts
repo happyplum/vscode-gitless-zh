@@ -376,36 +376,33 @@ export class BranchGitCommand extends QuickCommand<State> {
 		state: DeleteStepState<ExcludeSome<DeleteState, 'references', GitBranchReference>>,
 		context: Context,
 	): StepResultGenerator<DeleteFlags[]> {
+		const branches = state.references.map(branch => GitReference.toString(branch, { label: false })).join('、');
 		const confirmations: FlagsQuickPickItem<DeleteFlags>[] = [
 			FlagsQuickPickItem.create<DeleteFlags>(state.flags, [], {
 				label: context.title,
-				detail: `将删除${GitReference.toString(state.references)}`,
+				detail: `将删除分支 ${branches}`,
 			}),
 		];
 		if (!state.references.every(b => b.remote)) {
 			confirmations.push(
 				FlagsQuickPickItem.create<DeleteFlags>(state.flags, ['--force'], {
-					label: `力${context.title}`,
+					label: `强制${context.title}`,
 					description: '--force',
-					detail: `将强制删除${GitReference.toString(state.references)}`,
+					detail: `将强制删除分支 ${branches}`,
 				}),
 			);
 
 			if (state.references.some(b => b.upstream != null)) {
 				confirmations.push(
 					FlagsQuickPickItem.create<DeleteFlags>(state.flags, ['--remotes'], {
-						label: `${context.title} 和远程${state.references.filter(b => !b.remote).length > 1 ? 's' : ''}`,
+						label: `${context.title}及对应的远程分支`,
 						description: '--remotes',
-						detail: `将删除 ${GitReference.toString(
-							state.references,
-						)} 和任何远程跟踪分支`,
+						detail: `将删除分支 ${branches} 及对应的远程分支`,
 					}),
 					FlagsQuickPickItem.create<DeleteFlags>(state.flags, ['--force', '--remotes'], {
-						label: `强制 ${context.title} 和远程 ${state.references.filter(b => !b.remote).length > 1 ? 's' : ''}`,
+						label: `强制${context.title}及对应的远程分支`,
 						description: '--force --remotes',
-						detail: `将强制删除${GitReference.toString(
-							state.references,
-						)}和任何远程跟踪分支`,
+						detail: `将强制删除分支 ${branches} 及对应的远程分支`,
 					}),
 				);
 			}
