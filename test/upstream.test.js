@@ -144,6 +144,8 @@ const branchDelete = method('src/git/models/repository.ts', 'Repository', 'branc
 		for (const item of items) { const name = key(item); if (!groups.has(name)) groups.set(name, []); groups.get(name).push(item); }
 		return groups;
 	} },
+	runGitCommandInNewTerminal: (args, cwd) => calls.push([args, cwd]),
+	setTimeout: () => undefined,
 });
 const makeBranch = upstream => new GitBranch('/repo', 'topic', false, true, undefined, 'abc', upstream);
 const repository = branch => ({
@@ -456,16 +458,41 @@ const cases = [
 			const [branch] = GitBranchParser.parse(row('').replace('refs/heads/topic', `refs/remotes/${remoteName}/feature/topic`), '/repo', undefined, [remoteName]);
 			container.git.getRemotes = async () => [{ name: remoteName }];
 			calls.length = 0;
-			await branchDelete.call({ getBranch: async () => branch, runTerminalCommand: (...args) => calls.push(args) }, branch);
-			assert.deepEqual(calls, [['push', '-d', remoteName, 'feature/topic']]);
+			await branchDelete.call({ path: '/repo', getBranch: async () => branch, runTerminalCommand: (...args) => calls.push(args) }, branch);
+			assert.deepEqual(calls, [[['push', '-d', remoteName, 'feature/topic'], '/repo']]);
 		}
 	}],
 	['local upstream branch deletion never adds a remote push deletion', async () => {
 		const branch = makeBranch({ name: 'origin/topic', missing: false, local: true });
 		container.git.getRemotes = async () => [{ name: 'origin' }];
 		calls.length = 0;
-		await branchDelete.call({ getBranch: async () => branch, runTerminalCommand: (...args) => calls.push(args) }, branch, { remote: true });
-		assert.deepEqual(calls, [['branch', '--delete', 'topic']]);
+		await branchDelete.call({ path: '/repo', getBranch: async () => branch, runTerminalCommand: (...args) => calls.push(args) }, branch, { remote: true });
+		assert.deepEqual(calls, [[['branch', '--delete', 'topic'], '/repo']]);
+	}],
+	['forced local and multiple remote branch deletions each open a separate terminal', async () => {
+		const local = { name: 'topic', ref: 'topic', remote: false };
+		const remoteRefs = ['first/topic', 'second/other'].map(name => ({ name, ref: name, remote: true }));
+		const remoteBranches = {
+			'first/topic': { getRemote: async () => ({}), getRemoteName: () => 'first', getNameWithoutRemote: () => 'topic' },
+			'second/other': { getRemote: async () => ({}), getRemoteName: () => 'second', getNameWithoutRemote: () => 'other' },
+		};
+		calls.length = 0;
+		await branchDelete.call({
+			path: '/repo',
+			getBranch: async name => remoteBranches[name],
+			runTerminalCommand: (...args) => calls.push(args),
+		}, local, { force: true });
+		assert.deepEqual(calls, [[['branch', '--delete', '--force', 'topic'], '/repo']]);
+		calls.length = 0;
+		await branchDelete.call({
+			path: '/repo',
+			getBranch: async name => remoteBranches[name],
+			runTerminalCommand: (...args) => calls.push(args),
+		}, remoteRefs);
+		assert.deepEqual(calls, [
+			[['push', '-d', 'first', 'topic'], '/repo'],
+			[['push', '-d', 'second', 'other'], '/repo'],
+		]);
 	}],
 	['remote comparison strips the selected complete remote prefix and preserves other prefixes', async () => {
 		for (const [base, compare, expectedBase, expectedCompare] of [

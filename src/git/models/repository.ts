@@ -22,7 +22,7 @@ import { Container } from '../../container';
 import { Logger } from '../../logger';
 import { Messages } from '../../messages';
 import { Arrays, Dates, debug, Functions, gate, Iterables, log, logName } from '../../system';
-import { runGitCommandInTask } from '../../terminal';
+import { runGitCommandInNewTerminal, runGitCommandInTask } from '../../terminal';
 import {
 	GitBranch,
 	GitContributor,
@@ -435,6 +435,11 @@ export class Repository implements Disposable {
 		branches: GitBranchReference | GitBranchReference[],
 		{ force, remote }: { force?: boolean; remote?: boolean } = {},
 	) {
+		const runDeleteCommand = async (...args: string[]) => {
+			await runGitCommandInNewTerminal(args, this.path);
+			setTimeout(() => this.fireChange(RepositoryChange.Unknown), 2500);
+		};
+
 		if (!Array.isArray(branches)) {
 			branches = [branches];
 		}
@@ -452,14 +457,14 @@ export class Repository implements Disposable {
 			if (force) {
 				args.push('--force');
 			}
-			this.runTerminalCommand('branch', ...args, ...branches.map(b => b.ref));
+			await runDeleteCommand('branch', ...args, ...branches.map(b => b.ref));
 
 			if (remote) {
 				if (trackingBranches.length !== 0) {
 					const branchesByOrigin = Arrays.groupByMap(trackingBranches, b => b.getRemoteName()!);
 
 					for (const [remote, branches] of branchesByOrigin.entries()) {
-						this.runTerminalCommand(
+						await runDeleteCommand(
 							'push',
 							'-d',
 							remote,
@@ -479,7 +484,7 @@ export class Repository implements Disposable {
 			const branchesByOrigin = Arrays.groupByMap(remoteBranches, b => b.getRemoteName()!);
 
 			for (const [remote, branches] of branchesByOrigin.entries()) {
-				this.runTerminalCommand(
+				await runDeleteCommand(
 					'push',
 					'-d',
 					remote,
