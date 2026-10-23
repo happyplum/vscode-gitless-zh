@@ -1257,7 +1257,7 @@
 	},
 	{
 		"command": "gitlens.views.mergeBranchInto",
-		"title": "将分支合并到当前分支...",
+		"title": "将分支 Merge 到当前分支...",
 		"category": "GitLess"
 	},
 	{
@@ -1268,7 +1268,7 @@
 	},
 	{
 		"command": "gitlens.views.rebaseOntoBranch",
-		"title": "将当前分支变基到指定分支...",
+		"title": "将当前分支 Rebase 到指定分支...",
 		"category": "GitLess"
 	},
 	{
