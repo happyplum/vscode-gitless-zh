@@ -130,7 +130,7 @@ export class SwitchGitCommand extends QuickCommand<State> {
 
 			if (state.counter < 2 || state.reference == null) {
 				const result = yield* pickBranchOrTagStepMultiRepo(state as SwitchStepState, context, {
-					placeholder: context => `Choose a branch${context.showTags ? ' or tag' : ''} to switch to`,
+					placeholder: context => `选择要切换到的分支${context.showTags ? '或标签' : ''}`,
 				});
 				if (result === StepResult.Break) {
 					// If we skipped the previous step, make sure we back up past it
@@ -155,7 +155,7 @@ export class SwitchGitCommand extends QuickCommand<State> {
 				if (branches.length === 0) {
 					const result = yield* inputBranchNameStep(state as SwitchStepState, context, {
 						placeholder: '请提供新分支的名称',
-						titleContext: ` based on ${GitReference.toString(state.reference, {
+						titleContext: `，基于 ${GitReference.toString(state.reference, {
 							icon: false,
 						})}`,
 						value: state.createBranch ?? GitReference.getNameWithoutRemote(state.reference),

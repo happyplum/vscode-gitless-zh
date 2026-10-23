@@ -222,9 +222,9 @@ export class TagGitCommand extends QuickCommand<State> {
 			if (state.counter < 3 || state.reference == null) {
 				const result = yield* pickBranchOrTagStep(state, context, {
 					placeholder: context =>
-						`Choose a branch${context.showTags ? ' or tag' : ''} to create the new tag from`,
+						`选择要从中创建新标签的分支${context.showTags ? '或标签' : ''}`,
 					picked: state.reference?.ref ?? (await state.repo.getBranch())?.ref,
-					titleContext: ' from',
+					titleContext: ' 的起点',
 					value: GitReference.isRevision(state.reference) ? state.reference.ref : undefined,
 				});
 				// Always break on the first step (so we will go back)
@@ -236,7 +236,7 @@ export class TagGitCommand extends QuickCommand<State> {
 			if (state.counter < 4 || state.name == null) {
 				const result = yield* inputTagNameStep(state, context, {
 					placeholder: '请提供新标签的名称',
-					titleContext: ` at ${GitReference.toString(state.reference, { capitalize: true, icon: false })}`,
+					titleContext: `，指向 ${GitReference.toString(state.reference, { capitalize: true, icon: false })}`,
 					value: state.name ?? GitReference.getNameWithoutRemote(state.reference),
 				});
 				if (result === StepResult.Break) continue;

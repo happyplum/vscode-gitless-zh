@@ -102,10 +102,11 @@ export class CopyRemoteResourceCommandQuickPickItem extends CommandQuickPickItem
 			remotes: remotes,
 			clipboard: true,
 		};
+		const provider = providers?.length ? providers[0].name : '远程平台';
 		super(
-			`$(clippy) Copy ${providers?.length ? providers[0].name : 'Remote'} ${getNameFromRemoteResource(
-				resource,
-			)} Url${providers?.length === 1 ? '' : GlyphChars.Ellipsis}`,
+			`$(clippy) 复制 ${provider} 上的${getNameFromRemoteResource(resource)}链接${
+				providers?.length === 1 ? '' : GlyphChars.Ellipsis
+			}`,
 			Commands.OpenOnRemote,
 			[commandArgs],
 		);
@@ -125,12 +126,11 @@ export class OpenRemoteResourceCommandQuickPickItem extends CommandQuickPickItem
 			remotes: remotes,
 			clipboard: false,
 		};
+		const provider = providers?.length ? providers[0].name : '远程平台';
 		super(
-			`$(link-external) Open ${getNameFromRemoteResource(resource)} on ${
-				providers?.length === 1
-					? providers[0].name
-					: `${providers?.length ? providers[0].name : 'Remote'}${GlyphChars.Ellipsis}`
-			}`,
+			`$(link-external) 在 ${provider}${providers?.length === 1 ? '' : GlyphChars.Ellipsis} 上打开${getNameFromRemoteResource(
+				resource,
+			)}`,
 			Commands.OpenOnRemote,
 			[commandArgs],
 		);

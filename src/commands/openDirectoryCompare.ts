@@ -70,7 +70,7 @@ export class OpenDirectoryCompareCommand extends ActiveEditorCommand {
 				const pick = await ReferencePicker.show(
 					repoPath,
 					'比较工作树目录与',
-					'Choose a branch or tag to compare with',
+					'选择要比较的分支或标签',
 					{
 						allowEnteringRefs: true,
 						// checkmarks: false,

@@ -157,7 +157,7 @@ export class BranchNode
 						  })
 						: undefined,
 				]);
-			if (log == null) return [new MessageNode(this.view, this, 'No commits could be found.')];
+			if (log == null) return [new MessageNode(this.view, this, '找不到提交。')];
 
 			if (this.options.showComparison !== false && !(this.view instanceof RemotesView)) {
 				children.push(

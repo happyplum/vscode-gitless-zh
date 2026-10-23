@@ -63,7 +63,7 @@ export class SearchAndCompareViewNode extends ViewNode<SearchAndCompareView> {
 	getTreeItem(): TreeItem {
 		this.splatted = false;
 
-		const item = new TreeItem('SearchAndCompare', TreeItemCollapsibleState.Expanded);
+		const item = new TreeItem('搜索与比较', TreeItemCollapsibleState.Expanded);
 		item.contextValue = ContextValues.SearchAndCompare;
 		return item;
 	}
@@ -145,8 +145,8 @@ export class SearchAndCompareViewNode extends ViewNode<SearchAndCompareView> {
 		if (ref == null) {
 			const pick = await ReferencePicker.show(
 				repoPath,
-				`Compare ${this.getRefName(selectedRef.ref)} with`,
-				'Choose a reference to compare with',
+				`与 ${this.getRefName(selectedRef.ref)} 比较`,
+				'选择另一个引用进行比较',
 				{
 					allowEnteringRefs: true,
 					picked: typeof selectedRef.ref === 'string' ? selectedRef.ref : selectedRef.ref.ref,
@@ -176,7 +176,7 @@ export class SearchAndCompareViewNode extends ViewNode<SearchAndCompareView> {
 
 	async selectForCompare(repoPath?: string, ref?: string | NamedRef, options?: { prompt?: boolean }) {
 		if (repoPath == null) {
-			repoPath = await getRepoPathOrPrompt('Compare');
+			repoPath = await getRepoPathOrPrompt('比较');
 		}
 		if (repoPath == null) return;
 
@@ -185,7 +185,7 @@ export class SearchAndCompareViewNode extends ViewNode<SearchAndCompareView> {
 		let prompt = options?.prompt ?? false;
 		let ref2;
 		if (ref == null) {
-			const pick = await ReferencePicker.show(repoPath, 'Compare', 'Choose a reference to compare', {
+			const pick = await ReferencePicker.show(repoPath, '比较', '选择一个引用进行比较', {
 				allowEnteringRefs: { ranges: true },
 				// checkmarks: false,
 				include:

@@ -137,7 +137,7 @@ export namespace BranchQuickPickItem {
 }
 
 export class CommitLoadMoreQuickPickItem implements QuickPickItem {
-	readonly label = 'Load more';
+	readonly label = '加载更多';
 	readonly alwaysShow = true;
 }
 

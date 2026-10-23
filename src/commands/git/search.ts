@@ -39,17 +39,17 @@ export interface SearchGitCommandArgs {
 }
 
 const searchOperatorToTitleMap = new Map<SearchOperators, string>([
-	['', 'Search by Message'],
-	['=:', 'Search by Message'],
-	['message:', 'Search by Message'],
-	['@:', 'Search by Author'],
-	['author:', 'Search by Author'],
-	['#:', 'Search by Commit SHA'],
-	['commit:', 'Search by Commit SHA'],
-	['?:', 'Search by File'],
-	['file:', 'Search by File'],
-	['~:', 'Search by Changes'],
-	['change:', 'Search by Changes'],
+	['', '按提交消息搜索'],
+	['=:', '按提交消息搜索'],
+	['message:', '按提交消息搜索'],
+	['@:', '按作者搜索'],
+	['author:', '按作者搜索'],
+	['#:', '按提交 SHA 搜索'],
+	['commit:', '按提交 SHA 搜索'],
+	['?:', '按文件搜索'],
+	['file:', '按文件搜索'],
+	['~:', '按更改搜索'],
+	['change:', '按更改搜索'],
 ]);
 
 type SearchStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo', string>;
@@ -329,7 +329,7 @@ export class SearchGitCommand extends QuickCommand<State> {
 				quickpick.title = appendReposToTitle(
 					operations.size === 0 || operations.size > 1
 						? context.title
-						: `提交${searchOperatorToTitleMap.get(operations.keys().next().value as SearchOperators)!}`,
+						: searchOperatorToTitleMap.get(operations.keys().next().value as SearchOperators)!,
 					state,
 					context,
 				);

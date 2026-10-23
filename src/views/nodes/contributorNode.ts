@@ -45,7 +45,7 @@ export class ContributorNode extends ViewNode<ContributorsView | RepositoriesVie
 
 	async getChildren(): Promise<ViewNode[]> {
 		const log = await this.getLog();
-		if (log == null) return [new MessageNode(this.view, this, 'No commits could be found.')];
+		if (log == null) return [new MessageNode(this.view, this, '找不到提交。')];
 
 		const getBranchAndTagTips = await Container.git.getBranchesAndTagsTipsFn(this.uri.repoPath);
 		const children = [

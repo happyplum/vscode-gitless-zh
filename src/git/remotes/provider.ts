@@ -87,21 +87,21 @@ export type RemoteResource =
 export function getNameFromRemoteResource(resource: RemoteResource) {
 	switch (resource.type) {
 		case RemoteResourceType.Branch:
-			return 'Branch';
+			return '分支';
 		case RemoteResourceType.Branches:
-			return 'Branches';
+			return '分支列表';
 		case RemoteResourceType.Commit:
-			return 'Commit';
+			return '提交';
 		case RemoteResourceType.Comparison:
-			return 'Comparison';
+			return '比较';
 		case RemoteResourceType.CreatePullRequest:
-			return 'Create Pull Request';
+			return '拉取请求创建页面';
 		case RemoteResourceType.File:
-			return 'File';
+			return '文件';
 		case RemoteResourceType.Repo:
-			return 'Repository';
+			return '仓库';
 		case RemoteResourceType.Revision:
-			return 'File';
+			return '文件';
 		default:
 			return '';
 	}

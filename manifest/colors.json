@@ -181,7 +181,7 @@
 	},
 	{
 		"id": "gitlens.decorations.branchAheadForegroundColor",
-		"description": "指定上游分支之前的装饰前景色",
+		"description": "指定领先于上游分支的装饰前景色",
 		"defaults": {
 			"dark": "#35b15e",
 			"light": "#35b15e",
@@ -190,7 +190,7 @@
 	},
 	{
 		"id": "gitlens.decorations.branchBehindForegroundColor",
-		"description": "指定上游分支后面的装饰前景色",
+		"description": "指定落后于上游分支的装饰前景色",
 		"defaults": {
 			"dark": "#b15e35",
 			"light": "#b15e35",
@@ -199,7 +199,7 @@
 	},
 	{
 		"id": "gitlens.decorations.branchDivergedForegroundColor",
-		"description": "指定上游和下游分支的装饰前景色",
+		"description": "指定与上游分支已分叉的装饰前景色",
 		"defaults": {
 			"dark": "#D8AF1B",
 			"light": "#D8AF1B",

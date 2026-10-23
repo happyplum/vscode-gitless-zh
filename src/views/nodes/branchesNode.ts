@@ -44,7 +44,7 @@ export class BranchesNode extends ViewNode<BranchesView | RepositoriesView> {
 				filter: b => !b.remote,
 				sort: { current: false },
 			});
-			if (branches.length === 0) return [new MessageNode(this.view, this, 'No branches could be found.')];
+			if (branches.length === 0) return [new MessageNode(this.view, this, '找不到分支。')];
 
 			const branchNodes = branches.map(
 				b =>

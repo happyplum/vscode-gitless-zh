@@ -1582,12 +1582,12 @@
 						"从 Git 命令面板运行时跳过拉取确认",
 						"从命令运行时跳过推送确认，例如一个视图动作",
 						"从 Git 命令面板运行时跳过推送确认",
-						"从命令运行时跳过存储应用确认，例如一个视图动作",
-						"从 Git 命令面板运行时跳过存储应用确认",
-						"从命令运行时跳过存储弹出确认，例如一个视图动作",
-						"从 Git 命令面板运行时跳过存储弹出确认",
-						"从命令运行时跳过存储推送确认，例如一个视图动作",
-						"从 Git 命令面板运行时跳过存储推送确认",
+						"从命令运行时跳过应用储藏确认，例如一个视图动作",
+						"从 Git 命令面板运行时跳过应用储藏确认",
+						"从命令运行时跳过弹出储藏确认，例如一个视图动作",
+						"从 Git 命令面板运行时跳过弹出储藏确认",
+						"从命令运行时跳过保存更改到储藏的确认，例如一个视图动作",
+						"从 Git 命令面板运行时跳过保存更改到储藏的确认",
 						"从命令运行时跳过切换确认，例如一个视图动作",
 						"从 Git 命令面板运行时跳过切换确认",
 						"从命令运行时跳过标签创建确认，例如一个视图动作",
@@ -1781,11 +1781,11 @@
 								},
 								"fileLine": {
 									"type": "string",
-									"markdownDescription": "指定自定义远程服务的文件 url 中的行格式\n\n可用格式标记\\\n`${line}` — 线"
+									"markdownDescription": "指定自定义远程服务的文件 url 中的行格式\n\n可用格式标记\\\n`${line}` — 行"
 								},
 								"fileRange": {
 									"type": "string",
-									"markdownDescription": "指定自定义远程服务的文件 URL 中的范围格式\n\n可用格式标记\\\n`${start}` — 起跑线\\\n`${end}` — 结束线"
+									"markdownDescription": "指定自定义远程服务的文件 URL 中的范围格式\n\n可用格式标记\\\n`${start}` — 起始行\\\n`${end}` — 结束行"
 								}
 							},
 							"additionalProperties": false
@@ -2366,7 +2366,7 @@
 					"suppressImproperWorkspaceCasingWarning": {
 						"type": "boolean",
 						"default": false,
-						"description": "工作空间外壳不当警告"
+						"description": "工作区路径大小写不一致警告"
 					},
 					"suppressLineUncommittedWarning": {
 						"type": "boolean",

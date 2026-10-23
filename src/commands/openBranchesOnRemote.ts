@@ -50,7 +50,7 @@ export class OpenBranchesOnRemoteCommand extends ActiveEditorCommand {
 		const repoPath = await getRepoPathOrActiveOrPrompt(
 			gitUri,
 			editor,
-			args?.clipboard ? 'Copy Remote Branches Url' : 'Open Branches on Remote',
+			args?.clipboard ? '复制远程分支列表链接' : '在远程平台打开分支列表',
 		);
 		if (!repoPath) return;
 

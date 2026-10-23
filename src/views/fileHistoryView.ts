@@ -7,7 +7,7 @@ import { GitUri } from '../git/gitUri';
 import { FileHistoryTrackerNode, LineHistoryTrackerNode } from './nodes';
 import { ViewBase } from './viewBase';
 
-const pinnedSuffix = ' (pinned)';
+const pinnedSuffix = '（已固定）';
 
 export class FileHistoryView extends ViewBase<FileHistoryTrackerNode | LineHistoryTrackerNode, FileHistoryViewConfig> {
 	protected readonly configKey = 'fileHistory';

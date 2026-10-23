@@ -142,7 +142,7 @@ export class CoAuthorsGitCommand extends QuickCommand<State> {
 				const result = yield* pickContributorsStep(
 					state as CoAuthorStepState,
 					context,
-					'Choose contributors to add as co-authors',
+					'选择要添加为共同作者的贡献者',
 				);
 				if (result === StepResult.Break) {
 					// If we skipped the previous step, make sure we back up past it

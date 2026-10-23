@@ -25,7 +25,7 @@ export class CloseUnchangedFilesCommand extends Command {
 
 		try {
 			if (args.uris == null) {
-				const repoPath = await getRepoPathOrPrompt('Close All Unchanged Files');
+				const repoPath = await getRepoPathOrPrompt('关闭所有未更改的文件');
 				if (!repoPath) return;
 
 				const status = await Container.git.getStatusForRepo(repoPath);

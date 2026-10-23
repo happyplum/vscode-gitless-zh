@@ -163,10 +163,10 @@ export class LogGitCommand extends QuickCommand<State> {
 					onDidLoadMore: log => context.cache.set(ref, Promise.resolve(log)),
 					placeholder: (context, log) =>
 						log == null
-							? `No commits found in ${GitReference.toString(context.selectedBranchOrTag, {
+							? `${GitReference.toString(context.selectedBranchOrTag, {
 									icon: false,
-							  })}`
-							: 'Choose a commit',
+							  })} 中没有提交`
+							: '选择提交',
 					picked: state.reference?.ref,
 				});
 				if (result === StepResult.Break) continue;

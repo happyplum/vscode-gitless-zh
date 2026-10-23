@@ -225,7 +225,7 @@ export class LineHistoryNode
 			}
 		}
 
-		if (children.length === 0) return [new MessageNode(this.view, this, 'No line history could be found.')];
+		if (children.length === 0) return [new MessageNode(this.view, this, '找不到行历史记录。')];
 		return children;
 	}
 

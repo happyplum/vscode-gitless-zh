@@ -253,9 +253,9 @@ export class BranchGitCommand extends QuickCommand<State> {
 			if (state.counter < 3 || state.reference == null) {
 				const result = yield* pickBranchOrTagStep(state, context, {
 					placeholder: context =>
-						`Choose a branch${context.showTags ? ' or tag' : ''} to create the new branch from`,
+						`选择要从中创建新分支的分支${context.showTags ? '或标签' : ''}`,
 					picked: state.reference?.ref ?? (await state.repo.getBranch())?.ref,
-					titleContext: ' from',
+					titleContext: ' 的起点',
 					value: GitReference.isRevision(state.reference) ? state.reference.ref : undefined,
 				});
 				// Always break on the first step (so we will go back)
@@ -267,7 +267,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 			if (state.counter < 4 || state.name == null) {
 				const result = yield* inputBranchNameStep(state, context, {
 					placeholder: '请提供新分支的名称',
-					titleContext: ` from ${GitReference.toString(state.reference, {
+					titleContext: `，基于 ${GitReference.toString(state.reference, {
 						capitalize: true,
 						icon: false,
 						label: state.reference.refType !== 'branch',
@@ -309,7 +309,7 @@ export class BranchGitCommand extends QuickCommand<State> {
 					)}创建一个名为${state.name}的新分支`,
 				}),
 				FlagsQuickPickItem.create<CreateFlags>(state.flags, ['--switch'], {
-					label: `${context.title}和开关`,
+					label: `${context.title}并切换`,
 					description: '--switch',
 					detail: `将从 ${GitReference.toString(
 						state.reference,

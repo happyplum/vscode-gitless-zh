@@ -44,7 +44,7 @@ export class OpenFileAtRevisionFromCommand extends ActiveEditorCommand {
 			const pick = await ReferencePicker.show(
 				gitUri.repoPath,
 				`${title}${gitUri.getFormattedFilename({ truncateTo: quickPickTitleMaxChars - title.length })}`,
-				'Choose a branch or tag to open the file revision from',
+				'选择要从中打开该文件修订版的分支或标签',
 				{
 					allowEnteringRefs: true,
 					keys: ['right', 'alt+right', 'ctrl+right'],

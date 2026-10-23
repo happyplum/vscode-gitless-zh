@@ -34,7 +34,7 @@ export class RemotesNode extends ViewNode<RemotesView | RepositoriesView> {
 		if (this._children == null) {
 			const remotes = await this.repo.getRemotes({ sort: true });
 			if (remotes.length === 0) {
-				return [new MessageNode(this.view, this, 'No remotes could be found')];
+				return [new MessageNode(this.view, this, '找不到远程仓库。')];
 			}
 
 			this._children = remotes.map(r => new RemoteNode(this.uri, this.view, this, r, this.repo));

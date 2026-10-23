@@ -727,7 +727,7 @@ export namespace GitActions {
 				repo = Container.git.getHighlanderRepoPath();
 
 				if (repo == null) {
-					const pick = await RepositoryPicker.show(undefined, 'Choose a repository to add a remote to');
+					const pick = await RepositoryPicker.show(undefined, '选择要添加远程仓库的目标仓库');
 					repo = pick?.item;
 					if (repo == null) return undefined;
 				}
@@ -743,7 +743,7 @@ export namespace GitActions {
 
 			const url = await window.showInputBox({
 				prompt: '请提供远程的仓库 URL',
-				placeHolder: '远程仓库 url',
+				placeHolder: '远程仓库 URL',
 				value: undefined,
 				ignoreFocusOut: true,
 			});
