@@ -15,6 +15,7 @@ export class ShowViewCommand extends Command {
 			Commands.ShowLineHistoryView,
 			Commands.ShowRemotesView,
 			Commands.ShowRepositoriesView,
+			Commands.ShowWorktreesView,
 			Commands.ShowSearchAndCompareView,
 			Commands.ShowStashesView,
 			Commands.ShowTagsView,
@@ -42,6 +43,8 @@ export class ShowViewCommand extends Command {
 				return Container.remotesView.show();
 			case Commands.ShowRepositoriesView:
 				return Container.repositoriesView.show();
+			case Commands.ShowWorktreesView:
+				return Container.worktreesView.show();
 			case Commands.ShowSearchAndCompareView:
 				return Container.searchAndCompareView.show();
 			case Commands.ShowStashesView:

@@ -27,6 +27,14 @@
 			"visibility": "hidden"
 		},
 		{
+			"id": "gitlens.views.worktrees",
+			"name": "工作树管理",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/worktrees.svg",
+			"visibility": "visible"
+		},
+		{
 			"id": "gitlens.views.fileHistory",
 			"name": "文件历史记录",
 			"when": "!gitlens:disabled",

@@ -73,6 +73,10 @@
 			"when": "gitlens:enabled"
 		},
 		{
+			"command": "gitlens.showWorktreesView",
+			"when": "gitlens:enabled"
+		},
+		{
 			"command": "gitlens.showSearchAndCompareView",
 			"when": "gitlens:enabled"
 		},
@@ -2180,6 +2184,11 @@
 			"group": "navigation@99"
 		},
 		{
+			"command": "gitlens.views.worktrees.refresh",
+			"when": "view == gitlens.views.worktrees",
+			"group": "navigation@99"
+		},
+		{
 			"command": "gitlens.views.repositories.setAutoRefreshToOn",
 			"when": "view =~ /^gitlens\\.views\\.repositories/ && config.gitlens.views.repositories.autoRefresh && !gitlens:views:repositories:autoRefresh",
 			"group": "2_gitlens@0"
@@ -2420,6 +2429,11 @@
 			"command": "gitlens.worktreeOpen",
 			"when": "viewItem =~ /gitlens:worktree\\b/",
 			"group": "inline@1"
+		},
+		{
+			"command": "gitlens.worktreeOpen",
+			"when": "viewItem =~ /gitlens:worktree\\b/",
+			"group": "1_gitlens_actions@0"
 		},
 		{
 			"command": "gitlens.worktreeRemove",

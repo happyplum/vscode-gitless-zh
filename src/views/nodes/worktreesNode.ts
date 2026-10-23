@@ -4,12 +4,13 @@ import { Container } from '../../container';
 import { Repository } from '../../git/git';
 import { GitUri } from '../../git/gitUri';
 import { RepositoriesView } from '../repositoriesView';
+import { WorktreesView } from '../worktreesView';
 import { MessageNode } from './common';
 import { RepositoryNode } from './repositoryNode';
 import { ContextValues, ViewNode } from './viewNode';
 import { WorktreeNode } from './worktreeNode';
 
-export class WorktreesNode extends ViewNode<RepositoriesView> {
+export class WorktreesNode extends ViewNode<RepositoriesView | WorktreesView> {
 	static key = ':worktrees';
 	static getId(repoPath: string): string {
 		return `${RepositoryNode.getId(repoPath)}${this.key}`;
@@ -17,7 +18,7 @@ export class WorktreesNode extends ViewNode<RepositoriesView> {
 
 	private _children: ViewNode[] | undefined;
 
-	constructor(uri: GitUri, view: RepositoriesView, parent: ViewNode, public readonly repo: Repository) {
+	constructor(uri: GitUri, view: RepositoriesView | WorktreesView, parent: ViewNode, public readonly repo: Repository) {
 		super(uri, view, parent);
 	}
 

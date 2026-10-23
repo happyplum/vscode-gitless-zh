@@ -36,6 +36,7 @@ import { StashesView } from './views/stashesView';
 import { TagsView } from './views/tagsView';
 import { ViewCommands } from './views/viewCommands';
 import { ViewFileDecorationProvider } from './views/viewDecorationProvider';
+import { WorktreesView } from './views/worktreesView';
 import { VslsController } from './vsls/vsls';
 import { RebaseEditorProvider } from './webviews/rebaseEditor';
 import { SettingsWebview } from './webviews/settingsWebview';
@@ -75,6 +76,7 @@ export class Container {
 		context.subscriptions.push((this._welcomeWebview = new WelcomeWebview()));
 
 		context.subscriptions.push((this._repositoriesView = new RepositoriesView()));
+		context.subscriptions.push((this._worktreesView = new WorktreesView()));
 		context.subscriptions.push((this._commitsView = new CommitsView()));
 		context.subscriptions.push((this._fileHistoryView = new FileHistoryView()));
 		context.subscriptions.push((this._lineHistoryView = new LineHistoryView()));
@@ -285,6 +287,14 @@ export class Container {
 		}
 
 		return this._repositoriesView;
+	}
+
+	private static _worktreesView: WorktreesView | undefined;
+	static get worktreesView(): WorktreesView {
+		if (this._worktreesView == null) {
+			this._context.subscriptions.push((this._worktreesView = new WorktreesView()));
+		}
+		return this._worktreesView;
 	}
 
 	private static _searchAndCompareView: SearchAndCompareView | undefined;

@@ -184,5 +184,6 @@ export class WorktreeCommand extends Command {
 
 	private async refresh(): Promise<void> {
 		await commands.executeCommand('gitlens.views.repositories.refresh');
+		await commands.executeCommand('gitlens.views.worktrees.refresh');
 	}
 }

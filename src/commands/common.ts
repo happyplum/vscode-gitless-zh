@@ -141,6 +141,7 @@ export enum Commands {
 	ShowQuickStashList = 'gitlens.showQuickStashList',
 	ShowRemotesView = 'gitlens.showRemotesView',
 	ShowRepositoriesView = 'gitlens.showRepositoriesView',
+	ShowWorktreesView = 'gitlens.showWorktreesView',
 	ShowSearchAndCompareView = 'gitlens.showSearchAndCompareView',
 	ShowSettingsPage = 'gitlens.showSettingsPage',
 	ShowSettingsPageAndJumpToBranchesView = 'gitlens.showSettingsPage#branches-view',

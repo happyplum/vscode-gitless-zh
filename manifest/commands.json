@@ -112,6 +112,11 @@
 		"category": "GitLess"
 	},
 	{
+		"command": "gitlens.showWorktreesView",
+		"title": "显示工作树管理视图",
+		"category": "GitLess"
+	},
+	{
 		"command": "gitlens.showSearchAndCompareView",
 		"title": "显示搜索和比较提交视图",
 		"category": "GitLess"
@@ -1775,6 +1780,12 @@
 	{
 		"command": "gitlens.views.repositories.refresh",
 		"title": "刷新",
+		"category": "GitLess",
+		"icon": "$(refresh)"
+	},
+	{
+		"command": "gitlens.views.worktrees.refresh",
+		"title": "刷新工作树",
 		"category": "GitLess",
 		"icon": "$(refresh)"
 	},

@@ -811,6 +811,55 @@
 		}
 	},
 	{
+		"title": "工作树管理视图",
+		"order": 22.5,
+		"properties": {
+			"gitlens.views.worktrees.pullRequests.enabled": {
+				"type": "boolean",
+				"default": true,
+				"markdownDescription": "指定是否在工作树管理视图中查询与提交关联的拉取请求",
+				"scope": "window",
+				"order": 10
+			},
+			"gitlens.views.worktrees.pullRequests.showForCommits": {
+				"type": "boolean",
+				"default": true,
+				"markdownDescription": "指定是否在工作树管理视图的提交下显示关联的拉取请求",
+				"scope": "window",
+				"order": 11
+			},
+			"gitlens.views.worktrees.files.layout": {
+				"type": "string",
+				"default": "auto",
+				"enum": ["auto", "list", "tree"],
+				"markdownDescription": "指定工作树管理视图如何显示提交中的文件",
+				"scope": "window",
+				"order": 20
+			},
+			"gitlens.views.worktrees.files.threshold": {
+				"type": "number",
+				"default": 5,
+				"markdownDescription": "文件布局为 auto 时，指定切换为树形显示的阈值",
+				"scope": "window",
+				"order": 21
+			},
+			"gitlens.views.worktrees.files.compact": {
+				"type": "boolean",
+				"default": true,
+				"markdownDescription": "指定是否折叠提交文件中不必要的单子目录",
+				"scope": "window",
+				"order": 22
+			},
+			"gitlens.views.worktrees.avatars": {
+				"type": "boolean",
+				"default": true,
+				"markdownDescription": "指定是否在工作树管理视图中显示提交作者头像",
+				"scope": "window",
+				"order": 30
+			}
+		}
+	},
+	{
 		"title": "文件历史记录视图",
 		"order": 23,
 		"properties": {
