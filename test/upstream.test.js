@@ -144,7 +144,7 @@ const branchDelete = method('src/git/models/repository.ts', 'Repository', 'branc
 		for (const item of items) { const name = key(item); if (!groups.has(name)) groups.set(name, []); groups.get(name).push(item); }
 		return groups;
 	} },
-	runGitCommandInNewTerminal: (args, cwd) => calls.push([args, cwd]),
+	runGitCommandAutomatically: (args, cwd, fallback) => { assert.equal(fallback, 'terminal'); calls.push([args, cwd]); },
 	setTimeout: () => undefined,
 });
 const makeBranch = upstream => new GitBranch('/repo', 'topic', false, true, undefined, 'abc', upstream);

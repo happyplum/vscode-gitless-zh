@@ -48,7 +48,7 @@ corepack yarn run build
 
 Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions. The `disallowAutomaticSingleRunInference` parser setting is a temporary workaround for a TypeScript 6.0.3 typed-lint issue in CI. Remove it after an upstream stable release fixes the issue and `CI=true` bundle/pack plus the GitHub Stable and Insiders workflows all pass without the setting.
 
-Git commands that run automatically in the terminal pass structured arguments to the extension's runner. The **Remove Remote (via Terminal)** action instead pre-fills an editable command for the user to execute in their configured shell. Keep this difference in mind when changing terminal command handling: the pre-filled text is shell input after the user presses Enter.
+Automatic Git commands pass structured arguments through the terminal entry point. On Windows with PowerShell 7, each command opens a new interactive shell; its launch script decodes the arguments as data before invoking Git. The **Remove Remote (via Terminal)** action instead pre-fills an editable command for the user to execute in their configured shell. Keep this difference in mind when changing terminal command handling: the pre-filled text is shell input after the user presses Enter.
 
 ### Watch
 
@@ -104,7 +104,7 @@ To generate a VSIX (installation package) run the following from a terminal:
 corepack yarn run pack
 ```
 
-Branch deletion runs in a new native VS Code process terminal. Its runner connects to a per-terminal local IPC listener before starting Git; closing that terminal disconnects the runner and stops Git and descendants that inherit its process group (or the Windows process tree). Other automatically executed interactive Git commands still run in a new VS Code process task. Both paths use `dist/gitTerminalRunner.js`, which the bundle copies from `scripts/`, to pass Git arguments without shell interpretation. When changing terminal execution or packaging, verify that both the bundle and VSIX contain this runner. Remote removal still opens an editable command in the user's default terminal for manual execution.
+The Windows PowerShell 7 path leaves the shell open after Git finishes and always creates a new terminal, preserving any unsubmitted input in existing terminals. When PowerShell 7 is unavailable, branch deletion keeps its native process terminal with per-terminal cancellation IPC, while other automatic commands keep their process tasks. These fallback paths use `dist/gitTerminalRunner.js`, which the bundle copies from `scripts/`; verify that the bundle and VSIX still contain it. Remote removal still opens an editable command in the user's default terminal for manual execution.
 
 The root `package.json` owns extension metadata, development scripts, and dependencies. Extension contributions live in the twelve plain JSON files in `manifest/`; `scripts/extensionManifest.js` composes them in their declared order into `dist/extension/package.json`. Edit these source files rather than the generated manifest. Both webpack compilers refresh the generated manifest and static resources in normal builds and watch mode. Extension code is built into `dist/extension/dist`, webviews into `dist/extension/dist/webviews`, and settings images into `dist/extension/images/settings`.
 

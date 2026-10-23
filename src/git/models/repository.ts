@@ -22,7 +22,7 @@ import { Container } from '../../container';
 import { Logger } from '../../logger';
 import { Messages } from '../../messages';
 import { Arrays, Dates, debug, Functions, gate, Iterables, log, logName } from '../../system';
-import { runGitCommandInNewTerminal, runGitCommandInTask } from '../../terminal';
+import { runGitCommandAutomatically } from '../../terminal';
 import {
 	GitBranch,
 	GitContributor,
@@ -436,7 +436,7 @@ export class Repository implements Disposable {
 		{ force, remote }: { force?: boolean; remote?: boolean } = {},
 	) {
 		const runDeleteCommand = async (...args: string[]) => {
-			await runGitCommandInNewTerminal(args, this.path);
+			await runGitCommandAutomatically(args, this.path, 'terminal');
 			setTimeout(() => this.fireChange(RepositoryChange.Unknown), 2500);
 		};
 
@@ -1116,7 +1116,7 @@ export class Repository implements Disposable {
 	}
 
 	private runTerminalCommand(...args: string[]) {
-		void runGitCommandInTask(args, this.path);
+		void runGitCommandAutomatically(args, this.path, 'task');
 
 		setTimeout(() => this.fireChange(RepositoryChange.Unknown), 2500);
 	}

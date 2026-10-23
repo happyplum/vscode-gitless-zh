@@ -10,8 +10,8 @@ const root = path.resolve(__dirname, '..');
 const runnerPath = path.join(root, 'scripts', 'gitTerminalRunner.js');
 const specialArgs = ['branch', '--delete', 'topic;Write-Output', 'topic${workspaceFolder}', 'space and "quote"', "single'quote", '$(echo injected)', 'a&b', '#topic', '(topic)', '中文'];
 
-function loadTerminal(taskFailure, terminalFailure) {
-	const calls = { tasks: [], terminals: [], executions: [], errors: [], messages: [], servers: [], closeListeners: [], order: [] };
+function loadTerminal(taskFailure, terminalFailure, powerShellMajor = '7') {
+	const calls = { tasks: [], terminals: [], executions: [], errors: [], messages: [], servers: [], closeListeners: [], order: [], detections: [] };
 	const vscode = {
 		TaskScope: { Workspace: 2 },
 		TaskRevealKind: { Always: 1 },
@@ -49,6 +49,11 @@ function loadTerminal(taskFailure, terminalFailure) {
 	vm.runInNewContext(source, {
 		require: name => {
 			if (name === 'vscode') return vscode;
+			if (name === 'child_process') return { execFileSync: (...args) => {
+				calls.detections.push(args);
+				if (powerShellMajor == null) throw new Error('PowerShell 7 unavailable');
+				return `${powerShellMajor}\n`;
+			} };
 			if (name === 'net') return { createServer: onConnection => {
 				const server = new EventEmitter();
 				server.listening = false;
@@ -78,6 +83,7 @@ function loadTerminal(taskFailure, terminalFailure) {
 }
 
 function loadRepositoryTerminalMethods(terminal) {
+	const terminalCalls = [];
 	const file = ts.createSourceFile('repository.ts', fs.readFileSync(path.join(root, 'src/git/models/repository.ts'), 'utf8'), ts.ScriptTarget.Latest, true);
 	const repositoryClass = file.statements.find(node => ts.isClassDeclaration(node) && node.name?.text === 'Repository');
 	const methods = ['rebase', 'runTerminalCommand'].map(name => {
@@ -91,11 +97,12 @@ function loadRepositoryTerminalMethods(terminal) {
 	vm.runInNewContext(source, {
 		module, exports: module.exports,
 		gate: () => () => undefined, log: () => () => undefined,
-		runGitCommandInTask: terminal.runGitCommandInTask,
+		runGitCommandAutomatically: (args, cwd, fallback) => { terminalCalls.push({ args, cwd, fallback }); return Promise.resolve(); },
 		RepositoryChange: { Unknown: 'unknown' }, setTimeout: () => undefined,
 	});
 	const repository = new module.exports();
 	repository.path = 'C:\\repo';
+	repository.terminalCalls = terminalCalls;
 	return repository;
 }
 
@@ -176,7 +183,7 @@ test('automatic execution uses a process task with opaque payload and a focused 
 	assert.notEqual(task.presentationOptions.close, true);
 });
 
-test('branch deletion listens for cancellation before opening an opaque native terminal', async () => {
+test('legacy branch deletion listens for cancellation before opening an opaque native terminal', async () => {
 	const terminal = loadTerminal();
 	const cwd = 'C:\\repo ${workspaceFolder}\\中文';
 	await terminal.runGitCommandInNewTerminal(specialArgs, cwd);
@@ -197,6 +204,44 @@ test('branch deletion listens for cancellation before opening an opaque native t
 	assert.equal(opened.sent, undefined, 'automatic execution must not send shell text');
 	terminal.closeTerminal(opened);
 	assert.equal(terminal.calls.servers[0].closed, true);
+});
+
+test('Windows PowerShell 7 automatic Git opens a fresh interactive shell with opaque arguments', async () => {
+	const terminal = loadTerminal();
+	const cwd = 'C:\\repo ${workspaceFolder}\\中文';
+	await terminal.runGitCommandAutomatically(specialArgs, cwd, 'terminal');
+	await terminal.runGitCommandAutomatically(['status'], cwd, 'task');
+	assert.equal(terminal.calls.terminals.length, 2, 'each command must preserve drafts in existing terminals');
+	assert.equal(terminal.calls.executions.length, 0);
+	assert.equal(terminal.calls.servers.length, 0);
+	assert.equal(terminal.calls.detections.length, 1, 'PowerShell detection should be cached');
+	const opened = terminal.calls.terminals[0];
+	assert.equal(opened.options.name, 'GitLess');
+	assert.equal(opened.options.cwd, cwd);
+	assert.match(opened.options.shellPath, /(?:^|\\)pwsh\.exe$/i);
+	assert.equal(opened.options.env?.ELECTRON_RUN_AS_NODE, undefined);
+	assert.equal(opened.options.isTransient, true);
+	assert.deepEqual(Array.from(opened.options.shellArgs).slice(0, 4), ['-NoLogo', '-NoProfile', '-NoExit', '-EncodedCommand']);
+	const launcher = Buffer.from(opened.options.shellArgs[4], 'base64').toString('utf16le');
+	const payloads = [...launcher.matchAll(/'([A-Za-z0-9+/]{80,}={0,2})'/g)].map(match => {
+		try { return JSON.parse(Buffer.from(match[1], 'base64').toString('utf8')); } catch { return undefined; }
+	});
+	const payload = payloads.find(value => value?.args != null);
+	assert.deepEqual({ gitPath: payload.gitPath, args: payload.args, cwd: payload.cwd }, { gitPath: terminal.gitPath, args: specialArgs, cwd });
+	assert.match(launcher, /Set-Location -LiteralPath/);
+	assert.match(launcher, /& \$gitPath @gitArgs/);
+	for (const arg of specialArgs) assert.equal(launcher.includes(arg), false, 'Git arguments must stay opaque to PowerShell');
+	assert.equal(opened.shown, false);
+	assert.equal(opened.sent, undefined, 'automatic execution must not send shell text');
+});
+
+test('without PowerShell 7 automatic Git retains the existing caller-specific backends', async () => {
+	const terminal = loadTerminal(undefined, undefined, '5');
+	await terminal.runGitCommandAutomatically(['status'], root, 'task');
+	await terminal.runGitCommandAutomatically(['branch', '--delete', 'topic'], root, 'terminal');
+	assert.equal(terminal.calls.executions.length, 1);
+	assert.equal(terminal.calls.terminals.length, 1);
+	assert.equal(terminal.calls.terminals[0].options.shellPath, process.execPath);
 });
 
 test('branch deletion terminal creation failure closes its cancellation listener and is reported', async () => {
@@ -237,9 +282,9 @@ test('interactive Repository rebase preserves config, subcommand, flags and refe
 	const terminal = loadTerminal();
 	const repository = loadRepositoryTerminalMethods(terminal);
 	repository.rebase(['-c', 'sequence.editor=code --wait --reuse-window'], '--interactive', 'topic${workspaceFolder}');
-	assert.equal(terminal.calls.executions.length, 1);
-	const payload = JSON.parse(Buffer.from(terminal.calls.executions[0].execution.args[1], 'base64').toString('utf8'));
-	assert.deepEqual(payload.args, ['-c', 'sequence.editor=code --wait --reuse-window', 'rebase', '--interactive', 'topic${workspaceFolder}']);
+	assert.equal(repository.terminalCalls.length, 1);
+	assert.deepEqual(Array.from(repository.terminalCalls[0].args), ['-c', 'sequence.editor=code --wait --reuse-window', 'rebase', '--interactive', 'topic${workspaceFolder}']);
+	assert.equal(repository.terminalCalls[0].fallback, 'task');
 });
 
 for (const synchronous of [false, true]) {
@@ -354,11 +399,13 @@ test('interactive rebase passes sequence.editor as one unquoted Git config value
 	assert.match(source, /configs = \['-c', `sequence\.editor=\$\{editor\}`\]/);
 });
 
-test('repository hands automatic execution structured arguments without shell quoting', () => {
+test('repository routes automatic execution to the interactive terminal with structured arguments', () => {
 	const terminal = loadTerminal();
 	const repository = loadRepositoryTerminalMethods(terminal);
 	repository.runTerminalCommand(...specialArgs);
-	assert.equal(terminal.calls.executions.length, 1);
-	const payload = JSON.parse(Buffer.from(terminal.calls.executions[0].execution.args[1], 'base64').toString('utf8'));
-	assert.deepEqual(payload.args, specialArgs);
+	assert.equal(terminal.calls.executions.length, 0, 'automatic Git commands must not open a Task terminal');
+	assert.deepEqual(repository.terminalCalls.map(call => ({ args: Array.from(call.args), cwd: call.cwd })), [
+		{ args: specialArgs, cwd: 'C:\\repo' },
+	]);
+	assert.equal(repository.terminalCalls[0].fallback, 'task');
 });

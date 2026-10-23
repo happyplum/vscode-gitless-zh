@@ -1,4 +1,5 @@
 'use strict';
+import { execFileSync } from 'child_process';
 import { randomBytes } from 'crypto';
 import { unlink } from 'fs';
 import * as net from 'net';
@@ -10,6 +11,56 @@ import { Logger } from './logger';
 import { Messages } from './messages';
 
 const extensionTerminalName = 'GitLess';
+let powerShell7Path: string | null | undefined;
+
+function getPowerShell7Path(): string | undefined {
+	if (process.platform !== 'win32') return undefined;
+	if (powerShell7Path === undefined) {
+		const path = paths.join(process.env.ProgramW6432 ?? process.env.ProgramFiles ?? 'C:\\Program Files', 'PowerShell', '7', 'pwsh.exe');
+		try {
+			const major = execFileSync(path, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', '$PSVersionTable.PSVersion.Major'], {
+				encoding: 'utf8',
+				timeout: 2000,
+				windowsHide: true,
+			});
+			powerShell7Path = major.trim() === '7' ? path : null;
+		} catch {
+			powerShell7Path = null;
+		}
+	}
+	return powerShell7Path ?? undefined;
+}
+
+export async function runGitCommandAutomatically(args: string[], cwd: string, fallback: 'task' | 'terminal') {
+	const shellPath = getPowerShell7Path();
+	if (shellPath != null) {
+		// The shell remains interactive after Git exits. Encode data before VS Code processes shell arguments.
+		const payload = Buffer.from(JSON.stringify({ gitPath: Git.getGitPath(), args: args, cwd: cwd }), 'utf8').toString('base64');
+		const script = [
+			`$payload = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${payload}')) | ConvertFrom-Json`,
+			'$gitPath = [string]$payload.gitPath',
+			'$gitArgs = [string[]]$payload.args',
+			'Set-Location -LiteralPath ([string]$payload.cwd)',
+			'& $gitPath @gitArgs',
+		].join('\n');
+		try {
+			const terminal = window.createTerminal({
+				name: extensionTerminalName,
+				cwd: cwd,
+				shellPath: shellPath,
+				shellArgs: ['-NoLogo', '-NoProfile', '-NoExit', '-EncodedCommand', Buffer.from(script, 'utf16le').toString('base64')],
+				isTransient: true,
+			});
+			terminal.show(false);
+		} catch (ex) {
+			Logger.error(ex);
+			void Messages.showGenericErrorMessage('无法在终端运行 Git 命令');
+		}
+		return;
+	}
+
+	await (fallback === 'terminal' ? runGitCommandInNewTerminal(args, cwd) : runGitCommandInTask(args, cwd));
+}
 
 function getGitTerminalRunnerArgs(args: string[], cwd: string, cancelPipe?: string): [string, string] {
 	// VS Code substitutes variables in process arguments, so keep Git's data opaque until the runner starts.
