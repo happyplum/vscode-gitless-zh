@@ -1,7 +1,7 @@
 {
 	"name": "gitless-zh",
 	"displayName": "GitLess 简体中文版",
-	"description": "GitLess：基于 GitLens 的 VS Code Git 工具",
+	"description": "GitLess 简体中文版：基于 GitLens 的 VS Code Git 工具",
 	"version": "11.7.4",
 	"packageManager": "yarn@1.22.22",
 	"publisher": "happyplum",
