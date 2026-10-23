@@ -2128,5 +2128,35 @@
 		"command": "gitlens.disableDebugLogging",
 		"title": "禁用调试日志记录",
 		"category": "GitLess"
+	},
+	{
+		"command": "gitlens.worktreeCreate",
+		"title": "创建工作树...",
+		"category": "GitLess",
+		"icon": "$(add)"
+	},
+	{
+		"command": "gitlens.worktreeOpen",
+		"title": "打开工作树...",
+		"category": "GitLess",
+		"icon": "$(folder-opened)"
+	},
+	{
+		"command": "gitlens.worktreeRemove",
+		"title": "删除工作树...",
+		"category": "GitLess",
+		"icon": "$(trash)"
+	},
+	{
+		"command": "gitlens.worktreeLock",
+		"title": "锁定工作树...",
+		"category": "GitLess",
+		"icon": "$(lock)"
+	},
+	{
+		"command": "gitlens.worktreeUnlock",
+		"title": "解锁工作树...",
+		"category": "GitLess",
+		"icon": "$(unlock)"
 	}
 ]

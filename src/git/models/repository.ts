@@ -15,6 +15,7 @@ import {
 } from 'vscode';
 import type { CreatePullRequestActionContext } from '../../api/gitlens';
 import { executeActionCommand } from '../../commands';
+import { openWorktree } from '../../commands/common';
 import { configuration } from '../../configuration';
 import { BuiltInGitCommands, BuiltInGitConfiguration, Starred, WorkspaceState } from '../../constants';
 import { Container } from '../../container';
@@ -924,24 +925,29 @@ export class Repository implements Disposable {
 		const { progress, ...opts } = { progress: true, ...options };
 		if (!progress) return this.switchCore(ref, opts);
 
-		return void (await window.withProgress(
+		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
 				title: `将 ${this.formattedName} 切换到 ${ref}...`,
 				cancellable: false,
 			},
 			() => this.switchCore(ref, opts),
-		));
+		);
 	}
 
-	private async switchCore(ref: string, options: { createBranch?: string } = {}) {
+	private async switchCore(ref: string, options: { createBranch?: string } = {}): Promise<'switched' | 'occupied' | 'failed'> {
 		try {
-			void (await Container.git.checkout(this.path, ref, options));
-
-			this.fireChange(RepositoryChange.Unknown);
+			const result = await Container.git.checkout(this.path, ref, options);
+			if (result.status === 'switched') {
+				this.fireChange(RepositoryChange.Unknown);
+			} else if (result.status === 'occupied') {
+				await openWorktree(result.worktree.path, { branch: ref });
+			}
+			return result.status;
 		} catch (ex) {
 			Logger.error(ex);
 			void Messages.showGenericErrorMessage('无法切换到指定版本');
+			return 'failed';
 		}
 	}
 

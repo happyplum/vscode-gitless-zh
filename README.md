@@ -7,6 +7,9 @@ GitLess 简体中文版基于 [maattdd/vscode-gitlens](https://github.com/maattd
 - 为侧边栏、菜单、命令和操作提示提供简体中文文案。
 - 提交后自动刷新分支状态。
 - Git 操作使用独立终端，避免占用正在运行开发服务的终端。
+- 在“仓库”视图创建、打开、删除、锁定和解锁 Git 工作树；切换到已在其他工作树签出的分支时，可选择在当前或新窗口打开对应工作树。
+
+工作树列表和管理需要 Git 2.36 或更新版本。删除操作由 Git 检查未提交更改与锁定状态；失效的工作树记录需使用 Git 自身的 `worktree prune` 清理。
 
 提交历史、行级作者信息、分支和暂存区等原有功能可参阅[上游 GitLens 文档](https://github.com/gitkraken/vscode-gitlens)。
 

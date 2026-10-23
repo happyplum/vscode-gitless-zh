@@ -62,18 +62,21 @@ export class SwitchGitCommand extends QuickCommand<State> {
 	}
 
 	async execute(state: SwitchStepState) {
-		return void (await window.withProgress(
+		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
 				title: `将 ${state.repos.length === 1 ? state.repos[0].formattedName : `${state.repos.length} 个仓库`} 切换到 ${state.reference.name}`,
 			},
-			() =>
-				Promise.all(
-					state.repos.map(r =>
-						r.switch(state.reference.ref, { createBranch: state.createBranch, progress: false }),
-					),
-				),
-		));
+			async () => {
+				for (const repo of state.repos) {
+					const result = await repo.switch(state.reference.ref, {
+						createBranch: state.createBranch,
+						progress: false,
+					});
+					if (result !== 'switched') break;
+				}
+			},
+		);
 	}
 
 	override isMatch(key: string) {
