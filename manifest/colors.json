@@ -46,7 +46,7 @@
 	},
 	{
 		"id": "gitlens.lineHighlightBackgroundColor",
-		"description": "指定责任注释中关联线突出显示的背景颜色",
+		"description": "指定逐行追溯注释中关联线突出显示的背景颜色",
 		"defaults": {
 			"dark": "#00BCF233",
 			"light": "#00BCF233",
@@ -55,7 +55,7 @@
 	},
 	{
 		"id": "gitlens.lineHighlightOverviewRulerColor",
-		"description": "指定责任注释中关联线突出显示的概述标尺颜色",
+		"description": "指定逐行追溯注释中关联线突出显示的概述标尺颜色",
 		"defaults": {
 			"dark": "#00BCF299",
 			"light": "#00BCF299",

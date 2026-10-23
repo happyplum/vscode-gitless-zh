@@ -280,12 +280,12 @@
 	},
 	{
 		"command": "gitlens.disableRebaseEditor",
-		"title": "禁用交互式变基编辑器",
+		"title": "禁用交互式 Rebase 编辑器",
 		"category": "GitLess"
 	},
 	{
 		"command": "gitlens.enableRebaseEditor",
-		"title": "启用交互式变基编辑器",
+		"title": "启用交互式 Rebase 编辑器",
 		"category": "GitLess"
 	},
 	{
@@ -405,12 +405,12 @@
 	},
 	{
 		"command": "gitlens.gitCommands.merge",
-		"title": "Git 合并...",
+		"title": "Git Merge...",
 		"category": "GitLess"
 	},
 	{
 		"command": "gitlens.gitCommands.rebase",
-		"title": "Git 变基...",
+		"title": "Git Rebase...",
 		"category": "GitLess"
 	},
 	{
@@ -1273,12 +1273,12 @@
 	},
 	{
 		"command": "gitlens.views.rebaseOntoCommit",
-		"title": "将当前分支变基到指定提交...",
+		"title": "将当前分支 Rebase 到指定提交...",
 		"category": "GitLess"
 	},
 	{
 		"command": "gitlens.views.rebaseOntoUpstream",
-		"title": "将当前分支变基到上游...",
+		"title": "将当前分支 Rebase 到上游...",
 		"category": "GitLess"
 	},
 	{

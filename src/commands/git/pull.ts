@@ -147,9 +147,9 @@ export class PullGitCommand extends QuickCommand<State> {
 					detail: `将拉取 ${state.repos.length} 仓库`,
 				}),
 				FlagsQuickPickItem.create<Flags>(state.flags, ['--rebase'], {
-					label: `${this.title}并变基`,
+					label: `${this.title}并 Rebase`,
 					description: '--rebase',
-					detail: `将通过变基来拉取 ${state.repos.length} 仓库`,
+					detail: `将通过 Rebase 来拉取 ${state.repos.length} 仓库`,
 				}),
 			]);
 		} else if (GitReference.isBranch(state.reference)) {
@@ -219,9 +219,9 @@ export class PullGitCommand extends QuickCommand<State> {
 						detail: `将拉取${pullDetails}`,
 					}),
 					FlagsQuickPickItem.create<Flags>(state.flags, ['--rebase'], {
-						label: `${this.title}并变基`,
+						label: `${this.title}并 Rebase`,
 						description: '--rebase',
-						detail: `将拉取并变基${pullDetails}`,
+						detail: `将拉取并 Rebase${pullDetails}`,
 					}),
 				],
 				undefined,

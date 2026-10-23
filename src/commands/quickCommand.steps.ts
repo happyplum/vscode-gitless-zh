@@ -1445,7 +1445,7 @@ async function getShowCommitOrStashStepItems<
 		}
 
 		items.push(
-			new GitCommandQuickPickItem(`将${branch?.name ?? '当前分支'}变基到此提交…`, {
+			new GitCommandQuickPickItem(`将${branch?.name ?? '当前分支'} Rebase 到此提交…`, {
 				command: 'rebase',
 				state: {
 					repo: state.repo,
@@ -1890,7 +1890,7 @@ function getShowRepositoryStatusStepItems<
 	} else {
 		items.push(
 			DirectiveQuickPickItem.create(Directive.Noop, true, {
-				label: `$(git-branch) ${context.status.branch} 无上行`,
+				label: `$(git-branch) ${context.status.branch} 未设置上游分支`,
 				detail: workingTreeStatus,
 			}),
 		);

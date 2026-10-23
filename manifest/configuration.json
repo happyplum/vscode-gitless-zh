@@ -34,7 +34,7 @@
 			"gitlens.currentLine.dateFormat": {
 				"type": ["string", "null"],
 				"default": null,
-				"markdownDescription": "指定如何格式化当前行责任注释的绝对日期（例如使用 `${date}` 标记）。请参阅 [Moment.js 文档](https://momentjs.com/docs/#/displaying/format/) 了解有效格式",
+				"markdownDescription": "指定如何格式化当前行逐行追溯注释的绝对日期（例如使用 `${date}` 标记）。请参阅 [Moment.js 文档](https://momentjs.com/docs/#/displaying/format/) 了解有效格式",
 				"scope": "window",
 				"order": 50
 			}
@@ -418,7 +418,7 @@
 			"gitlens.hovers.annotations.changes": {
 				"type": "boolean",
 				"default": true,
-				"markdownDescription": "指定在显示责任注释时是否为所有行提供_changes (diff)_悬停",
+				"markdownDescription": "指定在显示逐行追溯注释时是否为所有行提供_changes (diff)_悬停",
 				"scope": "window",
 				"order": 53
 			},
@@ -558,11 +558,11 @@
 				"enum": [false, "branch", "working"],
 				"enumDescriptions": [
 					"隐藏分支比较",
-					"将当前分支与用户选择的参考进行比较",
-					"将工作树与用户选择的参考进行比较"
+					"将当前分支与用户选择的引用进行比较",
+					"将工作树与用户选择的引用进行比较"
 				],
 				"default": "working",
-				"markdownDescription": "指定是否在_Commits_视图中显示当前分支或工作树与用户选择的参考（分支、标签等）的比较",
+				"markdownDescription": "指定是否在_Commits_视图中显示当前分支或工作树与用户选择的引用（分支、标签等）的比较",
 				"scope": "window",
 				"order": 10
 			},
@@ -639,8 +639,8 @@
 				"enum": [false, "branch", "working"],
 				"enumDescriptions": [
 					"隐藏分支比较",
-					"将当前分支与用户选择的参考进行比较",
-					"将工作树与用户选择的参考进行比较"
+					"将当前分支与用户选择的引用进行比较",
+					"将工作树与用户选择的引用进行比较"
 				],
 				"default": "working",
 				"markdownDescription": "指定是否在 _Repositories_ 视图中显示当前分支或工作树与用户选择的引用（分支、标签等）的比较",
@@ -798,7 +798,7 @@
 			"gitlens.views.repositories.branches.showBranchComparison": {
 				"type": ["boolean", "string"],
 				"enum": [false, "branch"],
-				"enumDescriptions": ["隐藏分支比较", "将分支与用户选择的参考进行比较"],
+				"enumDescriptions": ["隐藏分支比较", "将分支与用户选择的引用进行比较"],
 				"default": "branch",
 				"markdownDescription": "指定是否在 _Repositories_ 视图中的每个分支下显示分支与用户选择的引用（分支、标签等）的比较",
 				"scope": "window",
@@ -937,9 +937,9 @@
 			"gitlens.views.branches.showBranchComparison": {
 				"type": ["boolean", "string"],
 				"enum": [false, "branch"],
-				"enumDescriptions": ["隐藏分支比较", "将分支与用户选择的参考进行比较"],
+				"enumDescriptions": ["隐藏分支比较", "将分支与用户选择的引用进行比较"],
 				"default": "branch",
-				"markdownDescription": "指定是否在 _Branches_ 视图中显示分支与用户选择的参考（分支、标签等）的比较",
+				"markdownDescription": "指定是否在 _Branches_ 视图中显示分支与用户选择的引用（分支、标签等）的比较",
 				"scope": "window",
 				"order": 10
 			},
@@ -2381,7 +2381,7 @@
 					"suppressRebaseSwitchToTextWarning": {
 						"type": "boolean",
 						"default": false,
-						"description": "变基切换到文本警告"
+						"description": "Rebase 切换到文本警告"
 					}
 				},
 				"additionalProperties": false,

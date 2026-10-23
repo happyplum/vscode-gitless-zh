@@ -126,7 +126,7 @@ export class CherryPickGitCommand extends QuickCommand<State> {
 				context.destination = branch;
 			}
 
-			context.title = `${this.title} 转换为 ${GitReference.toString(context.destination, { icon: false })}`;
+			context.title = `${this.title}到 ${GitReference.toString(context.destination, { icon: false })}`;
 
 			if (state.counter < 2 || state.references == null || state.references.length === 0) {
 				const result: StepResult<GitReference> = yield* pickBranchOrTagStep(

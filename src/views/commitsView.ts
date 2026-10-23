@@ -155,7 +155,7 @@ export class CommitsViewNode extends ViewNode<CommitsView> {
 
 				const status = branch.getTrackingStatus();
 				this.view.description = `${status ? `${status} ${GlyphChars.Dot} ` : ''}${branch.name}${
-					branch.rebasing ? '（变基中）' : ''
+					branch.rebasing ? '（Rebase 中）' : ''
 				}${lastFetched ? ` ${GlyphChars.Dot} 上次获取 ${Repository.formatLastFetched(lastFetched)}` : ''}${
 					child.repo.supportsChangeEvents
 						? ''

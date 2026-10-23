@@ -91,7 +91,7 @@ export class RebaseStatusNode extends ViewNode<ViewsWithCommits> {
 
 	getTreeItem(): TreeItem {
 		const item = new TreeItem(
-			`${this.status?.hasConflicts ? '解决冲突后继续变基' : '正在变基'} ${
+			`${this.status?.hasConflicts ? '解决冲突后继续 Rebase' : '正在 Rebase'} ${
 				this.rebaseStatus.incoming != null
 					? `${GitReference.toString(this.rebaseStatus.incoming, { expand: false, icon: false })}`
 					: ''
@@ -107,7 +107,7 @@ export class RebaseStatusNode extends ViewNode<ViewsWithCommits> {
 			? new ThemeIcon('warning', new ThemeColor('list.warningForeground'))
 			: new ThemeIcon('debug-pause', new ThemeColor('list.foreground'));
 		item.tooltip = new MarkdownString(
-			`${`正在变基 ${
+			`${`正在 Rebase ${
 				this.rebaseStatus.incoming != null ? GitReference.toString(this.rebaseStatus.incoming) : ''
 			}到 ${GitReference.toString(this.rebaseStatus.current)}`}\n\n第 ${this.rebaseStatus.steps.current.number} 步，共 ${this.rebaseStatus.steps.total} 步\\\n暂停于 ${GitReference.toString(
 				this.rebaseStatus.steps.current.commit,

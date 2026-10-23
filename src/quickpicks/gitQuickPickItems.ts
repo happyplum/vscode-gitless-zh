@@ -267,7 +267,7 @@ export namespace RefQuickPickItem {
 
 		if (ref === 'HEAD') {
 			return {
-				label: `${options.icon ? Strings.pad('$(git-branch)', 0, 2) : ''}头`,
+				label: `${options.icon ? Strings.pad('$(git-branch)', 0, 2) : ''}HEAD`,
 				description: '',
 				alwaysShow: options.alwaysShow,
 				buttons: options.buttons,
