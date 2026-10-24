@@ -1,11 +1,9 @@
 'use strict';
 import { execFileSync } from 'child_process';
 import { randomBytes } from 'crypto';
-import { unlink } from 'fs';
 import * as net from 'net';
-import { tmpdir } from 'os';
 import * as paths from 'path';
-import { Disposable, ProcessExecution, Task, TaskPanelKind, TaskRevealKind, tasks, TaskScope, Terminal, window } from 'vscode';
+import { Disposable, ProcessExecution, Task, TaskPanelKind, TaskRevealKind, tasks, TaskScope, Terminal, TerminalOptions, window } from 'vscode';
 import { Git } from './git/git';
 import { Logger } from './logger';
 import { Messages } from './messages';
@@ -32,23 +30,46 @@ function getPowerShell7Path(): string | undefined {
 }
 
 export async function runGitCommandAutomatically(args: string[], cwd: string, fallback: 'task' | 'terminal') {
-	const shellPath = getPowerShell7Path();
-	if (shellPath != null) {
-		// The shell remains interactive after Git exits. Encode data before VS Code processes shell arguments.
-		const payload = Buffer.from(JSON.stringify({ gitPath: Git.getGitPath(), args: args, cwd: cwd }), 'utf8').toString('base64');
-		const script = [
-			`$payload = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${payload}')) | ConvertFrom-Json`,
-			'$gitPath = [string]$payload.gitPath',
-			'$gitArgs = [string[]]$payload.args',
-			'Set-Location -LiteralPath ([string]$payload.cwd)',
-			'& $gitPath @gitArgs',
-		].join('\n');
-		try {
-			const terminal = window.createTerminal({
-				name: extensionTerminalName,
-				cwd: cwd,
+	let options: TerminalOptions | undefined;
+	if (process.platform === 'darwin' || process.platform === 'linux') {
+		const quote = (value: string) => `'${value.replace(/'/g, "'\\''")}'`;
+		const script = `builtin cd -- ${quote(cwd)} || return\n${[Git.getGitPath(), ...args].map(quote).join(' ')}`;
+		// Encode the complete startup file so VS Code cannot expand variable-like Git arguments.
+		const encoded = Array.from(Buffer.from(script, 'utf8'), byte => `\\${byte.toString(8).padStart(3, '0')}`).join('');
+		options = {
+			shellPath: '/bin/bash',
+			shellArgs: [
+				'--noprofile',
+				'--norc',
+				'-c',
+				`exec /bin/bash --noprofile --rcfile <(builtin printf "%s" $'${encoded}') -i`,
+			],
+			env: { BASH_ENV: null },
+		};
+	} else {
+		const shellPath = getPowerShell7Path();
+		if (shellPath != null) {
+			// The shell remains interactive after Git exits. Encode data before VS Code processes shell arguments.
+			const payload = Buffer.from(JSON.stringify({ gitPath: Git.getGitPath(), args: args, cwd: cwd }), 'utf8').toString('base64');
+			const script = [
+				`$payload = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${payload}')) | ConvertFrom-Json`,
+				'$gitPath = [string]$payload.gitPath',
+				'$gitArgs = [string[]]$payload.args',
+				'Set-Location -LiteralPath ([string]$payload.cwd)',
+				'& $gitPath @gitArgs',
+			].join('\n');
+			options = {
 				shellPath: shellPath,
 				shellArgs: ['-NoLogo', '-NoProfile', '-NoExit', '-EncodedCommand', Buffer.from(script, 'utf16le').toString('base64')],
+			};
+		}
+	}
+	if (options != null) {
+		try {
+			const terminal = window.createTerminal({
+				...options,
+				name: extensionTerminalName,
+				cwd: cwd,
 				isTransient: true,
 			});
 			terminal.show(false);
@@ -109,8 +130,7 @@ export async function runGitCommandInTask(args: string[], cwd: string) {
 
 export async function runGitCommandInNewTerminal(args: string[], cwd: string) {
 	const id = randomBytes(16).toString('hex');
-	const cancelPipe =
-		process.platform === 'win32' ? `\\\\.\\pipe\\gitless-${id}` : paths.join(tmpdir(), `gitless-${id}.sock`);
+	const cancelPipe = `\\\\.\\pipe\\gitless-${id}`;
 	let terminal: Terminal | undefined;
 	let closeListener: Disposable | undefined;
 	let socket: net.Socket | undefined;
@@ -125,10 +145,6 @@ export async function runGitCommandInNewTerminal(args: string[], cwd: string) {
 		connection.on('error', close);
 		connection.on('close', close);
 	});
-	if (process.platform !== 'win32') {
-		server.once('close', () => unlink(cancelPipe, () => undefined));
-	}
-
 	function close() {
 		if (closed) return;
 		closed = true;

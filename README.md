@@ -6,11 +6,13 @@ GitLess 简体中文版基于 [maattdd/vscode-gitlens](https://github.com/maattd
 
 - 为侧边栏、菜单、命令和操作提示提供简体中文文案。
 - 提交后自动刷新分支状态。
-- Windows 安装 PowerShell 7 时，自动 Git 命令各自打开可继续输入的新终端，避免占用已有终端及其未提交输入。
+- 在 Windows（PowerShell 7）和 macOS/Linux（`/bin/bash`）中，自动 Git 命令各自打开可继续输入的新终端，避免占用已有终端及其未提交输入。
 - 在“工作树管理”视图按仓库查看工作树，单击展开该工作树 HEAD 的提交；右键“打开工作树”可选当前窗口、新窗口或添加到工作区，打开前会尝试通过 VS Code 内置 Git 关联仓库。
 - 在“仓库”视图创建、删除、锁定和解锁 Git 工作树；切换到已在其他工作树签出的分支时，可选择在当前或新窗口打开对应工作树。
 
 工作树列表和管理需要 Git 2.36 或更新版本。删除操作由 Git 检查未提交更改与锁定状态；失效的工作树记录需使用 Git 自身的 `worktree prune` 清理。
+
+自动 Git 终端使用上述固定 shell，不加载用户的 profile 或 `.bashrc`。Windows 未安装 PowerShell 7 时保留原来的命令终端方式；macOS/Linux 需要 `/bin/bash` 可用。
 
 提交历史、行级作者信息、分支和暂存区等原有功能可参阅[上游 GitLens 文档](https://github.com/gitkraken/vscode-gitlens)。
 

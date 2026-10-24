@@ -10,7 +10,7 @@ const root = path.resolve(__dirname, '..');
 const runnerPath = path.join(root, 'scripts', 'gitTerminalRunner.js');
 const specialArgs = ['branch', '--delete', 'topic;Write-Output', 'topic${workspaceFolder}', 'space and "quote"', "single'quote", '$(echo injected)', 'a&b', '#topic', '(topic)', '中文'];
 
-function loadTerminal(taskFailure, terminalFailure, powerShellMajor = '7') {
+function loadTerminal(taskFailure, terminalFailure, powerShellMajor = '7', platform = 'win32') {
 	const calls = { tasks: [], terminals: [], executions: [], errors: [], messages: [], servers: [], closeListeners: [], order: [], detections: [] };
 	const vscode = {
 		TaskScope: { Workspace: 2 },
@@ -45,7 +45,7 @@ function loadTerminal(taskFailure, terminalFailure, powerShellMajor = '7') {
 		compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2019 },
 	}).outputText;
 	const module = { exports: {} };
-	const gitPath = 'C:\\Program Files\\Git ${workspaceFolder}\\cmd\\git.exe';
+	const gitPath = platform === 'win32' ? 'C:\\Program Files\\Git ${workspaceFolder}\\cmd\\git.exe' : "/opt/Git ' ${workspaceFolder}/git";
 	vm.runInNewContext(source, {
 		require: name => {
 			if (name === 'vscode') return vscode;
@@ -77,7 +77,7 @@ function loadTerminal(taskFailure, terminalFailure, powerShellMajor = '7') {
 			if (/(?:^|\/)git(?:\/git)?$/.test(name)) return { Git: { getGitPath: () => gitPath } };
 			return require(name);
 		},
-		module, exports: module.exports, process, Buffer, __dirname: path.join(root, 'dist'),
+		module, exports: module.exports, process: { platform, env: process.env, execPath: process.execPath }, Buffer, __dirname: path.join(root, 'dist'),
 	});
 	return { ...module.exports, calls, gitPath, closeTerminal: closed => calls.closeListeners.slice().forEach(listener => listener(closed)) };
 }
@@ -127,9 +127,8 @@ function runRunner(payload, event = 'exit', result = 0) {
 	return { calls, exitCode: fakeProcess.exitCode, env: fakeProcess.env };
 }
 
-function loadCancellableRunner(payload, options = {}) {
+function loadCancellableRunner(payload) {
 	const calls = [];
-	const timers = [];
 	const control = new EventEmitter();
 	control.destroy = () => { control.destroyed = true; control.emit('close'); };
 	const git = new EventEmitter();
@@ -141,9 +140,6 @@ function loadCancellableRunner(payload, options = {}) {
 	Object.assign(fakeProcess, {
 		argv: [process.execPath, runnerPath, Buffer.from(JSON.stringify(payload)).toString('base64')],
 		env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
-		platform: options.platform ?? 'win32',
-		pid: 9876,
-		kill: (...args) => calls.push(['kill', ...args]),
 		exitCode: undefined,
 	});
 	const module = { exports: {} };
@@ -152,14 +148,12 @@ function loadCancellableRunner(payload, options = {}) {
 			if (name === 'net' || name === 'node:net') return { createConnection: address => { calls.push(['connect', address]); return control; } };
 			if (name === 'child_process' || name === 'node:child_process') return {
 				spawn: (...args) => { calls.push(['spawn', ...args]); return args[0] === 'taskkill.exe' ? killer : git; },
-				spawnSync: (...args) => { calls.push(['spawnSync', ...args]); return options.groupResult ?? { status: 0, stdout: '9876\n' }; },
 			};
 			return require(name);
 		},
 		module, exports: module.exports, process: fakeProcess, Buffer, console,
-		setTimeout: (callback, delay) => { timers.push({ callback, delay }); },
 	});
-	return { calls, control, git, killer, process: fakeProcess, timers };
+	return { calls, control, git, killer, process: fakeProcess };
 }
 
 test('automatic execution uses a process task with opaque payload and a focused independent terminal', async () => {
@@ -242,6 +236,48 @@ test('without PowerShell 7 automatic Git retains the existing caller-specific ba
 	assert.equal(terminal.calls.executions.length, 1);
 	assert.equal(terminal.calls.terminals.length, 1);
 	assert.equal(terminal.calls.terminals[0].options.shellPath, process.execPath);
+});
+
+for (const platform of ['darwin', 'linux']) {
+	test(`${platform} automatic Git opens fresh interactive Bash terminals with opaque startup data`, async () => {
+		const terminal = loadTerminal(undefined, undefined, '7', platform);
+		const cwd = "/repo ' ${workspaceFolder}/中文";
+		const args = [...specialArgs, '', 'line\nending\n', 'back\\slash', '`echo injected`'];
+		await terminal.runGitCommandAutomatically(args, cwd, 'terminal');
+		await terminal.runGitCommandAutomatically(['status'], cwd, 'task');
+		assert.equal(terminal.calls.terminals.length, 2);
+		assert.equal(terminal.calls.executions.length, 0);
+		assert.equal(terminal.calls.servers.length, 0);
+		assert.equal(terminal.calls.detections.length, 0);
+		const opened = terminal.calls.terminals[0];
+		assert.equal(opened.options.shellPath, '/bin/bash');
+		assert.equal(opened.options.env?.ELECTRON_RUN_AS_NODE, undefined);
+		assert.equal(opened.options.env.BASH_ENV, null);
+		assert.deepEqual(Array.from(opened.options.shellArgs).slice(0, 3), ['--noprofile', '--norc', '-c']);
+		const launcher = opened.options.shellArgs[3];
+		assert.match(launcher, /^exec \/bin\/bash --noprofile --rcfile /);
+		assert.match(launcher, / -i$/);
+		assert.equal(launcher.includes('${workspaceFolder}'), false);
+		assert.equal(launcher.includes('echo injected'), false);
+		const encoded = /\$'((?:\\[0-7]{3})+)'/.exec(launcher)?.[1];
+		assert.ok(encoded, 'startup data must use byte encoding');
+		const startup = Buffer.from([...encoded.matchAll(/\\([0-7]{3})/g)].map(match => parseInt(match[1], 8))).toString('utf8');
+		assert.ok(startup.startsWith('builtin cd -- '));
+		assert.ok(startup.includes("'single'\\''quote'"));
+		assert.ok(startup.includes("'line\nending\n'"));
+		assert.ok(startup.includes(" '' "));
+		assert.equal(opened.sent, undefined);
+		assert.equal(opened.shown, false);
+	});
+}
+
+test('Bash terminal creation failure is reported without silently opening a legacy task', async () => {
+	const error = new Error('Cannot create a Bash terminal');
+	const terminal = loadTerminal(undefined, error, '7', 'linux');
+	await terminal.runGitCommandAutomatically(['status'], '/repo', 'task');
+	assert.deepEqual(terminal.calls.errors, [error]);
+	assert.equal(terminal.calls.messages.length, 1);
+	assert.equal(terminal.calls.executions.length, 0);
 });
 
 test('branch deletion terminal creation failure closes its cancellation listener and is reported', async () => {
@@ -347,51 +383,6 @@ test('completed Git closes IPC and preserves its exit code without process-tree 
 	assert.equal(runner.process.exitCode, 17);
 	assert.equal(runner.control.destroyed, true);
 	assert.equal(runner.calls.filter(call => call[1] === 'taskkill.exe').length, 0);
-});
-
-test('POSIX runner refuses to start Git when it does not own its terminal process group', () => {
-	const runner = loadCancellableRunner(
-		{ gitPath: 'git', args: ['branch', '-d', 'topic'], cwd: root, cancelPipe: '/tmp/gitless-test.sock' },
-		{ platform: 'linux', groupResult: { status: 0, stdout: '1234\n' } },
-	);
-	runner.control.emit('connect');
-	assert.deepEqual(Array.from(runner.calls[1][2]), ['-o', 'pgid=', '-p', '9876']);
-	assert.equal(runner.calls.filter(call => call[0] === 'spawn').length, 0);
-	assert.equal(runner.calls.filter(call => call[0] === 'kill').length, 0);
-	assert.equal(runner.process.exitCode, 1);
-});
-
-test('POSIX runner keeps the controlling terminal and kills its group after Git exits during cancellation', () => {
-	const runner = loadCancellableRunner(
-		{ gitPath: 'git', args: ['push', '-d', 'origin', 'topic'], cwd: root, cancelPipe: '/tmp/gitless-test.sock' },
-		{ platform: 'linux' },
-	);
-	runner.control.emit('connect');
-	const gitCall = runner.calls.find(call => call[0] === 'spawn');
-	assert.equal(gitCall[3].stdio, 'inherit');
-	assert.equal(gitCall[3].detached, undefined);
-	runner.control.emit('close');
-	assert.deepEqual(runner.calls.filter(call => call[0] === 'kill'), [['kill', -9876, 'SIGTERM']]);
-	runner.git.emit('exit', 0);
-	assert.equal(runner.timers.length, 1);
-	assert.equal(runner.timers[0].delay, 2000);
-	runner.timers[0].callback();
-	assert.deepEqual(runner.calls.filter(call => call[0] === 'kill'), [
-		['kill', -9876, 'SIGTERM'],
-		['kill', -9876, 'SIGKILL'],
-	]);
-});
-
-test('POSIX runner cancels the group when Git has exited but its descendants may still be running', () => {
-	const runner = loadCancellableRunner(
-		{ gitPath: 'git', args: ['push', '-d', 'origin', 'topic'], cwd: root, cancelPipe: '/tmp/gitless-test.sock' },
-		{ platform: 'linux' },
-	);
-	runner.control.emit('connect');
-	runner.git.exitCode = 0;
-	runner.control.emit('close');
-	assert.deepEqual(runner.calls.filter(call => call[0] === 'kill'), [['kill', -9876, 'SIGTERM']]);
-	assert.equal(runner.timers.length, 1);
 });
 
 test('interactive rebase passes sequence.editor as one unquoted Git config value', () => {
