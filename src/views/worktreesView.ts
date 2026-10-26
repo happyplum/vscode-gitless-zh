@@ -18,9 +18,12 @@ class WorktreesRepositoryNode extends RepositoryFolderNode<WorktreesView, Worktr
 
 	protected changed(e: RepositoryChangeEvent): boolean {
 		return e.changed(
+			RepositoryChange.Config,
 			RepositoryChange.Heads,
 			RepositoryChange.Index,
+			RepositoryChange.Remotes,
 			RepositoryChange.Status,
+			RepositoryChange.Tags,
 			RepositoryChange.Unknown,
 			RepositoryChangeComparisonMode.Any,
 		);
@@ -70,7 +73,14 @@ export class WorktreesView extends ViewBase<WorktreesViewNode, WorktreesViewConf
 	protected registerCommands(): Disposable[] {
 		void Container.viewCommands;
 		return [
-			commands.registerCommand(this.getQualifiedCommand('refresh'), () => this.refresh(true), this),
+			commands.registerCommand(
+				this.getQualifiedCommand('refresh'),
+				async () => {
+					await Container.git.resetCaches('branches', 'tags', 'status');
+					return this.refresh(true);
+				},
+				this,
+			),
 			Container.git.onDidChangeRepositories(() => void this.refresh(true)),
 		];
 	}
