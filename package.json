@@ -2,7 +2,7 @@
 	"name": "gitless-zh",
 	"displayName": "GitLess 简体中文版",
 	"description": "GitLess 简体中文版：基于 GitLens 的 VS Code Git 工具",
-	"version": "11.7.6",
+	"version": "11.7.7",
 	"packageManager": "yarn@1.22.22",
 	"publisher": "happyplum",
 	"license": "SEE LICENSE IN LICENSE",
