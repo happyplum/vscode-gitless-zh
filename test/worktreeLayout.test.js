@@ -118,9 +118,8 @@ test('multiple open worktrees of the same Git repository produce one flat list',
 	const rows = await node.getChildren();
 	assert.deepEqual(rows.map(row => row.worktree?.path), family.map(w => w.path));
 	const items = await Promise.all(rows.map(row => row.getTreeItem()));
-	assert.match(String(items[0].description), /当前工作树/);
-	assert.match(String(items[0].description), /主工作树/);
-	assert.match(String(items[1].description), /当前工作树/);
+	assert.equal(items[0].description, 'main · 当前工作树 · 主工作树');
+	assert.equal(items[1].description, 'main · 当前工作树');
 	assert.doesNotMatch(String(items[2].description), /当前工作树/);
 });
 
@@ -192,7 +191,7 @@ test('opening a linked worktree marks it current while retaining the distinct ma
 	const items = await Promise.all(rows.map(row => row.getTreeItem()));
 	assert.match(String(items[0].description), /主工作树/);
 	assert.doesNotMatch(String(items[0].description), /当前工作树/);
-	assert.match(String(items[1].description), /^当前工作树/);
+	assert.equal(items[1].description, 'main · 当前工作树');
 	assert.match(String(items[1].tooltip), /当前窗口|此窗口/);
 });
 

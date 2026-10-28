@@ -136,7 +136,7 @@ export class WorktreeNode extends ViewNode<RepositoriesView | WorktreesView> imp
 		const description = [tracking, status?.files.length ? `${status.files.length} 个文件` : '', branchName].filter(
 			Boolean,
 		);
-		if (this.current) description.unshift('当前工作树');
+		if (this.current) description.push('当前工作树');
 		if (worktree.main) description.push('主工作树');
 		if (worktree.locked != null) description.push('已锁定');
 		if (worktree.prunable != null) description.push('可清理');
