@@ -62,18 +62,21 @@ export class SwitchGitCommand extends QuickCommand<State> {
 	}
 
 	async execute(state: SwitchStepState) {
-		return void (await window.withProgress(
+		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
 				title: `将 ${state.repos.length === 1 ? state.repos[0].formattedName : `${state.repos.length} 个仓库`} 切换到 ${state.reference.name}`,
 			},
-			() =>
-				Promise.all(
-					state.repos.map(r =>
-						r.switch(state.reference.ref, { createBranch: state.createBranch, progress: false }),
-					),
-				),
-		));
+			async () => {
+				for (const repo of state.repos) {
+					const result = await repo.switch(state.reference.ref, {
+						createBranch: state.createBranch,
+						progress: false,
+					});
+					if (result !== 'switched') break;
+				}
+			},
+		);
 	}
 
 	override isMatch(key: string) {
@@ -127,7 +130,7 @@ export class SwitchGitCommand extends QuickCommand<State> {
 
 			if (state.counter < 2 || state.reference == null) {
 				const result = yield* pickBranchOrTagStepMultiRepo(state as SwitchStepState, context, {
-					placeholder: context => `Choose a branch${context.showTags ? ' or tag' : ''} to switch to`,
+					placeholder: context => `选择要切换到的分支${context.showTags ? '或标签' : ''}`,
 				});
 				if (result === StepResult.Break) {
 					// If we skipped the previous step, make sure we back up past it
@@ -152,7 +155,7 @@ export class SwitchGitCommand extends QuickCommand<State> {
 				if (branches.length === 0) {
 					const result = yield* inputBranchNameStep(state as SwitchStepState, context, {
 						placeholder: '请提供新分支的名称',
-						titleContext: ` based on ${GitReference.toString(state.reference, {
+						titleContext: `，基于 ${GitReference.toString(state.reference, {
 							icon: false,
 						})}`,
 						value: state.createBranch ?? GitReference.getNameWithoutRemote(state.reference),

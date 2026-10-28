@@ -243,7 +243,7 @@ export class StashGitCommand extends QuickCommand<State> {
 				{
 					label: '保存',
 					description:
-						'将本地更改保存到新的储藏中，并从工作树和索引中丢弃它们',
+						'将本地更改保存到新的储藏中，并从工作树和索引中移除这些更改',
 					picked: state.subcommand === 'push',
 					item: 'push',
 				},
@@ -304,7 +304,7 @@ export class StashGitCommand extends QuickCommand<State> {
 							((ex.stdout.includes('Auto-merging') && ex.stdout.includes('CONFLICT')) ||
 								ex.stdout.includes('needs merge')))
 					) {
-						void window.showInformationMessage('存在冲突时应用的储藏');
+						void window.showInformationMessage('应用储藏时发生冲突');
 
 						return;
 					}

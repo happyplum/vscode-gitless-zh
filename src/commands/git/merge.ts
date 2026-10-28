@@ -45,7 +45,7 @@ type MergeStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo',
 
 export class MergeGitCommand extends QuickCommand<State> {
 	constructor(args?: MergeGitCommandArgs) {
-		super('merge', 'merge', '合并', {
+		super('merge', 'merge', 'Merge', {
 			description: '将指定分支的更改集成到当前分支中',
 		});
 
@@ -118,7 +118,7 @@ export class MergeGitCommand extends QuickCommand<State> {
 				context.destination = branch;
 			}
 
-			context.title = `${this.title} 转换为 ${GitReference.toString(context.destination, { icon: false })}`;
+			context.title = `${this.title} 到 ${GitReference.toString(context.destination, { icon: false })}`;
 
 			if (state.counter < 2 || state.reference == null) {
 				const pickCommitToggle = new QuickCommandButtons.PickCommitToggle(context.pickCommit, context, () => {

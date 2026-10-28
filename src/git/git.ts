@@ -15,6 +15,7 @@ import { fsExists, run, RunError, RunOptions } from './shell';
 
 export * from './models/models';
 export * from './parsers/parsers';
+export * from './parsers/worktreeParser';
 export * from './formatters/formatters';
 export * from './remotes/provider';
 export * from './search';
@@ -438,6 +439,32 @@ export namespace Git {
 		}
 
 		return git<string>({ cwd: repoPath }, ...params);
+	}
+
+	export function worktree__list(repoPath: string): Promise<string> {
+		return git<string>({ cwd: repoPath }, 'worktree', 'list', '--porcelain', '-z');
+	}
+
+	export function worktree__add(repoPath: string, path: string, ref: string, newBranch?: string): Promise<string> {
+		const params = ['worktree', 'add'];
+		if (newBranch != null) params.push('-b', newBranch);
+		params.push(path, ref);
+		return git<string>({ cwd: repoPath }, ...params);
+	}
+
+	export function worktree__remove(repoPath: string, path: string): Promise<string> {
+		return git<string>({ cwd: repoPath }, 'worktree', 'remove', path);
+	}
+
+	export function worktree__lock(repoPath: string, path: string, reason?: string): Promise<string> {
+		const params = ['worktree', 'lock'];
+		if (reason) params.push('--reason', reason);
+		params.push(path);
+		return git<string>({ cwd: repoPath }, ...params);
+	}
+
+	export function worktree__unlock(repoPath: string, path: string): Promise<string> {
+		return git<string>({ cwd: repoPath }, 'worktree', 'unlock', path);
 	}
 
 	export async function config__get(key: string, repoPath?: string, options: { local?: boolean } = {}) {

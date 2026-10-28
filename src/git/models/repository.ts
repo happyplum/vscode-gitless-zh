@@ -15,13 +15,14 @@ import {
 } from 'vscode';
 import type { CreatePullRequestActionContext } from '../../api/gitlens';
 import { executeActionCommand } from '../../commands';
+import { openWorktree } from '../../commands/common';
 import { configuration } from '../../configuration';
 import { BuiltInGitCommands, BuiltInGitConfiguration, Starred, WorkspaceState } from '../../constants';
 import { Container } from '../../container';
 import { Logger } from '../../logger';
 import { Messages } from '../../messages';
 import { Arrays, Dates, debug, Functions, gate, Iterables, log, logName } from '../../system';
-import { runGitCommandInTerminal } from '../../terminal';
+import { runGitCommandAutomatically } from '../../terminal';
 import {
 	GitBranch,
 	GitContributor,
@@ -434,6 +435,11 @@ export class Repository implements Disposable {
 		branches: GitBranchReference | GitBranchReference[],
 		{ force, remote }: { force?: boolean; remote?: boolean } = {},
 	) {
+		const runDeleteCommand = async (...args: string[]) => {
+			await runGitCommandAutomatically(args, this.path, 'terminal');
+			setTimeout(() => this.fireChange(RepositoryChange.Unknown), 2500);
+		};
+
 		if (!Array.isArray(branches)) {
 			branches = [branches];
 		}
@@ -451,14 +457,14 @@ export class Repository implements Disposable {
 			if (force) {
 				args.push('--force');
 			}
-			this.runTerminalCommand('branch', ...args, ...branches.map(b => b.ref));
+			await runDeleteCommand('branch', ...args, ...branches.map(b => b.ref));
 
 			if (remote) {
 				if (trackingBranches.length !== 0) {
 					const branchesByOrigin = Arrays.groupByMap(trackingBranches, b => b.getRemoteName()!);
 
 					for (const [remote, branches] of branchesByOrigin.entries()) {
-						this.runTerminalCommand(
+						await runDeleteCommand(
 							'push',
 							'-d',
 							remote,
@@ -478,7 +484,7 @@ export class Repository implements Disposable {
 			const branchesByOrigin = Arrays.groupByMap(remoteBranches, b => b.getRemoteName()!);
 
 			for (const [remote, branches] of branchesByOrigin.entries()) {
-				this.runTerminalCommand(
+				await runDeleteCommand(
 					'push',
 					'-d',
 					remote,
@@ -835,10 +841,7 @@ export class Repository implements Disposable {
 	@gate(() => '')
 	@log()
 	rebase(configs: string[] | undefined, ...args: string[]) {
-		this.runTerminalCommand(
-			configs != null && configs.length !== 0 ? `${configs.join(' ')} rebase` : 'rebase',
-			...args,
-		);
+		this.runTerminalCommand(...(configs ?? []), 'rebase', ...args);
 	}
 
 	@gate(() => '')
@@ -927,24 +930,29 @@ export class Repository implements Disposable {
 		const { progress, ...opts } = { progress: true, ...options };
 		if (!progress) return this.switchCore(ref, opts);
 
-		return void (await window.withProgress(
+		return window.withProgress(
 			{
 				location: ProgressLocation.Notification,
 				title: `将 ${this.formattedName} 切换到 ${ref}...`,
 				cancellable: false,
 			},
 			() => this.switchCore(ref, opts),
-		));
+		);
 	}
 
-	private async switchCore(ref: string, options: { createBranch?: string } = {}) {
+	private async switchCore(ref: string, options: { createBranch?: string } = {}): Promise<'switched' | 'occupied' | 'failed'> {
 		try {
-			void (await Container.git.checkout(this.path, ref, options));
-
-			this.fireChange(RepositoryChange.Unknown);
+			const result = await Container.git.checkout(this.path, ref, options);
+			if (result.status === 'switched') {
+				this.fireChange(RepositoryChange.Unknown);
+			} else if (result.status === 'occupied') {
+				await openWorktree(result.worktree.path, { branch: ref });
+			}
+			return result.status;
 		} catch (ex) {
 			Logger.error(ex);
 			void Messages.showGenericErrorMessage('无法切换到指定版本');
+			return 'failed';
 		}
 	}
 
@@ -1107,11 +1115,8 @@ export class Repository implements Disposable {
 		this._onDidChangeFileSystem.fire(e);
 	}
 
-	private runTerminalCommand(command: string, ...args: string[]) {
-		const parsedArgs = args.map(arg =>
-			arg.startsWith('#') || arg.includes("'") || arg.includes('(') || arg.includes(')') ? `"${arg}"` : arg,
-		);
-		runGitCommandInTerminal(command, parsedArgs.join(' '), this.path, true);
+	private runTerminalCommand(...args: string[]) {
+		void runGitCommandAutomatically(args, this.path, 'task');
 
 		setTimeout(() => this.fireChange(RepositoryChange.Unknown), 2500);
 	}

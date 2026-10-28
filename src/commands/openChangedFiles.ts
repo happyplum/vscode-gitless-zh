@@ -21,7 +21,7 @@ export class OpenChangedFilesCommand extends Command {
 
 		try {
 			if (args.uris == null) {
-				const repoPath = await getRepoPathOrPrompt('Open All Changed Files');
+				const repoPath = await getRepoPathOrPrompt('打开所有已更改的文件');
 				if (!repoPath) return;
 
 				const status = await Container.git.getStatusForRepo(repoPath);

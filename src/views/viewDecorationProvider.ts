@@ -118,13 +118,13 @@ export class ViewFileDecorationProvider implements FileDecorationProvider, Dispo
 				return {
 					badge: '▲',
 					color: new ThemeColor('gitlens.decorations.branchAheadForegroundColor'),
-					tooltip: '前方',
+					tooltip: '领先',
 				};
 			case GitBranchStatus.Behind:
 				return {
 					badge: '▼',
 					color: new ThemeColor('gitlens.decorations.branchBehindForegroundColor'),
-					tooltip: '后面',
+					tooltip: '落后',
 				};
 			case GitBranchStatus.Diverged:
 				return {
@@ -148,7 +148,7 @@ export class ViewFileDecorationProvider implements FileDecorationProvider, Dispo
 				return {
 					badge: '▲+',
 					color: new ThemeColor('gitlens.decorations.branchUnpublishedForegroundColor'),
-					tooltip: '未发表',
+					tooltip: '未发布',
 				};
 			default:
 				return undefined;

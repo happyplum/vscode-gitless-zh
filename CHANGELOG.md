@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [11.7.7] - 2026-10-26
+
+### 新增
+
+- 工作树行显示相对上游的领先／落后提交数和未提交文件数，同一文件只计一次。
+- 工作树提交列表复用分支视图的待推送箭头及分支／标签位置标记。
+- 悬浮提示显示完整上游和工作区状态，区分未设置上游、上游丢失和分离 HEAD。
+
+### 修复
+
+- 手动刷新工作树管理时先清除相关 Git 缓存，重新读取状态和提交标记。
+
 ## [11.7.0] - 2021-11-18
 
 ### Added

@@ -35,7 +35,7 @@ export class TagsNode extends ViewNode<TagsView | RepositoriesView> {
 	async getChildren(): Promise<ViewNode[]> {
 		if (this._children == null) {
 			const tags = await this.repo.getTags({ sort: true });
-			if (tags.length === 0) return [new MessageNode(this.view, this, 'No tags could be found.')];
+			if (tags.length === 0) return [new MessageNode(this.view, this, '找不到标签。')];
 
 			const tagNodes = tags.map(
 				t => new TagNode(GitUri.fromRepoPath(this.uri.repoPath!, t.ref), this.view, this, t),

@@ -30,6 +30,7 @@ import { StashesNode } from './stashesNode';
 import { StatusFilesNode } from './statusFilesNode';
 import { TagsNode } from './tagsNode';
 import { ContextValues, SubscribeableViewNode, ViewNode } from './viewNode';
+import { WorktreesNode } from './worktreesNode';
 
 export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 	static key = ':repository';
@@ -145,6 +146,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 			if (this.view.config.showBranches) {
 				children.push(new BranchesNode(this.uri, this.view, this, this.repo));
 			}
+			children.push(new WorktreesNode(this.uri, this.view, this, this.repo));
 
 			if (this.view.config.showRemotes) {
 				children.push(new RemotesNode(this.uri, this.view, this, this.repo));
@@ -195,7 +197,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 
 		const status = await this._status;
 		if (status != null) {
-			tooltip += `\n\n当前分支 $(git-branch) ${status.branch}${status.rebasing ? '（变基中）' : ''}`;
+			tooltip += `\n\n当前分支 $(git-branch) ${status.branch}${status.rebasing ? '（Rebase 中）' : ''}`;
 
 			if (this.view.config.includeWorkingTree && status.files.length !== 0) {
 				workingStatus = status.getFormattedDiffStatus({
@@ -208,7 +210,7 @@ export class RepositoryNode extends SubscribeableViewNode<RepositoriesView> {
 				suffix: Strings.pad(GlyphChars.Dot, 1, 1),
 			});
 
-			description = `${upstreamStatus}${status.branch}${status.rebasing ? '（变基中）' : ''}${workingStatus}`;
+			description = `${upstreamStatus}${status.branch}${status.rebasing ? '（Rebase 中）' : ''}${workingStatus}`;
 
 			let providerName;
 			if (status.upstream != null) {

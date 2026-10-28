@@ -47,8 +47,8 @@ export class OpenRepoOnRemoteCommand extends ActiveEditorCommand {
 			gitUri,
 			editor,
 			args?.clipboard
-				? 'Choose which repository to copy the url from'
-				: 'Choose which repository to open on remote',
+				? '选择要复制链接的仓库'
+				: '选择要在远程平台打开的仓库',
 		);
 		if (!repoPath) return;
 

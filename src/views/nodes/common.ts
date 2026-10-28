@@ -171,8 +171,8 @@ export class LoadMoreNode extends PagerNode {
 			view,
 			parent,
 			pageSize === 0
-				? `Load all ${GlyphChars.Space}${GlyphChars.Dash}${GlyphChars.Space} this may take a while`
-				: 'Load more',
+				? `加载全部 ${GlyphChars.Space}${GlyphChars.Dash}${GlyphChars.Space}可能需要一段时间`
+				: '加载更多',
 			previousNode,
 			pageSize,
 			countFn,

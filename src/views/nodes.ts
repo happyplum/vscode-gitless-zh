@@ -3,6 +3,8 @@
 export * from './nodes/common';
 
 export * from './nodes/viewNode';
+export * from './nodes/worktreeNode';
+export * from './nodes/worktreesNode';
 export * from './nodes/branchesNode';
 export * from './nodes/branchNode';
 export * from './nodes/branchOrTagFolderNode';

@@ -2,9 +2,9 @@
 import { commands, Disposable, workspace } from 'vscode';
 import { Commands } from '../commands';
 import { configuration } from '../configuration';
+import { onIpcCommand } from './ipc';
 import {
 	IpcMessage,
-	onIpcCommand,
 	ReadyCommandType,
 	SettingsDidRequestJumpToNotificationType,
 	SettingsState,
@@ -56,13 +56,15 @@ export class SettingsWebview extends WebviewBase {
 	protected override onMessageReceived(e: IpcMessage) {
 		switch (e.method) {
 			case ReadyCommandType.method:
-				onIpcCommand(ReadyCommandType, e, _params => {
+				void onIpcCommand(ReadyCommandType, e, _params => {
 					if (this._pendingJumpToAnchor !== undefined) {
-						void this.notify(SettingsDidRequestJumpToNotificationType, {
+						const notification = this.notify(SettingsDidRequestJumpToNotificationType, {
 							anchor: this._pendingJumpToAnchor,
 						});
 						this._pendingJumpToAnchor = undefined;
+						return notification;
 					}
+					return undefined;
 				});
 
 				break;

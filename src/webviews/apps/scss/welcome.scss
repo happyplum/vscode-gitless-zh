@@ -1,7 +1,7 @@
 @use 'sass:meta';
-@include meta.load-css('base');
-@include meta.load-css('buttons');
-@include meta.load-css('icons');
+@use 'base';
+@use 'buttons';
+@use 'icons';
 
 body {
 	&.vscode-light {

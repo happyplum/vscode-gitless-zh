@@ -1,0 +1,12 @@
+[
+	{
+		"scheme": "gitlens",
+		"authority": "*",
+		"formatting": {
+			"label": "${path} (${authority})",
+			"separator": "/",
+			"workspaceSuffix": "GitLens",
+			"stripPathStartingSeparator": true
+		}
+	}
+]

@@ -20,6 +20,7 @@ import type { Action, ActionContext } from '../api/gitlens';
 import { BuiltInCommands, DocumentSchemes, ImageMimetypes } from '../constants';
 import { Container } from '../container';
 import { GitBranch, GitCommit, GitContributor, GitFile, GitReference, GitRemote, GitTag, Repository } from '../git/git';
+import { GitService } from '../git/gitService';
 import { GitUri } from '../git/gitUri';
 import { Logger } from '../logger';
 import { CommandQuickPickItem, RepositoryPicker } from '../quickpicks';
@@ -140,6 +141,7 @@ export enum Commands {
 	ShowQuickStashList = 'gitlens.showQuickStashList',
 	ShowRemotesView = 'gitlens.showRemotesView',
 	ShowRepositoriesView = 'gitlens.showRepositoriesView',
+	ShowWorktreesView = 'gitlens.showWorktreesView',
 	ShowSearchAndCompareView = 'gitlens.showSearchAndCompareView',
 	ShowSettingsPage = 'gitlens.showSettingsPage',
 	ShowSettingsPageAndJumpToBranchesView = 'gitlens.showSettingsPage#branches-view',
@@ -173,6 +175,11 @@ export enum Commands {
 	ToggleLineBlame = 'gitlens.toggleLineBlame',
 	ToggleReviewMode = 'gitlens.toggleReviewMode',
 	ToggleZenMode = 'gitlens.toggleZenMode',
+	WorktreeCreate = 'gitlens.worktreeCreate',
+	WorktreeOpen = 'gitlens.worktreeOpen',
+	WorktreeRemove = 'gitlens.worktreeRemove',
+	WorktreeLock = 'gitlens.worktreeLock',
+	WorktreeUnlock = 'gitlens.worktreeUnlock',
 	ViewsOpenDirectoryDiff = 'gitlens.views.openDirectoryDiff',
 	ViewsOpenDirectoryDiffWithWorking = 'gitlens.views.openDirectoryDiffWithWorking',
 
@@ -750,4 +757,42 @@ export function openWorkspace(
 	return void commands.executeCommand(BuiltInCommands.OpenFolder, uri, {
 		forceNewWindow: options?.location === OpenWorkspaceLocation.NewWindow,
 	});
+}
+
+export async function openWorktree(path: string, options: { branch?: string } = {}): Promise<boolean> {
+	const currentWindow = '在当前窗口打开';
+	const newWindow = '在新窗口打开';
+	const addToWorkspace = '添加到工作区';
+	let location: OpenWorkspaceLocation;
+
+	if (options.branch != null) {
+		const choice = await window.showWarningMessage(
+			`分支 ${options.branch} 已在位于 ${path} 的工作树中签出`,
+			{ modal: true },
+			currentWindow,
+			newWindow,
+		);
+		if (choice == null) return false;
+		location = choice === currentWindow ? OpenWorkspaceLocation.CurrentWindow : OpenWorkspaceLocation.NewWindow;
+	} else {
+		const choice = await window.showQuickPick(
+			[
+				{ label: currentWindow, location: OpenWorkspaceLocation.CurrentWindow },
+				{ label: newWindow, location: OpenWorkspaceLocation.NewWindow },
+				{ label: addToWorkspace, location: OpenWorkspaceLocation.AddToWorkspace },
+			],
+			{ placeHolder: `打开工作树 ${path}` },
+		);
+		if (choice == null) return false;
+		location = choice.location;
+	}
+
+	const repoPath = await Container.git.getRepoPath(path, { isDirectory: true });
+	if (repoPath == null) {
+		void window.showErrorMessage(`无法识别工作树目录：${path}`);
+		return false;
+	}
+	await GitService.openBuiltInGitRepository(repoPath);
+	openWorkspace(Uri.file(repoPath), { location: location });
+	return true;
 }

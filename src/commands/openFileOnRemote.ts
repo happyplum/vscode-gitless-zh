@@ -150,9 +150,9 @@ export class OpenFileOnRemoteCommand extends ActiveEditorCommand {
 					const pick = await ReferencePicker.show(
 						gitUri.repoPath,
 						args.clipboard
-							? `Copy Remote File Url From${Strings.pad(GlyphChars.Dot, 2, 2)}${gitUri.relativePath}`
-							: `Open File on Remote From${Strings.pad(GlyphChars.Dot, 2, 2)}${gitUri.relativePath}`,
-						`Choose a branch or tag to ${args.clipboard ? 'copy' : 'open'} the file revision from`,
+							? `复制远程文件链接${Strings.pad(GlyphChars.Dot, 2, 2)}${gitUri.relativePath}`
+							: `在远程平台打开文件${Strings.pad(GlyphChars.Dot, 2, 2)}${gitUri.relativePath}`,
+						`选择要${args.clipboard ? '复制链接' : '打开文件'}的分支或标签`,
 						{
 							allowEnteringRefs: true,
 							autoPick: true,

@@ -33,7 +33,7 @@ export class ReflogNode extends ViewNode<RepositoriesView> implements PageableVi
 
 			const reflog = await this.getReflog();
 			if (reflog === undefined || reflog.records.length === 0) {
-				return [new MessageNode(this.view, this, 'No activity could be found.')];
+				return [new MessageNode(this.view, this, '找不到活动记录。')];
 			}
 
 			children.push(...reflog.records.map(r => new ReflogRecordNode(this.view, this, r)));

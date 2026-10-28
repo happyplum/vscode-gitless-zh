@@ -51,7 +51,7 @@ export class DiffWithRevisionCommand extends ActiveEditorCommand {
 					suffix: gitUri.sha ? `:${GitRevision.shorten(gitUri.sha)}` : undefined,
 					truncateTo: quickPickTitleMaxChars - title.length,
 				})}`,
-				'Choose a commit to compare with',
+				'选择要比较的提交',
 				{
 					picked: gitUri.sha,
 					keys: ['right', 'alt+right', 'ctrl+right'],
@@ -71,7 +71,7 @@ export class DiffWithRevisionCommand extends ActiveEditorCommand {
 						}));
 					},
 					showOtherReferences: CommandQuickPickItem.fromCommand(
-						'Choose a branch or tag...',
+						'选择分支或标签…',
 						Commands.DiffWithRevisionFrom,
 					),
 				},

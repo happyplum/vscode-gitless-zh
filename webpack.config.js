@@ -19,7 +19,10 @@ const HtmlPlugin = require('html-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SourceLintPlugin = require('./scripts/sourceLintPlugin');
+const { ExtensionManifestPlugin } = require('./scripts/extensionManifest');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const extensionRoot = path.join(__dirname, 'dist', 'extension');
 
 class InlineChunkHtmlPlugin {
 	constructor(htmlPlugin, patterns) {
@@ -96,12 +99,16 @@ function getExtensionConfig(mode, env) {
 	 * @type WebpackConfig['plugins'] | any
 	 */
 	const plugins = [
-		new CleanPlugin({ cleanOnceBeforeBuildPatterns: ['!webviews/**'] }),
+		new ExtensionManifestPlugin(__dirname),
+		new CleanPlugin({ cleanOnceBeforeBuildPatterns: ['**/*', '!webviews/**'] }),
 		new ForkTsCheckerPlugin({
 			async: false,
 			formatter: 'basic',
 		}),
 		new SourceLintPlugin(__dirname, 'src'),
+		new CopyPlugin({
+			patterns: [{ from: 'scripts/gitTerminalRunner.js', to: 'gitTerminalRunner.js' }],
+		}),
 	];
 
 	if (env.analyzeDeps) {
@@ -133,7 +140,7 @@ function getExtensionConfig(mode, env) {
 		},
 		devtool: 'source-map',
 		output: {
-			path: path.join(__dirname, 'dist'),
+			path: path.join(extensionRoot, 'dist'),
 			libraryTarget: 'commonjs2',
 			filename: 'gitlens.js',
 			chunkFilename: 'feature-[name].js',
@@ -201,6 +208,19 @@ function getExtensionConfig(mode, env) {
  */
 function getWebviewsConfig(mode) {
 	const basePath = path.join(__dirname, 'src', 'webviews', 'apps');
+	const htmlMinify =
+		mode === 'production'
+			? {
+					removeComments: true,
+					collapseWhitespace: true,
+					removeRedundantAttributes: false,
+					useShortDoctype: true,
+					removeEmptyAttributes: true,
+					removeStyleLinkTypeAttributes: true,
+					keepClosingSlash: true,
+					minifyCSS: true,
+				}
+			: false;
 
 	const cspHtmlPlugin = new CspHtmlPlugin(
 		{
@@ -233,17 +253,15 @@ function getWebviewsConfig(mode) {
 	 * @type WebpackConfig['plugins'] | any
 	 */
 	const plugins = [
-		new CleanPlugin(
-			mode === 'production'
-				? {
-						cleanOnceBeforeBuildPatterns: [
-							path.posix.join(__dirname.replace(/\\/g, '/'), 'images', 'settings', '**'),
-						],
-						dangerouslyAllowCleanPatternsOutsideProject: true,
-						dry: false,
-					}
-				: undefined,
-		),
+		new ExtensionManifestPlugin(__dirname),
+		new CleanPlugin({
+			cleanOnceBeforeBuildPatterns: [
+				'**/*',
+				path.posix.join(extensionRoot.replace(/\\/g, '/'), 'images', 'settings', '**'),
+			],
+			dangerouslyAllowCleanPatternsOutsideProject: true,
+			dry: false,
+		}),
 		new ForkTsCheckerPlugin({
 			async: false,
 			formatter: 'basic',
@@ -258,62 +276,26 @@ function getWebviewsConfig(mode) {
 		new HtmlPlugin({
 			template: 'rebase/rebase.html',
 			chunks: ['rebase'],
-			filename: path.join(__dirname, 'dist', 'webviews', 'rebase.html'),
+			filename: path.join(extensionRoot, 'dist', 'webviews', 'rebase.html'),
 			inject: true,
 			inlineSource: mode === 'production' ? '.css$' : undefined,
-			minify:
-				mode === 'production'
-					? {
-							removeComments: true,
-							collapseWhitespace: true,
-							removeRedundantAttributes: false,
-							useShortDoctype: true,
-							removeEmptyAttributes: true,
-							removeStyleLinkTypeAttributes: true,
-							keepClosingSlash: true,
-							minifyCSS: true,
-						}
-					: false,
+			minify: htmlMinify,
 		}),
 		new HtmlPlugin({
 			template: 'settings/settings.html',
 			chunks: ['settings'],
-			filename: path.join(__dirname, 'dist', 'webviews', 'settings.html'),
+			filename: path.join(extensionRoot, 'dist', 'webviews', 'settings.html'),
 			inject: true,
 			inlineSource: mode === 'production' ? '.css$' : undefined,
-			minify:
-				mode === 'production'
-					? {
-							removeComments: true,
-							collapseWhitespace: true,
-							removeRedundantAttributes: false,
-							useShortDoctype: true,
-							removeEmptyAttributes: true,
-							removeStyleLinkTypeAttributes: true,
-							keepClosingSlash: true,
-							minifyCSS: true,
-						}
-					: false,
+			minify: htmlMinify,
 		}),
 		new HtmlPlugin({
 			template: 'welcome/welcome.html',
 			chunks: ['welcome'],
-			filename: path.join(__dirname, 'dist', 'webviews', 'welcome.html'),
+			filename: path.join(extensionRoot, 'dist', 'webviews', 'welcome.html'),
 			inject: true,
 			inlineSource: mode === 'production' ? '.css$' : undefined,
-			minify:
-				mode === 'production'
-					? {
-							removeComments: true,
-							collapseWhitespace: true,
-							removeRedundantAttributes: false,
-							useShortDoctype: true,
-							removeEmptyAttributes: true,
-							removeStyleLinkTypeAttributes: true,
-							keepClosingSlash: true,
-							minifyCSS: true,
-						}
-					: false,
+			minify: htmlMinify,
 		}),
 		cspHtmlPlugin,
 		new InlineChunkHtmlPlugin(HtmlPlugin, mode === 'production' ? ['\\.css$'] : []),
@@ -321,7 +303,7 @@ function getWebviewsConfig(mode) {
 			patterns: [
 				{
 					from: path.posix.join(basePath.replace(/\\/g, '/'), 'images', 'settings', '*.png'),
-					to: __dirname.replace(/\\/g, '/'),
+					to: path.posix.join(extensionRoot.replace(/\\/g, '/'), 'images', 'settings', '[name][ext]'),
 				},
 				{
 					from: path.posix.join(
@@ -332,7 +314,7 @@ function getWebviewsConfig(mode) {
 						'dist',
 						'codicon.ttf',
 					),
-					to: path.posix.join(__dirname.replace(/\\/g, '/'), 'dist', 'webviews'),
+					to: path.posix.join(extensionRoot.replace(/\\/g, '/'), 'dist', 'webviews'),
 				},
 			],
 		}),
@@ -373,7 +355,7 @@ function getWebviewsConfig(mode) {
 		devtool: 'source-map',
 		output: {
 			filename: '[name].js',
-			path: path.join(__dirname, 'dist', 'webviews'),
+			path: path.join(extensionRoot, 'dist', 'webviews'),
 			publicPath: '#{root}/dist/webviews/',
 		},
 		module: {

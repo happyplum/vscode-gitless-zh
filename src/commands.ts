@@ -66,3 +66,4 @@ export * from './commands/switchMode';
 export * from './commands/toggleCodeLens';
 export * from './commands/toggleFileAnnotations';
 export * from './commands/toggleLineBlame';
+export * from './commands/worktree';

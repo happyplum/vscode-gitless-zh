@@ -1,0 +1,102 @@
+{
+	"gitlens": [
+		{
+			"id": "gitlens.views.welcome",
+			"name": "欢迎",
+			"when": "gitlens:views:welcome:visible != false",
+			"contextualTitle": "GitLess",
+			"icon": "images/gitlens-activitybar.svg",
+			"visibility": "visible"
+		}
+	],
+	"scm": [
+		{
+			"id": "gitlens.views.commits",
+			"name": "提交",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/commits.svg",
+			"visibility": "visible"
+		},
+		{
+			"id": "gitlens.views.repositories",
+			"name": "仓库",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/repositories.svg",
+			"visibility": "hidden"
+		},
+		{
+			"id": "gitlens.views.worktrees",
+			"name": "工作树管理",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/worktrees.svg",
+			"visibility": "visible"
+		},
+		{
+			"id": "gitlens.views.fileHistory",
+			"name": "文件历史记录",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/history.svg",
+			"visibility": "visible"
+		},
+		{
+			"id": "gitlens.views.lineHistory",
+			"name": "行历史",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/history.svg",
+			"visibility": "hidden"
+		},
+		{
+			"id": "gitlens.views.branches",
+			"name": "分支",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/branches.svg",
+			"visibility": "collapsed"
+		},
+		{
+			"id": "gitlens.views.remotes",
+			"name": "远程仓库",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/remotes.svg",
+			"visibility": "collapsed"
+		},
+		{
+			"id": "gitlens.views.stashes",
+			"name": "储藏",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/stashes.svg",
+			"visibility": "collapsed"
+		},
+		{
+			"id": "gitlens.views.tags",
+			"name": "标签",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/tags.svg",
+			"visibility": "collapsed"
+		},
+		{
+			"id": "gitlens.views.contributors",
+			"name": "贡献者",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/contributors.svg",
+			"visibility": "hidden"
+		},
+		{
+			"id": "gitlens.views.searchAndCompare",
+			"name": "搜索和比较",
+			"when": "!gitlens:disabled",
+			"contextualTitle": "GitLess",
+			"icon": "images/views/search.svg",
+			"visibility": "collapsed"
+		}
+	]
+}

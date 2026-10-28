@@ -2,6 +2,8 @@
 .vscode-clean/**
 dist
 node_modules
+.tmp/
+.worktrees/
 images/settings
 gitlens-*.vsix
 tsconfig.tsbuildinfo

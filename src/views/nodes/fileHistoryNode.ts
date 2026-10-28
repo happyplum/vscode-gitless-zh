@@ -128,7 +128,7 @@ export class FileHistoryNode extends SubscribeableViewNode<FileHistoryView> impl
 			}
 		}
 
-		if (children.length === 0) return [new MessageNode(this.view, this, 'No file history could be found.')];
+		if (children.length === 0) return [new MessageNode(this.view, this, '找不到文件历史记录。')];
 		return children;
 	}
 

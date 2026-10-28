@@ -116,7 +116,7 @@ export class OpenFileAtRevisionCommand extends ActiveEditorCommand {
 							}));
 						},
 						showOtherReferences: CommandQuickPickItem.fromCommand(
-							'Choose a branch or tag...',
+							'选择分支或标签…',
 							Commands.OpenFileAtRevisionFrom,
 						),
 					},

@@ -114,7 +114,7 @@ export class BranchNode
 			this.branch.starred
 				? branchName
 				: this.branch.getBasename()
-		}${this.branch.rebasing ? '（变基中）' : ''}`;
+		}${this.branch.rebasing ? '（Rebase 中）' : ''}`;
 	}
 
 	get ref(): GitBranchReference {
@@ -157,7 +157,7 @@ export class BranchNode
 						  })
 						: undefined,
 				]);
-			if (log == null) return [new MessageNode(this.view, this, 'No commits could be found.')];
+			if (log == null) return [new MessageNode(this.view, this, '找不到提交。')];
 
 			if (this.options.showComparison !== false && !(this.view instanceof RemotesView)) {
 				children.push(
@@ -275,7 +275,7 @@ export class BranchNode
 
 		let tooltip: string | MarkdownString = `${
 			this.current ? '当前分支' : '分支'
-		} $(git-branch) ${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? '（变基中）' : ''}`;
+		} $(git-branch) ${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? '（Rebase 中）' : ''}`;
 
 		let contextValue: string = ContextValues.Branch;
 		if (this.current) {
@@ -333,7 +333,7 @@ export class BranchNode
 				description = this.options.showAsCommits
 					? `${this.branch.getTrackingStatus({
 							suffix: Strings.pad(GlyphChars.Dot, 1, 1),
-					  })}${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? '（变基中）' : ''}${Strings.pad(
+					  })}${this.branch.getNameWithoutRemote()}${this.branch.rebasing ? '（Rebase 中）' : ''}${Strings.pad(
 							arrows,
 							2,
 							2,

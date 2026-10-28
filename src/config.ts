@@ -512,6 +512,7 @@ interface ViewsConfigs {
 	searchAndCompare: SearchAndCompareViewConfig;
 	stashes: StashesViewConfig;
 	tags: TagsViewConfig;
+	worktrees: WorktreesViewConfig;
 }
 
 export type ViewsConfigKeys = keyof ViewsConfigs;
@@ -526,6 +527,7 @@ export const viewsConfigKeys: ViewsConfigKeys[] = [
 	'tags',
 	'contributors',
 	'searchAndCompare',
+	'worktrees',
 ];
 
 export type ViewsConfig = ViewsCommonConfig & ViewsConfigs;
@@ -617,6 +619,15 @@ export interface RepositoriesViewConfig {
 	showStashes: boolean;
 	showTags: boolean;
 	showUpstreamStatus: boolean;
+}
+
+export interface WorktreesViewConfig {
+	avatars: boolean;
+	files: ViewsFilesConfig;
+	pullRequests: {
+		enabled: boolean;
+		showForCommits: boolean;
+	};
 }
 
 export interface SearchAndCompareViewConfig {

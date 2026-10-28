@@ -16,7 +16,7 @@ export class CopyCurrentBranchCommand extends ActiveEditorCommand {
 
 		const gitUri = uri != null ? await GitUri.fromUri(uri) : undefined;
 
-		const repoPath = await getRepoPathOrActiveOrPrompt(gitUri, editor, 'Copy Current Branch Name');
+		const repoPath = await getRepoPathOrActiveOrPrompt(gitUri, editor, '复制当前分支名称');
 		if (!repoPath) return;
 
 		try {

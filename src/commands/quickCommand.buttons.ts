@@ -67,19 +67,19 @@ export namespace QuickCommandButtons {
 
 	export const MatchCaseToggle = class extends SelectableQuickInputButton {
 		constructor(on = false) {
-			super('Match Case', { off: 'icon-match-case', on: 'icon-match-case-selected' }, on);
+			super('区分大小写', { off: 'icon-match-case', on: 'icon-match-case-selected' }, on);
 		}
 	};
 
 	export const MatchAllToggle = class extends SelectableQuickInputButton {
 		constructor(on = false) {
-			super('Match All', { off: 'icon-match-all', on: 'icon-match-all-selected' }, on);
+			super('匹配所有条件', { off: 'icon-match-all', on: 'icon-match-all-selected' }, on);
 		}
 	};
 
 	export const MatchRegexToggle = class extends SelectableQuickInputButton {
 		constructor(on = false) {
-			super('Match using Regular Expressions', { off: 'icon-match-regex', on: 'icon-match-regex-selected' }, on);
+			super('使用正则表达式匹配', { off: 'icon-match-regex', on: 'icon-match-regex-selected' }, on);
 		}
 	};
 
@@ -117,7 +117,7 @@ export namespace QuickCommandButtons {
 
 	export const ShowTagsToggle = class extends SelectableQuickInputButton {
 		constructor(on = false) {
-			super('Show Tags', { off: new ThemeIcon('tag'), on: 'icon-tag-selected' }, on);
+			super('显示标签', { off: new ThemeIcon('tag'), on: 'icon-tag-selected' }, on);
 		}
 	};
 

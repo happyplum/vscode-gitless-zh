@@ -42,7 +42,7 @@ export class DiffWithRevisionFromCommand extends ActiveEditorCommand {
 		const pick = await ReferencePicker.show(
 			gitUri.repoPath,
 			`${title}${gitUri.getFormattedFilename({ truncateTo: quickPickTitleMaxChars - title.length })}`,
-			'Choose a branch or tag to compare with',
+			'选择要比较的分支或标签',
 			{
 				allowEnteringRefs: true,
 				// checkmarks: false,

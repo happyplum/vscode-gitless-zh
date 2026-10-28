@@ -743,7 +743,7 @@ class PickCommandStep implements QuickPickStep {
 	ignoreFocusOut = false;
 	readonly items: QuickCommand[];
 	readonly matchOnDescription = true;
-	readonly placeholder = 'Choose a git command';
+	readonly placeholder = '选择 Git 命令';
 	readonly title = 'GitLess';
 
 	constructor(args?: GitCommandsCommandArgs) {

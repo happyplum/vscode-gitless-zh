@@ -81,8 +81,8 @@ export class CommitBrowseRepositoryFromHereCommandQuickPickItem extends CommandQ
 	) {
 		super(
 			item ??
-				`$(folder-opened) Browse Repository from${executeOptions?.before ? ' Before' : ''} Here${
-					executeOptions?.openInNewWindow ? ' in New Window' : ''
+				`$(folder-opened) ${executeOptions?.before ? '浏览此提交之前的仓库' : '从此提交浏览仓库'}${
+					executeOptions?.openInNewWindow ? '（在新窗口中）' : ''
 				}`,
 		);
 	}
@@ -117,7 +117,7 @@ export class CommitCompareWithWorkingCommandQuickPickItem extends CommandQuickPi
 
 export class CommitCopyIdQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(clippy) Copy SHA');
+		super(item ?? '$(clippy) 复制 SHA');
 	}
 
 	override execute(): Promise<void> {
@@ -132,7 +132,7 @@ export class CommitCopyIdQuickPickItem extends CommandQuickPickItem {
 
 export class CommitCopyMessageQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(clippy) Copy Message');
+		super(item ?? '$(clippy) 复制消息');
 	}
 
 	override execute(): Promise<void> {
@@ -179,7 +179,7 @@ export class CommitOpenAllChangesWithWorkingCommandQuickPickItem extends Command
 
 export class CommitOpenChangesCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, private readonly file: string | GitFile, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open Changes');
+		super(item ?? '$(git-compare) 打开更改');
 	}
 
 	override execute(options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -189,7 +189,7 @@ export class CommitOpenChangesCommandQuickPickItem extends CommandQuickPickItem 
 
 export class CommitOpenChangesWithDiffToolCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, private readonly file: string | GitFile, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open Changes (difftool)');
+		super(item ?? '$(git-compare) 在差异工具中打开更改');
 	}
 
 	override execute(): Promise<void> {
@@ -199,7 +199,7 @@ export class CommitOpenChangesWithDiffToolCommandQuickPickItem extends CommandQu
 
 export class CommitOpenChangesWithWorkingCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, private readonly file: string | GitFile, item?: QuickPickItem) {
-		super(item ?? '$(git-compare) Open Changes with Working File');
+		super(item ?? '$(git-compare) 将更改与工作文件比较');
 	}
 
 	override execute(options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -229,7 +229,7 @@ export class CommitOpenDirectoryCompareWithWorkingCommandQuickPickItem extends C
 
 export class CommitOpenFilesCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(files) Open Files');
+		super(item ?? '$(files) 打开全部文件');
 	}
 
 	override execute(_options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -239,7 +239,7 @@ export class CommitOpenFilesCommandQuickPickItem extends CommandQuickPickItem {
 
 export class CommitOpenFileCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, private readonly file: string | GitFile, item?: QuickPickItem) {
-		super(item ?? '$(file) Open File');
+		super(item ?? '$(file) 打开文件');
 	}
 
 	override execute(options?: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -249,7 +249,7 @@ export class CommitOpenFileCommandQuickPickItem extends CommandQuickPickItem {
 
 export class CommitOpenRevisionsCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, item?: QuickPickItem) {
-		super(item ?? '$(files) Open Files at Revision');
+		super(item ?? '$(files) 打开修订版中的全部文件');
 	}
 
 	override execute(_options: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -259,7 +259,7 @@ export class CommitOpenRevisionsCommandQuickPickItem extends CommandQuickPickIte
 
 export class CommitOpenRevisionCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, private readonly file: string | GitFile, item?: QuickPickItem) {
-		super(item ?? '$(file) Open File at Revision');
+		super(item ?? '$(file) 打开修订版中的文件');
 	}
 
 	override execute(options?: { preserveFocus?: boolean; preview?: boolean }): Promise<void> {
@@ -269,7 +269,7 @@ export class CommitOpenRevisionCommandQuickPickItem extends CommandQuickPickItem
 
 export class CommitApplyFileChangesCommandQuickPickItem extends CommandQuickPickItem {
 	constructor(private readonly commit: GitLogCommit, private readonly file: string | GitFile, item?: QuickPickItem) {
-		super(item ?? 'Apply Changes');
+		super(item ?? '应用更改');
 	}
 
 	override async execute(): Promise<void> {
@@ -298,6 +298,6 @@ export class OpenChangedFilesCommandQuickPickItem extends CommandQuickPickItem {
 			uris: files.map(f => f.uri),
 		};
 
-		super(item ?? '$(files) Open All Changed Files', Commands.OpenChangedFiles, [commandArgs]);
+		super(item ?? '$(files) 打开所有已更改的文件', Commands.OpenChangedFiles, [commandArgs]);
 	}
 }

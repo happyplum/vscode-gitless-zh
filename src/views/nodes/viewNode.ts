@@ -79,6 +79,8 @@ export enum ContextValues {
 	StatusSameAsUpstream = 'gitlens:status:upstream:same',
 	Tag = 'gitlens:tag',
 	Tags = 'gitlens:tags',
+	Worktree = 'gitlens:worktree',
+	Worktrees = 'gitlens:worktrees',
 }
 
 export const unknownGitUri = new GitUri();

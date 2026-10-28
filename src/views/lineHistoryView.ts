@@ -6,7 +6,7 @@ import { Container } from '../container';
 import { LineHistoryTrackerNode } from './nodes';
 import { ViewBase } from './viewBase';
 
-const pinnedSuffix = ' (pinned)';
+const pinnedSuffix = '（已固定）';
 
 export class LineHistoryView extends ViewBase<LineHistoryTrackerNode, LineHistoryViewConfig> {
 	protected readonly configKey = 'lineHistory';

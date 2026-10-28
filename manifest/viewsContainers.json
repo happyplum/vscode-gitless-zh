@@ -1,0 +1,9 @@
+{
+	"activitybar": [
+		{
+			"id": "gitlens",
+			"title": "GitLess",
+			"icon": "images/gitlens-activitybar.svg"
+		}
+	]
+}

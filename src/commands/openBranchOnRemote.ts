@@ -55,7 +55,7 @@ export class OpenBranchOnRemoteCommand extends ActiveEditorCommand {
 		const repoPath = await getRepoPathOrActiveOrPrompt(
 			gitUri,
 			editor,
-			args?.clipboard ? 'Copy Remote Branch Url' : 'Open Branch On Remote',
+			args?.clipboard ? '复制远程分支链接' : '在远程平台打开分支',
 		);
 		if (!repoPath) return;
 
@@ -65,8 +65,8 @@ export class OpenBranchOnRemoteCommand extends ActiveEditorCommand {
 			if (args.branch == null) {
 				const pick = await ReferencePicker.show(
 					repoPath,
-					args.clipboard ? 'Copy Remote Branch Url' : 'Open Branch On Remote',
-					args.clipboard ? 'Choose a branch to copy the url from' : 'Choose a branch to open',
+					args.clipboard ? '复制远程分支链接' : '在远程平台打开分支',
+					args.clipboard ? '选择要复制链接的分支' : '选择要打开的分支',
 					{
 						autoPick: true,
 						// checkmarks: false,

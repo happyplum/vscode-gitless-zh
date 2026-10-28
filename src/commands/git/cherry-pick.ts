@@ -126,7 +126,7 @@ export class CherryPickGitCommand extends QuickCommand<State> {
 				context.destination = branch;
 			}
 
-			context.title = `${this.title} 转换为 ${GitReference.toString(context.destination, { icon: false })}`;
+			context.title = `${this.title}到 ${GitReference.toString(context.destination, { icon: false })}`;
 
 			if (state.counter < 2 || state.references == null || state.references.length === 0) {
 				const result: StepResult<GitReference> = yield* pickBranchOrTagStep(
@@ -135,7 +135,7 @@ export class CherryPickGitCommand extends QuickCommand<State> {
 					{
 						filter: { branches: b => b.id !== context.destination.id },
 						placeholder: context =>
-							`Choose a branch${context.showTags ? ' or tag' : ''} to cherry-pick from`,
+							`选择要从中拣选提交的分支${context.showTags ? '或标签' : ''}`,
 						picked: context.selectedBranchOrTag?.ref,
 						value: context.selectedBranchOrTag == null ? state.references?.[0]?.ref : undefined,
 					},
@@ -175,12 +175,12 @@ export class CherryPickGitCommand extends QuickCommand<State> {
 						picked: state.references?.map(r => r.ref),
 						placeholder: (context, log) =>
 							log == null
-								? `No pickable commits found on ${GitReference.toString(context.selectedBranchOrTag, {
+								? `${GitReference.toString(context.selectedBranchOrTag, {
 										icon: false,
-								  })}`
-								: `Choose commits to cherry-pick into ${GitReference.toString(context.destination, {
+								  })} 上没有可拣选的提交`
+								: `选择要拣选到 ${GitReference.toString(context.destination, {
 										icon: false,
-								  })}`,
+								  })} 的提交`,
 					},
 				);
 				if (result === StepResult.Break) continue;

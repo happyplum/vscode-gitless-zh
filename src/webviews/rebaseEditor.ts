@@ -24,11 +24,11 @@ import { RepositoryChange, RepositoryChangeComparisonMode } from '../git/git';
 import { Logger } from '../logger';
 import { Messages } from '../messages';
 import { debug, gate, Iterables, Strings } from '../system';
+import { onIpcCommand } from './ipc';
 import {
 	Author,
 	Commit,
 	IpcMessage,
-	onIpcCommand,
 	RebaseDidAbortCommandType,
 	RebaseDidChangeEntryCommandType,
 	RebaseDidChangeNotificationType,
@@ -270,24 +270,24 @@ export class RebaseEditorProvider implements CustomTextEditorProvider, Disposabl
 			// 	break;
 
 			case RebaseDidAbortCommandType.method:
-				onIpcCommand(RebaseDidAbortCommandType, e, () => this.abort(context));
+				void onIpcCommand(RebaseDidAbortCommandType, e, () => this.abort(context));
 
 				break;
 
 			case RebaseDidDisableCommandType.method:
-				onIpcCommand(RebaseDidDisableCommandType, e, () => this.disable(context));
+				void onIpcCommand(RebaseDidDisableCommandType, e, () => this.disable(context));
 				break;
 
 			case RebaseDidStartCommandType.method:
-				onIpcCommand(RebaseDidStartCommandType, e, () => this.rebase(context));
+				void onIpcCommand(RebaseDidStartCommandType, e, () => this.rebase(context));
 				break;
 
 			case RebaseDidSwitchCommandType.method:
-				onIpcCommand(RebaseDidSwitchCommandType, e, () => this.switch(context));
+				void onIpcCommand(RebaseDidSwitchCommandType, e, () => this.switch(context));
 				break;
 
 			case RebaseDidChangeEntryCommandType.method:
-				onIpcCommand(RebaseDidChangeEntryCommandType, e, async params => {
+				void onIpcCommand(RebaseDidChangeEntryCommandType, e, async params => {
 					const entries = parseRebaseTodoEntries(context.document);
 
 					const entry = entries.find(e => e.ref === params.ref);
@@ -345,7 +345,7 @@ export class RebaseEditorProvider implements CustomTextEditorProvider, Disposabl
 				break;
 
 			case RebaseDidMoveEntryCommandType.method:
-				onIpcCommand(RebaseDidMoveEntryCommandType, e, async params => {
+				void onIpcCommand(RebaseDidMoveEntryCommandType, e, async params => {
 					const entries = parseRebaseTodoEntries(context.document);
 
 					const entry = entries.find(e => e.ref === params.ref);
@@ -464,13 +464,14 @@ export class RebaseEditorProvider implements CustomTextEditorProvider, Disposabl
 	private switch(context: RebaseEditorContext) {
 		context.abortOnClose = false;
 
-		void Messages.showRebaseSwitchToTextWarningMessage();
+		const warning = Messages.showRebaseSwitchToTextWarningMessage();
 
 		// Open the text version of the document
-		void commands.executeCommand(BuiltInCommands.Open, context.document.uri, {
+		const open = commands.executeCommand(BuiltInCommands.Open, context.document.uri, {
 			override: false,
 			preview: false,
 		});
+		return Promise.all([warning, open]);
 	}
 
 	private async getHtml(context: RebaseEditorContext): Promise<string> {

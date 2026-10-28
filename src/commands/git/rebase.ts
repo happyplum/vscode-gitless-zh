@@ -46,7 +46,7 @@ type RebaseStepState<T extends State = State> = ExcludeSome<StepState<T>, 'repo'
 
 export class RebaseGitCommand extends QuickCommand<State> {
 	constructor(args?: RebaseGitCommandArgs) {
-		super('rebase', 'rebase', '变基', {
+		super('rebase', 'rebase', 'Rebase', {
 			description:
 				'通过更改分支的基础并重新应用顶部的提交，将指定分支的更改集成到当前分支中',
 		});
@@ -89,7 +89,7 @@ export class RebaseGitCommand extends QuickCommand<State> {
 					break;
 			}
 
-			configs = ['-c', `sequence.editor="${editor}"`];
+			configs = ['-c', `sequence.editor=${editor}`];
 		}
 		return state.repo.rebase(configs, ...state.flags, state.reference.ref);
 	}

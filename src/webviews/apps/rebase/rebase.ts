@@ -320,7 +320,7 @@ class RebaseEditor extends App<RebaseState> {
 		$subhead.appendChild($el);
 
 		$el = document.createTextNode(
-			`正在将 ${state.entries.length} 个提交变基${state.onto ? '到 ' : ''}`,
+			`正在 Rebase ${state.entries.length} 个提交${state.onto ? '到 ' : ''}`,
 		);
 		$subhead.appendChild($el);
 

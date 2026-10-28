@@ -29,8 +29,9 @@ import {
 	TagsViewConfig,
 	ViewsCommonConfig,
 	viewsCommonConfigKeys,
-	viewsConfigKeys,
 	ViewsConfigKeys,
+	viewsConfigKeys,
+	WorktreesViewConfig,
 } from '../configuration';
 import { Container } from '../container';
 import { Logger } from '../logger';
@@ -46,6 +47,7 @@ import { RepositoriesView } from './repositoriesView';
 import { SearchAndCompareView } from './searchAndCompareView';
 import { StashesView } from './stashesView';
 import { TagsView } from './tagsView';
+import { WorktreesView } from './worktreesView';
 
 export type View =
 	| BranchesView
@@ -57,7 +59,8 @@ export type View =
 	| RepositoriesView
 	| SearchAndCompareView
 	| StashesView
-	| TagsView;
+	| TagsView
+	| WorktreesView;
 export type ViewsWithCommits =
 	| BranchesView
 	| CommitsView
@@ -65,14 +68,16 @@ export type ViewsWithCommits =
 	| RemotesView
 	| RepositoriesView
 	| SearchAndCompareView
-	| TagsView;
+	| TagsView
+	| WorktreesView;
 export type ViewsWithPullRequests =
 	| BranchesView
 	| CommitsView
 	| ContributorsView
 	| RemotesView
 	| RepositoriesView
-	| SearchAndCompareView;
+	| SearchAndCompareView
+	| WorktreesView;
 
 export interface TreeViewNodeCollapsibleStateChangeEvent<T> extends TreeViewExpansionEvent<T> {
 	state: TreeItemCollapsibleState;
@@ -90,7 +95,8 @@ export abstract class ViewBase<
 		| RepositoriesViewConfig
 		| SearchAndCompareViewConfig
 		| StashesViewConfig
-		| TagsViewConfig,
+		| TagsViewConfig
+		| WorktreesViewConfig,
 > implements TreeDataProvider<ViewNode>, Disposable
 {
 	protected _onDidChangeTreeData = new EventEmitter<ViewNode | undefined>();

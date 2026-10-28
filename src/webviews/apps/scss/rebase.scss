@@ -1,7 +1,7 @@
 @use 'sass:meta';
-@include meta.load-css('base');
-@include meta.load-css('buttons');
-@include meta.load-css('utils');
+@use 'base';
+@use 'buttons';
+@use 'utils';
 
 body {
 	height: unset;

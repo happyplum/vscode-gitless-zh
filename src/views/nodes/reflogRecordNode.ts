@@ -43,7 +43,7 @@ export class ReflogRecordNode extends ViewNode<ViewsWithCommits> implements Page
 
 	async getChildren(): Promise<ViewNode[]> {
 		const log = await this.getLog();
-		if (log === undefined) return [new MessageNode(this.view, this, 'No commits could be found.')];
+		if (log === undefined) return [new MessageNode(this.view, this, '找不到提交。')];
 
 		const children: (CommitNode | LoadMoreNode)[] = [
 			...Iterables.map(log.commits.values(), c => new CommitNode(this.view, this, c)),

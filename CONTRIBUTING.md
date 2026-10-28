@@ -59,6 +59,8 @@ corepack yarn run build
 
 Build, watch, and package commands run both TypeScript and ESLint checks. TypeScript 6.0 and ESLint 9 are retained until the TypeScript-ESLint and eslint-plugin-import peer ranges support their next major versions. The `disallowAutomaticSingleRunInference` parser setting prevents a reproducible typed-lint crash under `CI=true` with TypeScript 6.0.3. Keep it for the current dependency set. When upgrading TypeScript or TypeScript-ESLint, remove the setting only if `CI=true` bundle/pack and the GitHub Stable and Insiders workflows all pass without it. Related reports: [TypeScript #64412](https://github.com/microsoft/TypeScript/issues/64412) and [TypeScript-ESLint #12749](https://github.com/typescript-eslint/typescript-eslint/issues/12749).
 
+Automatic Git commands share the terminal entry point. Each command opens a new interactive PowerShell 7 shell on Windows, or `/bin/bash` on macOS/Linux. Startup data is encoded before it reaches VS Code terminal argument processing, and Git arguments remain individually quoted or structured. The **Remove Remote (via Terminal)** action instead pre-fills an editable command for the user to execute in their configured shell. Keep this difference in mind when changing terminal command handling: the pre-filled text is shell input after the user presses Enter.
+
 ### Watch
 
 During development you can use a watcher to make builds on changes quick and easy. From a terminal, where you have cloned the repository, execute the following command:
@@ -113,6 +115,14 @@ To generate a VSIX (installation package) run the following from a terminal:
 corepack yarn run pack
 ```
 
+The interactive backends leave the shell open after Git finishes and always create a new terminal, preserving unsubmitted input in existing terminals. They use fixed shells without user profiles. The POSIX backend decodes an octal-encoded startup file through Bash process substitution and `--rcfile`, clears `BASH_ENV`, and runs Git as a foreground job of the resulting interactive shell. It does not use the Node runner, tasks, cancellation IPC, or extension-issued process-group signals. Verify stdin, editor input, Ctrl+C, and terminal-close cleanup when changing this path; macOS/Linux require `/bin/bash`.
+
+On Windows without PowerShell 7, branch deletion keeps its native process terminal with per-terminal cancellation IPC, while other automatic commands keep their process tasks. These Windows fallback paths use `dist/gitTerminalRunner.js`, which the bundle copies from `scripts/`; verify that the bundle and VSIX still contain it. Remote removal still opens an editable command in the user's default terminal for manual execution.
+
+The root `package.json` owns extension metadata, development scripts, and dependencies. Extension contributions live in the twelve plain JSON files in `manifest/`; `scripts/extensionManifest.js` composes them in their declared order into `dist/extension/package.json`. Edit these source files rather than the generated manifest. Both webpack compilers refresh the generated manifest and static resources in normal builds and watch mode. Extension code is built into `dist/extension/dist`, webviews into `dist/extension/dist/webviews`, and settings images into `dist/extension/images/settings`.
+
+`pack` and `pack-insiders` bundle first, then package `dist/extension` through the public VSCE API with dependency collection disabled because runtime dependencies are bundled. VSIX files are written to the repository root. Insiders metadata and its README prefix are applied only in the generated directory; source files remain unchanged. `pub` builds and packages the Stable extension before publishing that VSIX. Generated manifests omit development scripts so packaging cannot recursively invoke `vscode:prepublish`.
+
 ### Debugging
 
 #### Using VS Code
@@ -120,6 +130,8 @@ corepack yarn run pack
 1. Open the `vscode-gitlens` folder
 2. Ensure the required [dependencies](#dependencies) are installed
 3. Choose the `Watch & Launch GitLens` launch configuration from the launch dropdown in the Run and Debug viewlet and press `F5`.
+
+All launch configurations load `dist/extension`. The two `Run` configurations refresh its manifest and static resources with the `prepare:extension` task; build the code first with `corepack yarn run build`. The `Watch & Launch` configurations perform the initial build and keep watching.
 
 ## Submitting a Pull Request
 

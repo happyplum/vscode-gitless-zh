@@ -87,6 +87,7 @@ import {
 	GitTree,
 	GitTreeParser,
 	GitUser,
+	GitWorktree,
 	isFolderGlob,
 	maxGitCliLength,
 	PullRequest,
@@ -101,10 +102,15 @@ import {
 } from './git';
 import { GitUri } from './gitUri';
 import { GitReflogParser, GitShortLogParser } from './parsers/parsers';
+import { parseWorktrees } from './parsers/worktreeParser';
 import { RemoteProvider, RemoteProviderFactory, RemoteProviders, RichRemoteProvider } from './remotes/factory';
 import { fsExists, isWindows } from './shell';
 
 const emptyStr = '';
+export type CheckoutResult =
+	| { status: 'switched' }
+	| { status: 'occupied'; worktree: GitWorktree }
+	| { status: 'failed' };
 const slash = '/';
 
 const RepoSearchWarnings = {
@@ -468,7 +474,7 @@ export class GitService implements Disposable {
 
 				let f;
 				for (f of files) {
-					if (!f.isDirectory()) continue;
+					if (!f.isDirectory() && !(f.name === '.git' && f.isFile())) continue;
 
 					if (f.name === '.git') {
 						repositories.push(paths.resolve(root, f.name));
@@ -592,28 +598,28 @@ export class GitService implements Disposable {
 		} catch (ex) {
 			const msg: string = ex?.toString() ?? emptyStr;
 			if (patch && /patch does not apply/i.test(msg)) {
-				const result = await window.showWarningMessage(
-					'Unable to apply changes cleanly. Retry and allow conflicts?',
-					{ title: 'Yes' },
-					{ title: 'No', isCloseAffordance: true },
+				const allowConflicts = { title: '允许冲突并重试' } as const;
+				const cancel = { title: '取消', isCloseAffordance: true } as const;
+				const result = await window.showWarningMessage<typeof allowConflicts | typeof cancel>(
+					'无法无冲突地应用更改。是否重试并允许冲突？',
+					allowConflicts,
+					cancel,
 				);
 
-				if (result == null || result.title !== 'Yes') return;
+				if (result !== allowConflicts) return;
 
-				if (result.title === 'Yes') {
-					try {
-						void (await Git.apply(uri.repoPath, patch, { allowConflicts: true }));
+				try {
+					void (await Git.apply(uri.repoPath, patch, { allowConflicts: true }));
 
-						return;
-					} catch (e) {
-						// eslint-disable-next-line no-ex-assign
-						ex = e;
-					}
+					return;
+				} catch (e) {
+					// eslint-disable-next-line no-ex-assign
+					ex = e;
 				}
 			}
 
 			Logger.error(ex, cc);
-			void Messages.showGenericErrorMessage('Unable to apply changes');
+			void Messages.showGenericErrorMessage('无法应用更改');
 		}
 	}
 
@@ -625,24 +631,68 @@ export class GitService implements Disposable {
 	}
 
 	@log()
-	async checkout(repoPath: string, ref: string, options: { createBranch?: string } | { fileName?: string } = {}) {
+	async checkout(
+		repoPath: string,
+		ref: string,
+		options: { createBranch?: string } | { fileName?: string } = {},
+	): Promise<CheckoutResult> {
 		const cc = Logger.getCorrelationContext();
 
 		try {
-			return await Git.checkout(repoPath, ref, options);
+			await Git.checkout(repoPath, ref, options);
+			return { status: 'switched' };
 		} catch (ex) {
 			const msg: string = ex?.toString() ?? emptyStr;
+			if (
+				(!('fileName' in options) || options.fileName == null) &&
+				(!('createBranch' in options) || options.createBranch == null) &&
+				/already (?:used by worktree at|checked out at)/i.test(msg)
+			) {
+				try {
+					const branch = ref.startsWith('refs/heads/') ? ref : `refs/heads/${ref}`;
+					const worktree = (await this.getWorktrees(repoPath)).find(w => w.branch === branch);
+					if (worktree != null) return { status: 'occupied', worktree: worktree };
+				} catch (lookupError) {
+					Logger.error(lookupError, cc);
+				}
+			}
 			if (/overwritten by checkout/i.test(msg)) {
 				void Messages.showGenericErrorMessage(
 					`Unable to checkout '${ref}'. Please commit or stash your changes before switching branches`,
 				);
-				return undefined;
+				return { status: 'failed' };
 			}
 
 			Logger.error(ex, cc);
 			void void Messages.showGenericErrorMessage(`Unable to checkout '${ref}'`);
-			return undefined;
+			return { status: 'failed' };
 		}
+	}
+
+	@log()
+	async getWorktrees(repoPath: string): Promise<GitWorktree[]> {
+		GitService.ensureGitVersion('2.36.0', 'Worktree management', '');
+		return parseWorktrees(await Git.worktree__list(repoPath));
+	}
+
+	@log()
+	async addWorktree(repoPath: string, path: string, ref: string, newBranch?: string): Promise<void> {
+		await Git.worktree__add(repoPath, path, ref, newBranch);
+	}
+
+	@log()
+	async removeWorktree(repoPath: string, path: string): Promise<void> {
+		await Git.worktree__remove(repoPath, path);
+	}
+
+	@log()
+	async lockWorktree(repoPath: string, path: string, reason?: string): Promise<void> {
+		await Git.worktree__lock(repoPath, path, reason);
+	}
+
+	@log()
+	async unlockWorktree(repoPath: string, path: string): Promise<void> {
+		await Git.worktree__unlock(repoPath, path);
 	}
 
 	@log()
@@ -3379,14 +3429,14 @@ export class GitService implements Disposable {
 		}
 	}
 
-	async getRepoPath(filePath: string, options?: { ref?: string }): Promise<string | undefined>;
-	async getRepoPath(uri: Uri | undefined, options?: { ref?: string }): Promise<string | undefined>;
+	async getRepoPath(filePath: string, options?: { ref?: string; isDirectory?: boolean }): Promise<string | undefined>;
+	async getRepoPath(uri: Uri | undefined, options?: { ref?: string; isDirectory?: boolean }): Promise<string | undefined>;
 	@log<GitService['getRepoPath']>({
 		exit: path => `returned ${path}`,
 	})
 	async getRepoPath(
 		filePathOrUri: string | Uri | undefined,
-		options: { ref?: string } = {},
+		options: { ref?: string; isDirectory?: boolean } = {},
 	): Promise<string | undefined> {
 		if (filePathOrUri == null) return this.getHighlanderRepoPath();
 		if (GitUri.is(filePathOrUri)) return filePathOrUri.repoPath;
@@ -3394,12 +3444,14 @@ export class GitService implements Disposable {
 		const cc = Logger.getCorrelationContext();
 
 		// Don't save the tracking info to the cache, because we could be looking in the wrong place (e.g. looking in the root when the file is in a submodule)
-		let repo = await this.getRepository(filePathOrUri, { ...options, skipCacheUpdate: true });
+		let repo = options.isDirectory
+			? undefined
+			: await this.getRepository(filePathOrUri, { ...options, skipCacheUpdate: true });
 		if (repo != null) return repo.path;
 
 		const rp = await this.getRepoPathCore(
 			typeof filePathOrUri === 'string' ? filePathOrUri : filePathOrUri.fsPath,
-			false,
+			options.isDirectory === true,
 		);
 		if (rp == null) return undefined;
 

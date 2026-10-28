@@ -34,7 +34,7 @@ export class OpenFileFromRemoteCommand extends Command {
 				return;
 			}
 
-			const confirm = 'Open File...';
+			const confirm = '打开文件…';
 			const pick = await window.showWarningMessage(
 				'无法找到与提供的远程 URL 匹配的工作区文件夹。',
 				confirm,

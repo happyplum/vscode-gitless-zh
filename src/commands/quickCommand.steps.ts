@@ -365,15 +365,15 @@ export async function* inputBranchNameStep<
 		title: appendReposToTitle(`${context.title}${options.titleContext ?? ''}`, state, context),
 		placeholder: options.placeholder,
 		value: options.value,
-		prompt: '输入分行名称',
+		prompt: '输入分支名称',
 		validate: async (value: string | undefined): Promise<[boolean, string | undefined]> => {
 			if (value == null) return [false, undefined];
 
 			value = value.trim();
-			if (value.length === 0) return [false, 'Please enter a valid branch name'];
+			if (value.length === 0) return [false, '请输入有效的分支名称'];
 
 			const valid = await Container.git.validateBranchOrTagName(value);
-			return [valid, valid ? undefined : `'${value}' isn't a valid branch name`];
+			return [valid, valid ? undefined : `“${value}”不是有效的分支名称`];
 		},
 	});
 
@@ -405,10 +405,10 @@ export async function* inputTagNameStep<
 			if (value == null) return [false, undefined];
 
 			value = value.trim();
-			if (value.length === 0) return [false, 'Please enter a valid tag name'];
+			if (value.length === 0) return [false, '请输入有效的标签名称'];
 
 			const valid = await Container.git.validateBranchOrTagName(value);
-			return [valid, valid ? undefined : `'${value}' isn't a valid tag name`];
+			return [valid, valid ? undefined : `“${value}”不是有效的标签名称`];
 		},
 	});
 
@@ -1026,7 +1026,7 @@ export async function* pickContributorsStep<
 >(
 	state: State,
 	context: Context,
-	placeholder: string = 'Choose contributors',
+	placeholder: string = '选择共同作者',
 ): AsyncStepResultGenerator<GitContributor[]> {
 	const message = (await GitService.getOrOpenBuiltInGitRepository(state.repo.path))?.inputBox.value;
 
@@ -1047,7 +1047,7 @@ export async function* pickContributorsStep<
 export async function* pickRepositoryStep<
 	State extends PartialStepState & { repo?: string | Repository },
 	Context extends { repos: Repository[]; title: string },
->(state: State, context: Context, placeholder: string = 'Choose a repository'): AsyncStepResultGenerator<Repository> {
+>(state: State, context: Context, placeholder: string = '选择仓库'): AsyncStepResultGenerator<Repository> {
 	if (typeof state.repo === 'string') {
 		state.repo = await Container.git.getRepository(state.repo);
 		if (state.repo != null) return state.repo;
@@ -1445,7 +1445,7 @@ async function getShowCommitOrStashStepItems<
 		}
 
 		items.push(
-			new GitCommandQuickPickItem(`将${branch?.name ?? '当前分支'}变基到此提交…`, {
+			new GitCommandQuickPickItem(`将${branch?.name ?? '当前分支'} Rebase 到此提交…`, {
 				command: 'rebase',
 				state: {
 					repo: state.repo,
@@ -1890,7 +1890,7 @@ function getShowRepositoryStatusStepItems<
 	} else {
 		items.push(
 			DirectiveQuickPickItem.create(Directive.Noop, true, {
-				label: `$(git-branch) ${context.status.branch} 无上行`,
+				label: `$(git-branch) ${context.status.branch} 未设置上游分支`,
 				detail: workingTreeStatus,
 			}),
 		);

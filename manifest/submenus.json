@@ -1,0 +1,68 @@
+[
+	{
+		"id": "gitlens/commit/browse",
+		"label": "浏览"
+	},
+	{
+		"id": "gitlens/commit/copy",
+		"label": "复制为"
+	},
+	{
+		"id": "gitlens/commit/changes",
+		"label": "打开更改"
+	},
+	{
+		"id": "gitlens/commit/file/copy",
+		"label": "复制为"
+	},
+	{
+		"id": "gitlens/commit/file/commit",
+		"label": "提交"
+	},
+	{
+		"id": "gitlens/commit/file/changes",
+		"label": "打开更改"
+	},
+	{
+		"id": "gitlens/editor/annotations",
+		"label": "文件注释",
+		"icon": {
+			"dark": "images/dark/icon-git.svg",
+			"light": "images/light/icon-git.svg"
+		}
+	},
+	{
+		"id": "gitlens/editor/context/changes",
+		"label": "提交更改"
+	},
+	{
+		"id": "gitlens/editor/changes",
+		"label": "提交更改"
+	},
+	{
+		"id": "gitlens/explorer/changes",
+		"label": "提交更改"
+	},
+	{
+		"id": "gitlens/scm/resourceGroup/changes",
+		"label": "打开更改"
+	},
+	{
+		"id": "gitlens/scm/resourceState/changes",
+		"label": "打开更改"
+	},
+	{
+		"id": "gitlens/view/repositories/sections",
+		"label": "分区"
+	},
+	{
+		"id": "gitlens/view/searchAndCompare/new",
+		"label": "新建搜索或比较",
+		"icon": "$(add)"
+	},
+	{
+		"id": "gitlens/view/searchAndCompare/comparison/filter",
+		"label": "筛选",
+		"icon": "$(filter)"
+	}
+]

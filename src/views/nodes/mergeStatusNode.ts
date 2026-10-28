@@ -65,7 +65,7 @@ export class MergeStatusNode extends ViewNode<ViewsWithCommits> {
 
 	getTreeItem(): TreeItem {
 		const item = new TreeItem(
-			`${this.status?.hasConflicts ? '解决冲突后继续合并' : '正在合并'} ${
+			`${this.status?.hasConflicts ? '解决冲突后继续 Merge' : '正在 Merge'} ${
 				this.mergeStatus.incoming != null
 					? `${GitReference.toString(this.mergeStatus.incoming, { expand: false, icon: false })} `
 					: ''
@@ -81,7 +81,7 @@ export class MergeStatusNode extends ViewNode<ViewsWithCommits> {
 			? new ThemeIcon('warning', new ThemeColor('list.warningForeground'))
 			: new ThemeIcon('debug-pause', new ThemeColor('list.foreground'));
 		item.tooltip = new MarkdownString(
-			`${`正在合并 ${
+			`${`正在 Merge ${
 				this.mergeStatus.incoming != null ? GitReference.toString(this.mergeStatus.incoming) : ''
 			}并入 ${GitReference.toString(this.mergeStatus.current)}`}${
 				this.status?.hasConflicts
