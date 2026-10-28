@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [11.7.8] - 2026-10-28
+
+### 改进
+
+- 同一 Git 仓库的多个已打开工作树合并显示；仅存在不同仓库时显示分组标题。
+- 标记当前窗口已打开的工作树，并统一按“分支名 · 当前工作树 · 主工作树”显示适用标记。
+- 保留同仓库各已打开工作树的刷新订阅，隐藏视图后恢复时重新读取变化。
+
 ## [11.7.7] - 2026-10-26
 
 ### 新增
