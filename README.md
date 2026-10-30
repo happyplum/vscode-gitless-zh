@@ -19,6 +19,19 @@ GitLess 简体中文版基于 [maattdd/vscode-gitlens](https://github.com/maattd
 
 提交历史、行级作者信息、分支和暂存区等原有功能可参阅[上游 GitLens 文档](https://github.com/gitkraken/vscode-gitlens)。
 
+## 更新日志
+
+### 未发布
+
+- 交互式 Rebase 的动作选项显示为 `drop · 丢弃` 等“英文命令 · 中文释义”，恢复 `p/r/e/s/f/d` 首字母定位的操作习惯。
+
+### 11.7.8（2026-10-28）
+
+- 同一仓库的多个已打开工作树合并显示，统一分支名、“当前工作树”和“主工作树”的标记顺序。
+- 保留各已打开工作树的刷新订阅，隐藏视图后恢复时重新读取变化。
+
+完整版本记录见 [CHANGELOG.md](CHANGELOG.md)。
+
 ## 安装与构建
 
 取得 VSIX 文件后，可在 VS Code 中运行“扩展：从 VSIX 安装”并选择该文件。也可以从源码构建：
