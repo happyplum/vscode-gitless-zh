@@ -23,7 +23,7 @@ GitLess 简体中文版基于 [maattdd/vscode-gitlens](https://github.com/maattd
 
 按新到旧最多保留 10 个版本／更新批次，“未发布”计为 1 批；不足 10 批时按实际记录保留。完整历史见 [CHANGELOG.md](CHANGELOG.md)。
 
-### 未发布
+### 11.7.9（2026-10-30）
 
 - 交互式 Rebase 的动作选项显示为 `drop · 丢弃` 等“英文命令 · 中文释义”，恢复 `p/r/e/s/f/d` 首字母定位的操作习惯。
 
