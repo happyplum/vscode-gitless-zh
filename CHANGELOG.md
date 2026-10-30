@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### 修复
+
+- 交互式 Rebase 的动作选项显示“英文命令 · 中文释义”，恢复下拉菜单按英文首字母定位的操作习惯。
+
 ## [11.7.8] - 2026-10-28
 
 ### 改进

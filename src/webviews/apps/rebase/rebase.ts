@@ -431,7 +431,7 @@ class RebaseEditor extends App<RebaseState> {
 			for (const action of rebaseActions) {
 				const $option = document.createElement('option');
 				$option.value = action;
-				$option.text = rebaseActionLabels[action];
+				$option.text = `${action} · ${rebaseActionLabels[action]}`;
 
 				if (entry.action === action) {
 					$option.selected = true;
